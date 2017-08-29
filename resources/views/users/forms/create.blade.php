@@ -1,4 +1,4 @@
-{!! Form::open( ["route" => "user.create", "class" => "form"] ) !!}
+{!! Form::open( ["route" => "user.create", "class" => "form col-sm-8"] ) !!}
 
     <div class="form-group">
         {{ Form::label("name", "Nom", ["class" => "form-label"]) }}

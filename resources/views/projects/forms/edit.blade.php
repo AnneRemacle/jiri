@@ -1,4 +1,4 @@
-{!! Form::model($project, ["route" => ["project.update", $project], "class" => "form", "method" => "PUT"] ) !!}
+{!! Form::model($project, ["route" => ["project.update", $project], "class" => "form col-sm-8", "method" => "PUT"] ) !!}
     <div class="form-group">
         {{ Form::label("name", "Nom du projet", ["class" => "form-label"]) }}
         {{ Form::text("name", null, ["placeholder" => "CV à la manière de…"], ["class" => "form-control form-control__text"]) }}

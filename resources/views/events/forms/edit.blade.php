@@ -1,4 +1,4 @@
-{!! Form::model($event, ["route" => ["events.update", $event], "class" => "form", "method" => "PUT"] ) !!}
+{!! Form::model($event, ["route" => ["events.update", $event], "class" => "form col-sm-8", "method" => "PUT"] ) !!}
 
     <div class="form-group">
         {{ Form::label("course_name", "Nom du cours", ["class" => "form-label"]) }}

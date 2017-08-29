@@ -1,18 +1,17 @@
 @extends( "layouts.template" )
 
 @section( "title", "Dashboard de $user->name" )
-
-@section( "content" )
-    @include("layouts.header")
-    <nav class="nav">
-        <h2 class="nav__title">Options disponibles</h2>
-        <a href="{{ route("events.create") }}" class="nav__button">Créer un événement</a>
-        <a href="{{ route("user.events") }}" class="nav__button">Mes événements</a>
+@include("layouts.header")
+@section( "content" )    
+    <nav class="navbar">
+        <h2 class="nav__title hidden">Options disponibles</h2>
+        <a href="{{ route("events.create") }}" class="btn btn-primary nav-item">Créer un événement</a>
+        <a href="{{ route("user.events") }}" class="btn btn-primary nav-item">Mes événements</a>
     </nav>
 
-    <section class="main">
-        <h2 class="title">{{ $event->course_name }} - {{ $event->academic_year }} - session n° {{ $event->exam_session }}</h2>
-        <table class="table">
+    <section class="main container" style="overflow:scroll">
+        <h2 class="title page-header">{{ $event->course_name }} - {{ $event->academic_year }} - session n° {{ $event->exam_session }}</h2>
+        <table class="table table-responsive table-bordered">
             <thead>
                 <tr>
                     <th></th>

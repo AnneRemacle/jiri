@@ -1,4 +1,4 @@
-<form action="{{ route('admin.deleteProject', ['id' => $project->id]) }}" method="POST" class="form-delete">
+<form action="{{ route('admin.deleteProject', ['id' => $project->id]) }}" method="POST" class="form col-sm-8">
     {{ method_field('DELETE') }}
     {{ csrf_field() }}
 

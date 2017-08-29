@@ -1,4 +1,4 @@
-{!! Form::model($user, ["route" => ["user.update", $user], "class" => "form", "method" => "PUT"] ) !!}
+{!! Form::model($user, ["route" => ["user.update", $user], "class" => "form col-sm-8", "method" => "PUT"] ) !!}
 
     <div class="form-group">
         {{ Form::label("name", "Nom", ["class" => "form-label"]) }}

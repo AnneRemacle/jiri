@@ -1,9 +1,11 @@
 @extends( "layouts.template" )
 
 @section( "title", "Créer un événement" )
+@include('layouts.header')
 
 @section( "content" )
-    <h1>Créer un événement</h1>
-
-    @include("events.forms.create")
+    <section class="container">
+        <h2 class="page-header">Créer un événement</h2>
+        @include("events.forms.create")
+    </section>
 @endsection

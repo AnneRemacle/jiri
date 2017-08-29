@@ -3,7 +3,8 @@
 @section( "title", "Modifier un projet" )
 
 @section( "content" )
-    <h1>Modifier un projet</h1>
-
-    @include("project.forms.edit")
+    <section class="container">
+        <h2 class="page-header">Modifier un projet</h2>
+        @include("projects.forms.edit")
+    </section>
 @endsection

@@ -1,9 +1,10 @@
 @extends( "layouts.template" )
 
 @section( "title", "Ajouter un utilisateur" )
-
+@include('layouts.header')
 @section( "content" )
-    <h1>Ajouter un utilisateur</h1>
-
-    @include("users.forms.create")
+    <section class="container">
+        <h2 class="page-header">Ajouter un utulisateur</h2>
+        @include("users.forms.create")
+    </section>
 @endsection

@@ -1,9 +1,10 @@
 @extends( "layouts.template" )
 
 @section( "title", "Créer un projet" )
-
+@include('layouts.header')
 @section( "content" )
-    <h1>Créer un projet</h1>
-
-    @include("project.forms.create")
+    <section class="container">
+        <h2 class="page-header">Créer un projet</h2>
+        @include("projects.forms.create")
+    </section>
 @endsection

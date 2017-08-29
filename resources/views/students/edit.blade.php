@@ -1,9 +1,10 @@
 @extends( "layouts.template" )
 
 @section( "title", "Modifier un étudiant" )
-
+@include('layouts.header')
 @section( "content" )
-    <h1>Modifier un étudiant</h1>
-
-    @include("student.forms.edit")
+    <section class="container">
+        <h2 class="page-header">Modifier un étudiant</h2>
+        @include("students.forms.edit")
+    </section>
 @endsection
