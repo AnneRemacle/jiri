@@ -4,6 +4,7 @@ namespace Jiri;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 /**
  * Jiri\Project
@@ -32,6 +33,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Project extends Model
 {
+    use Sluggable;
+
     public $timestamps = true;
     /**
      * The attributes that are mass assignable.
@@ -60,5 +63,14 @@ class Project extends Model
     public function weights()
     {
         return $this->hasMany(Weight::class, 'project_id');
+    }
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

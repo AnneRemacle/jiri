@@ -177,6 +177,7 @@ return [
         // Jiri\Providers\BroadcastServiceProvider::class,
         Jiri\Providers\EventServiceProvider::class,
         Jiri\Providers\RouteServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
 
     ],
 
