@@ -51,10 +51,11 @@ class Meeting extends Model
         'start_time',
         'end_time'
     ];
+
     protected $table = 'meetings';
 
     use SoftDeletes;
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'start_time', 'end_time'];
 
     public function student()
     {
