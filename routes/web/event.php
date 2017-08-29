@@ -27,11 +27,6 @@
             "middleware" => "can:administrate"
         ]);
 
-        Route::get("/{event}/inviteStudent", [
-            "as" => "events.inviteStudent",
-            "uses" => "EventController@inviteStudent"
-        ]);
-
         Route::post("/{event}/addOrStoreStudent", [
             "as" => "events.addOrStoreStudent",
             "uses" => "EventController@addOrStoreStudent"
@@ -56,5 +51,4 @@
             "as" => "events.removeJury",
             "uses" => "EventController@removeJury"
         ]);
-
     });
