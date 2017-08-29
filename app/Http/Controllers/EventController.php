@@ -117,27 +117,7 @@ class EventController extends Controller
             "event" => $event
         ]);
     }
-
-    public function addOrStoreStudent( Request $request, Event $event ) {
-        if( Student::where("email", $request->get("email"))->count() ){
-            $student = Student::where("email", $request->get("email"))->first();
-      } else {
-           $student = Student::insert([
-            "email" => $request->get("email"),
-            "name" => $request->get("name"),
-            "created_at" =>  \Carbon\Carbon::now(),
-            "updated_at" => \Carbon\Carbon::now()
-        ]);
-      }
-    //   dd(Student::where("email", $request->get("email"))->first());
-      if( !$event->students->contains($student) ){
-        $event->students()->attach($student);
-        $event->save();
-      }
-
-      return redirect()->back();
-    }
-
+    
     public function removeStudent( Event $event, Student $student ) {
         $event->students()->detach($student);
         $event->save();
@@ -179,5 +159,9 @@ class EventController extends Controller
         $event->save();
 
       return redirect()->back();
+    }
+
+    public function schedule() {
+        return view("events.schedule");
     }
 }
