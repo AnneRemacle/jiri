@@ -11,4 +11,10 @@
             "uses" => "MeetingController@store",
             "middleware" => "can:administrate"
         ]);
+
+        Route::post("/updateOrStore/{event}", [
+            "as" => "meetings.updateOrStore",
+            "uses" => "MeetingController@updateOrStore",
+            "middleware" => "can:administrate"
+        ]);
     } );
