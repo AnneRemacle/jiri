@@ -4,16 +4,21 @@
 @include('layouts.header')
 @section( "content" )
     <section class="container">
-        <h2 class="title page-header">Modifier l'événement&nbsp;: {{ $event->course_name }} - {{ $event->academic_year }} - session n° {{ $event->exam_session }}</h2>
-        <a href="{{ route("projects.create", $event) }}" class="btn btn-primary">Ajouter un projet</a>
+        <h2 class="title page-header">Détails de l'événement&nbsp;: {{ $event->course_name }} - {{ $event->academic_year }} - session n° {{ $event->exam_session }}</h2>
 
-        @if( $event->projects->count() )
-            <a href="{{ route("students.create", $event) }}" class="btn btn-primary">Ajouter un étudiant</a>
-        @endif
+        <nav class="nav-buttons">
+            <h3 class="nav-title">Options disponibles</h3>
+            <a href="{{ route("projects.manage", $event) }}" class="btn btn-primary">Gérer les projets</a>
+            @if( $event->projects->count() )
+                <a href="{{ route("students.manage", $event) }}" class="btn btn-primary">Gérer les étudiants</a>
+            @endif
 
-        @if( $event->performances->count() )
-            <a href="{{ route("events.inviteJury", $event) }}" class="btn btn-primary">Ajouter un jury</a>
-        @endif
+            @if( $event->implementations->count() )
+                <a href="{{ route("users.manage", $event) }}" class="btn btn-primary">Gérer les jurés</a>
+            @endif
+        </nav>
+
+
 
         @if( $event->meetings->count() )
             <table class="table">
@@ -36,7 +41,7 @@
                 <tbody>
                     @foreach( $event->students as $student )
                         <tr>
-                            <th>{{ $student->name }}</th>
+                            <th><a href="{{ route("events.showStudent", ["event" => $event, "student" => $student]) }}">{{ $student->name }}</a></th>
                             @foreach( $event->users as $jury )
                                 @if( $event->meetings->where("user_id", $jury->id)->where("student_id", $student->id)->count() )
                                     @foreach( $event->meetings->where("user_id", $jury->id)->where("student_id", $student->id)->first()->scores as $score )
@@ -51,25 +56,6 @@
                 </tbody>
 
             </table>
-        @else
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <p class="panel-title">Projets</p>
-                        </div>
-                        <ul class="panel-body list-group">
-                            @foreach ($event->projects as $project)
-                                <li class="list-group-item">
-                                    {{ $project->name }}
-                                    {{-- TODO: link to project --}}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
         @endif
     </section>
 @endsection
