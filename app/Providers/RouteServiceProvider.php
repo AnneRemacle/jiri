@@ -55,6 +55,7 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'namespace' => $this->namespace,
         ], function ($router) {
+            Route::get("/", function() { return redirect("/login"); } );
             require base_path('routes/web/base.php');
             require base_path('routes/web/admin.php');
             require base_path('routes/web/event.php');
@@ -62,6 +63,7 @@ class RouteServiceProvider extends ServiceProvider
             require base_path('routes/web/student.php');
             require base_path('routes/web/users.php');
             require base_path('routes/web/meetings.php');
+            require base_path('routes/web/implementations.php');
         });
     }
 
