@@ -155,6 +155,16 @@ html {
   margin-bottom: 2em;
 }
 
+.title-collapse {
+  color: #00A883;
+  margin-top: 2em;
+}
+
+.title-collapse:hover, .title-collapse:active, .title-collapse:focus {
+  text-decoration: none;
+  color: #015E4E;
+}
+
 /* Jiri
  *
  * sass/components/header.scss - styles for header
@@ -195,6 +205,14 @@ li.item > form {
 
 .single-item__title {
   color: #00A883;
+}
+
+.single-event {
+  margin: 2em 0;
+}
+
+.single-event__content {
+  margin-left: 5%;
 }
 
 /* Jiri

@@ -10,3 +10,12 @@
      border-bottom: 3px solid $mainColor;
      margin-bottom: 2em;
  }
+
+ .title-collapse {
+     color: $mainColor;
+     margin-top: 2em;
+     &:hover, &:active, &:focus {
+         text-decoration: none;
+         color: $darkColor;
+     }
+ }

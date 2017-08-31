@@ -5,24 +5,43 @@
 @section( "content" )
 
     <section class="main container">
-        <h2 class="hide">Dashboard du jury</h2>
-        @foreach($events as $event)
-            <section class="row">
-                <h3>{{ $event->course_name }} - {{ $event->academic_year }} - Session {{ $event->exam_session }}</h3>
-                <p><strong>Professeur responsable : {{ $event->owner->name }}</strong></p>
-                <ul>
-                @foreach($event->meetings->where("user_id", $user->id) as $meeting)
-                    <li>
-                        <a href="{{ route("events.meetingShow", ["meeting" => $meeting, "event" => $event])}}">
-                            {{ $meeting->student->name }}
-                            de {{ is_null($meeting->start_time) ? "pas d'heure" : $meeting->start_time->format("H:i") }}
-                            à {{ is_null($meeting->end_time) ? "pas d'heure" : $meeting->end_time->format("H:i") }}
+        <h2 class="page-header title">Dashboard de {{ Auth::user()->name }}</h2>
+
+        <section id="accordion">
+            <h3>Événéments auxquels je participe</h3>
+
+            @foreach($events as $event)
+                <section class="single-event">
+                    <h4>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#exam-{{$event->id}}" class="title-collapse" >
+                            {{ $event->course_name }} - {{ $event->academic_year }} - Session {{ $event->exam_session }}
                         </a>
-                    </li>
-                @endforeach
-                </ul>
-            </section>
-        @endforeach
+                    </h4>
+                    <div id="exam-{{$event->id}}" class="collapse single-event__content">
+                        <p><strong>Professeur responsable : {{ $event->owner->name }}</strong></p>
+                        <ul>
+                        @foreach($event->meetings->where("user_id", $user->id) as $meeting)
+                            <li>
+                                <a href="{{ route("events.meetingShow", ["meeting" => $meeting, "event" => $event])}}">
+                                    {{ $meeting->student->name }}
+                                </a>
+                                @if ( is_null($meeting->start_time) && is_null($meeting->end_time) )
+                                    <span>Pas d'horaire renseigné</span>
+                                @else
+                                    <span>
+                                        de {{ $meeting->start_time->format("H:i") }}
+                                        à {{ $meeting->end_time->format("H:i") }}
+                                    </span>
+                                @endif
+
+                            </li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </section>
+            @endforeach
+        </section>
+
     </section>
 
 @endsection

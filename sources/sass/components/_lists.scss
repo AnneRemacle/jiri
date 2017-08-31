@@ -23,3 +23,11 @@ li.item > form {
         color: $mainColor;
     }
 }
+
+.single-event {
+    margin: 2em 0;
+
+    &__content {
+        margin-left: 5%;
+    }
+}
