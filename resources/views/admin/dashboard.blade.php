@@ -2,11 +2,11 @@
 
 @section( "title", "Dashboard de $user->name" )
 @include("layouts.header")
-@section( "content" )    
-    <nav class="navbar">
+@section( "content" )
+    <nav class="navbar col-sm-8 col-md-offset-1">
         <h2 class="nav__title hidden">Options disponibles</h2>
         <a href="{{ route("events.create") }}" class="btn btn-primary nav-item">Créer un événement</a>
-        <a href="{{ route("user.events") }}" class="btn btn-primary nav-item">Mes événements</a>
+        <a href="{{ route("users.events") }}" class="btn btn-primary nav-item">Mes événements</a>
     </nav>
 
     <section class="main container" style="overflow:scroll">

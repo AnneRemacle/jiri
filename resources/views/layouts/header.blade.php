@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href={{ Auth::user()->is_admin ? '/admin/dashboard' : '/dashboard'}}>Jiri</a>
+      <a class="navbar-brand logo" href={{ Auth::check() &&  Auth::user()->is_admin ? '/admin/dashboard' : '/dashboard'}}>Jiri</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
