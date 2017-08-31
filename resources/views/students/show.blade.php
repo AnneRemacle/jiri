@@ -5,7 +5,7 @@
 @section( "content" )
     <section class="container">
         <h2 class="page-header">{{ $student->name }}</h2>
-        @include("student.forms.delete")
-        @include("student.forms.edit")
+        @include("students.forms.delete")
+        @include("students.forms.edit")
     </section>
 @endsection
