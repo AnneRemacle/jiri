@@ -110,7 +110,6 @@ class UserController extends Controller
             "updated_at" => \Carbon\Carbon::now()
         ]);
       }
-    // dd(User::where("email", $request->get("email"))->first());
       if( !$event->users->contains($jury) ){
         $event->users()->attach($jury);
         $event->save();
