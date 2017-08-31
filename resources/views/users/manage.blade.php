@@ -1,12 +1,12 @@
 @extends( "layouts.template" )
 
-@section( "title", "Membres du jury" )
+@section( "title", "Gérer les membres du jury" )
 @include('layouts.header')
 @section( "content" )
     <section class="container">
         <h2 class="page-header title">
             Gérer les membres du jury
-            <button type="button" class="btn btn-primary btn-sm green" data-toggle="modal" data-target="#add">
+            <button type="button" class="btn btn-primary btn-sm green" data-toggle="modal" title="Ajouter un juré" data-target="#add">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
 

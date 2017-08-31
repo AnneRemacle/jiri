@@ -1,12 +1,12 @@
 @extends( "layouts.template" )
 
-@section( "title", "Créer un projet" )
+@section( "title", "Gérer les projets projet" )
 @include('layouts.header')
 @section( "content" )
     <section class="container">
         <h2 class="page-header title">
             Gérer les projets
-            <button type="button" class="btn btn-primary btn-sm green" data-toggle="modal" data-target="#add">
+            <button type="button" class="btn btn-primary btn-sm green" data-toggle="modal" title="Ajouter un projet" data-target="#add">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
 
