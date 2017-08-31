@@ -1,0 +1,17 @@
+/* Jiri
+ *
+ * sass/components/header.scss - styles for header
+ *
+ * coded by Anne
+ * started at 31/08/2017
+ */
+
+ .navbar-default .navbar-brand.logo {
+     color: $mainColor;
+     font-size: 2em;
+     padding-left: 100px;
+
+     &:hover {
+         color: $darkColor;
+     }
+ }
