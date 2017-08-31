@@ -46,7 +46,8 @@ class Implementation extends Model
      * @var array
      */
     protected $fillable = [
-
+        "url_repo",
+        "url_project"
     ];
     protected $table = 'implementations';
 

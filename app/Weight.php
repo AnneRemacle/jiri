@@ -42,6 +42,7 @@ class Weight extends Model
     protected $fillable = [
         'weight',
     ];
+    
     protected $table = 'weights';
 
     use SoftDeletes;
