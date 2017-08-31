@@ -9,6 +9,22 @@ use Jiri\Student;
 
 class StudentController extends Controller
 {
+    public function show( Student $student ){
+        return view("students.show")->with([
+            "student" => $student
+        ]);
+    }
+
+    public function delete( Student $student ){
+        $student->delete();
+
+        if ( Auth::user()->is_admin) {
+            return redirect('/admin/dashboard');
+        } else {
+            return redirect('/dashboard');
+        }
+    }
+
     public function create( Event $event ){
         return view("students.create")->with([
             "event" => $event
@@ -32,7 +48,14 @@ class StudentController extends Controller
       $performance->student()->associate($student);
       $performance->event()->associate($event);
       $performance->save();
-      
+
       return redirect()->back();
+    }
+
+    public function manage( Event $event ){
+        return view("students.manage")->with([
+            "event" => $event,
+            "performances" => $event->performances
+        ]);
     }
 }

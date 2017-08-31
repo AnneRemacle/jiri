@@ -40,4 +40,23 @@ class ProjectController extends Controller
 
         return redirect()->back();
     }
+
+    public function manage( Event $event ){
+        return view("projects.manage")->with([
+            "event" => $event,
+            "projects" => $event->projects
+        ]);
+    }
+
+    public function update( Project $project ) {
+        $project = Project::update([
+            "name" => $request->get("name"),
+            "description" => $request->get("description")
+        ]);
+
+        $project->save();
+
+        return redirect()->back();
+    }
+
 }

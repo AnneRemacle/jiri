@@ -15,24 +15,37 @@ class MeetingController extends Controller
         ]);
     }
 
-    public function store( Request $request, Event $event ){
-        $results = $request->get("results");
+    public function updateOrStore( Request $request, Event $event ){
+        foreach( $request->get("results") as $user_id => $students){
+            foreach( $students as $student_id => $times ){
+                if( $times["start_time"] != null && $times["end_time"] != null){
+                    if( $event->meetings->where("user_id", $user_id)->where("student_id", null)->count() ){
+                        $meeting = $event->meetings->where("user_id", $user_id)->where("student_id", null)->first();
+                        $meeting->update([
+                            "start_time" => Carbon::createFromFormat("H:i", $times["start_time"]),
+                            "end_time" => Carbon::createFromFormat("H:i", $times["end_time"])
+                        ]);
+                    } elseif( $event->meetings->where("user_id", $user_id)->where("student_id", $student_id)->count() ) {
+                        $meeting = $event->meetings->where("user_id", $user_id)->where("student_id", $student_id)->first();
+                        $meeting->update([
+                            "start_time" => Carbon::createFromFormat("H:i", $times["start_time"]),
+                            "end_time" => Carbon::createFromFormat("H:i", $times["end_time"])
+                        ]);
+                    } else {
+                        $meeting = Meeting::create([
+                            "start_time" => Carbon::createFromFormat("H:i", $times["start_time"]),
+                            "end_time" => Carbon::createFromFormat("H:i", $times["end_time"])
+                        ]);
+                    }
 
-        foreach($results as $jury => $students){
-            foreach($students as $student => $times){
-                echo $jury."-".$student."-".$times["from"]."-".$times["to"];
-
-                $meeting = Meeting::create([
-                    "start_time" => Carbon::createFromFormat("H:i", $times["from"]),
-                    "end_time" => Carbon::createFromFormat("H:i", $times["to"])
-                ]);
-
-                dd($meeting);
-
-                $meeting->student()->associate($student);
-                $meeting->jury()->associate($jury);
-                $meeting->event()->associate($event);
+                    $meeting->event()->associate($event);
+                    $meeting->user()->associate($user_id);
+                    $meeting->student()->associate($student_id);
+                    $meeting->save();
+                }
             }
         }
+
+        return redirect()->back();
     }
 }

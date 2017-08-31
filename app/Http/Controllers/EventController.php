@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 Use Jiri\Event;
 Use Jiri\User;
 Use Jiri\Student;
+use Jiri\Meeting;
 Use Route;
 
 class EventController extends Controller
@@ -117,7 +118,7 @@ class EventController extends Controller
             "event" => $event
         ]);
     }
-    
+
     public function removeStudent( Event $event, Student $student ) {
         $event->students()->detach($student);
         $event->save();
@@ -132,28 +133,6 @@ class EventController extends Controller
         ]);
     }
 
-    public function addOrStoreJury( Request $request, Event $event ) {
-        if( User::where("email", $request->get("email"))->count() ){
-            $jury = User::where("email", $request->get("email"))->first();
-      } else {
-           $jury = User::insert([
-            "email" => $request->get("email"),
-            "name" => $request->get("name"),
-            "company" => $request->get("company"),
-            "password" => $request->get("password"),
-            "created_at" =>  \Carbon\Carbon::now(),
-            "updated_at" => \Carbon\Carbon::now()
-        ]);
-      }
-    // dd(User::where("email", $request->get("email"))->first());
-      if( !$event->users->contains($jury) ){
-        $event->users()->attach($jury);
-        $event->save();
-      }
-
-      return redirect()->back();
-    }
-
     public function removeJury( Event $event, User $jury ) {
         $event->users()->detach($jury);
         $event->save();
@@ -161,7 +140,24 @@ class EventController extends Controller
       return redirect()->back();
     }
 
-    public function schedule() {
-        return view("events.schedule");
+    public function showStudent( Event $event, Student $student ){
+        return view("events.showStudent")->with([
+            "event" => $event,
+            "student" => $student
+        ]);
+    }
+
+    public function meetingShow( Event $event, Meeting $meeting ) {
+        return view("events.meetingShow")->with([
+            "event" => $event,
+            "meeting" => $meeting
+        ]);
+    }
+
+    public function removeProject( Event $event, Project $project ) {
+        $event->projects()->detach($project);
+        $event->save();
+
+      return redirect()->back();
     }
 }

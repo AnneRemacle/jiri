@@ -5,6 +5,8 @@ namespace Jiri\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Route;
+use Jiri\Event;
+use Jiri\User;
 
 class UserController extends Controller
 {
@@ -92,6 +94,34 @@ class UserController extends Controller
         return view("users.events")->with([
             "events" => $events,
             "user" => Auth::user()
+        ]);
+    }
+
+    public function addOrStore( Request $request, Event $event ) {
+        if( User::where("email", $request->get("email"))->count() ){
+            $jury = User::where("email", $request->get("email"))->first();
+      } else {
+           $jury = User::insert([
+            "email" => $request->get("email"),
+            "name" => $request->get("name"),
+            "company" => $request->get("company"),
+            "password" => $request->get("password"),
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now()
+        ]);
+      }
+    // dd(User::where("email", $request->get("email"))->first());
+      if( !$event->users->contains($jury) ){
+        $event->users()->attach($jury);
+        $event->save();
+      }
+
+      return redirect()->back();
+    }
+
+    public function manage( Event $event ){
+        return view("users.manage")->with([
+            "event" => $event,
         ]);
     }
 }
