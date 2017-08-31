@@ -1,0 +1,16 @@
+/* Jiri
+ *
+ * sass/components/modal.scss - styles for modals
+ *
+ * coded by Anne
+ * started at 31/08/2017
+ */
+
+.modal {
+    &-header.title {
+        border-bottom: 1px solid $mainColor;
+    }
+    &-body {
+        padding: 30px 30px 60px 30px !important;
+    }
+}

@@ -7,6 +7,7 @@ Use Jiri\Event;
 Use Jiri\User;
 Use Jiri\Student;
 use Jiri\Meeting;
+use Jiri\Project;
 Use Route;
 
 class EventController extends Controller

@@ -49,4 +49,6 @@ $(document).ready(function() {
 
         $($(e.target).attr("href")).remove();
     });
+
+    $(".no-js").addClass("hide");
 });

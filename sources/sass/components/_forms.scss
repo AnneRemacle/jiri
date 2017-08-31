@@ -5,3 +5,44 @@
  * coded by Anne
  * started at 31/08/2017
  */
+
+.form{
+    &-edit {
+        .form-group {
+            margin-right: 1%;
+        }
+        .save-button {
+            margin: 0 0 2em 1em;
+        }
+        textarea {
+            resize: none;
+        }
+    }
+    &-facultative {
+        border-left: 10px solid $mainColor;
+        padding: 1em 0 1em 5%;
+        margin: 2em 0 2em 5%;
+
+        &__intro {
+            color: $darkColor;
+            margin-bottom: 2em;
+            font-size: 1.2em;
+        }
+    }
+}
+
+form {
+    label {
+        font-size: 1.15em;
+    }
+}
+
+.btn-sm.green {
+    background: $mainColor;
+    border: 1px solid $mainColor;
+
+    &:hover, &:active, &:focus {
+        background: $darkColor;
+        border: 1px solid $darkColor;
+    }
+}

@@ -44,7 +44,7 @@ class ProjectController extends Controller
     public function manage( Event $event ){
         return view("projects.manage")->with([
             "event" => $event,
-            "projects" => $event->projects
+            "projects" => Project::all()
         ]);
     }
 
