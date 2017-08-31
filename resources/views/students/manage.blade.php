@@ -81,7 +81,7 @@
         </div>
 
         <section class="row col-sm-8 col-md-offset-2 no-js">
-            <h3 >Ajouter un projet étudiant à l'événement</h2>
+            <h3 >Ajouter un étudiant à l'événement</h2>
             @include("students.forms.create")
         </section>
 

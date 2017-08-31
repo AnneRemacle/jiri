@@ -122,6 +122,7 @@ class UserController extends Controller
     public function manage( Event $event ){
         return view("users.manage")->with([
             "event" => $event,
+            "users" => User::all()
         ]);
     }
 }
