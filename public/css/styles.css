@@ -189,6 +189,14 @@ li.item > form {
   text-align: right;
 }
 
+.single-item {
+  margin-bottom: 2em;
+}
+
+.single-item__title {
+  color: #00A883;
+}
+
 /* Jiri
  *
  * sass/components/nav.scss - styles for different navs
@@ -233,10 +241,6 @@ li.item > form {
   color: #015E4E;
   margin-bottom: 2em;
   font-size: 1.2em;
-}
-
-form label {
-  font-size: 1.15em;
 }
 
 .btn-sm.green {

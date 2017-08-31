@@ -55,7 +55,8 @@ class StudentController extends Controller
     public function manage( Event $event ){
         return view("students.manage")->with([
             "event" => $event,
-            "performances" => $event->performances
+            "performances" => $event->performances,
+            "students" => Student::all()
         ]);
     }
 }

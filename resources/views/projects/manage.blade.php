@@ -10,7 +10,7 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
 
-            <a href="{{ url()->previous() }}" class="btn-sm btn green pull-right">Retour</a>
+            <a href="{{ route("events.show", $event) }}" class="btn-sm btn green pull-right">Retour</a>
         </h2>
         <div class="row">
             <div class="">
