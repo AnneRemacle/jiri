@@ -16,17 +16,33 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="navbar-right">
 
-                {!! Form::open( ["url" => "/logout", "class" => "form-logout navbar-form"] ) !!}
 
-                    <div>
-                        <button type="submit" class="btn btn-default">Se déconnecter</button>
-                    </div>
 
-                {!! Form::close() !!}
             </div>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">{{ Auth::user()->name }}</a></li>
+              <li><a href="">Étudiants</a></li>
+              <li><a href="">Jurys</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{
+                        Auth::user()->name }}
+                        <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li>
+                        {!! Form::open( ["url" => "/logout", "class" => "form-logout navbar-form"] ) !!}
+
+                            <div>
+                                <button type="submit" class="btn btn-default">Se déconnecter</button>
+                            </div>
+
+                        {!! Form::close() !!}
+                    </li>
+                  </ul>
+              </li>
+
+
+  </button>
           </ul>
         </div><!-- /.navbar-collapse -->
     @endif
