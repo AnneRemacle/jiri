@@ -100,16 +100,15 @@ class UserController extends Controller
     public function addOrStore( Request $request, Event $event ) {
         if( User::where("email", $request->get("email"))->count() ){
             $jury = User::where("email", $request->get("email"))->first();
-      } else {
+        } else {
            $jury = User::insert([
             "email" => $request->get("email"),
             "name" => $request->get("name"),
             "company" => $request->get("company"),
-            "password" => $request->get("password"),
-            "created_at" =>  \Carbon\Carbon::now(),
-            "updated_at" => \Carbon\Carbon::now()
+            "password" => $request->get("password")
         ]);
       }
+
       if( !$event->users->contains($jury) ){
         $event->users()->attach($jury);
         $event->save();

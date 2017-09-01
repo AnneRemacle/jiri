@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Jiri\Event;
 use Jiri\Project;
 use Jiri\Weight;
+use Jiri\Implementation;
 
 class ProjectController extends Controller
 {
@@ -34,6 +35,16 @@ class ProjectController extends Controller
             "weight" => $request->get("weight")
         ]);
 
+        foreach( $event->students as $student ){
+            if( !$event->implementations->where("student_id", $student->id)->where("project_id", $project->id)->count() ){
+                $implementation = Implementation::create();
+                $implementation->student()->associate($student);
+                $implementation->event()->associate($event);
+                $implementation->project()->associate($project);
+                $implementation->save();
+            }
+        }
+
         $weight->project()->associate($project);
         $weight->event()->associate($event);
         $weight->save();
@@ -48,13 +59,22 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function update( Project $project ) {
-        $project = Project::update([
-            "name" => $request->get("name"),
-            "description" => $request->get("description")
-        ]);
+    public function update( Event $event, Request $request ) {
+        foreach( $request->get("results") as $project_id => $data){
+            $project = Project::find($project_id);
+            $project->update([
+                "name" => $data["name"],
+                "description" => $data["description"]
+            ]);
 
-        $project->save();
+            $weight = $project->weights->where("event_id", $event->id)->first();
+            $weight->update([
+                "weight" => $data["weight"]
+            ]);
+            $weight->save();
+
+            $project->save();
+        }
 
         return redirect()->back();
     }
