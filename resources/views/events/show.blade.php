@@ -18,10 +18,8 @@
             @endif
         </nav>
 
-
-
         @if( $event->meetings->count() )
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th></th>
