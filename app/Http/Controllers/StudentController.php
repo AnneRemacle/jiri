@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Jiri\Event;
 use Jiri\Performance;
 use Jiri\Student;
+use Jiri\Implementation;
 
 class StudentController extends Controller
 {
@@ -48,6 +49,16 @@ class StudentController extends Controller
       $performance->student()->associate($student);
       $performance->event()->associate($event);
       $performance->save();
+
+      foreach( $event->projects as $project ){
+          if( !$event->implementations->where("student_id", $student->id)->where("project", $project->id)->count() ){
+              $implementation = Implementation::create();
+              $implementation->student()->associate($student);
+              $implementation->event()->associate($event);
+              $implementation->project()->associate($project);
+              $implementation->save();
+          }
+      }
 
       return redirect()->back();
     }

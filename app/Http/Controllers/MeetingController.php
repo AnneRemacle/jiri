@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Jiri\Event;
 use Carbon\Carbon;
 use Jiri\Meeting;
+use Jiri\Score;
 
 class MeetingController extends Controller
 {
@@ -42,6 +43,15 @@ class MeetingController extends Controller
                     $meeting->user()->associate($user_id);
                     $meeting->student()->associate($student_id);
                     $meeting->save();
+
+                    foreach( $meeting->student->implementations->where("event_id", $event->id) as $implementation ){
+                        if( !Score::where("implementation_id", $implementation->id)->where("meeting_id", $meeting->id)->count() ){
+                            $score = Score::create();
+                            $score->meeting()->associate($meeting->id);
+                            $score->implementation()->associate($implementation->id);
+                            $score->save();
+                        }
+                    }
                 }
             }
         }
