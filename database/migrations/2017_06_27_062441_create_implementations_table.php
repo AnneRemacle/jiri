@@ -17,9 +17,9 @@ class CreateImplementationsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
-            $table->integer('project_id')->unsigned();
-            $table->integer('student_id')->unsigned();
-            $table->integer('event_id')->unsigned();
+            $table->integer('project_id')->nullable()->unsigned();
+            $table->integer('student_id')->nullable()->unsigned();
+            $table->integer('event_id')->nullable()->unsigned();
             $table->string('url_project')->nullable();
             $table->string('url_repo')->nullable();
         });
