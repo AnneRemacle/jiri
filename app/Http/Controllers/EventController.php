@@ -133,8 +133,18 @@ class EventController extends Controller
     }
 
     public function removeStudent( Event $event, Student $student ) {
+        foreach( $student->implementations->where("event_id", $event->id) as $implementation){
+            foreach( $implementation->scores as $score ){
+                $score->delete();
+            }
+            $implementation->delete();
+        }
+
+        foreach( $student->meetings->where("event_id", $event->id)  as $meeting ){
+            $meeting->delete();
+        }
+
         $student->performances->where("event_id", $event->id)->first()->delete();
-        $event->students()->detach($student);
         $event->save();
 
         return redirect()->back();
@@ -147,17 +157,26 @@ class EventController extends Controller
         ]);
     }
 
-    public function removeJury( Event $event, User $jury ) {
-        $event->users()->detach($jury);
+    public function removeJury( Event $event, $user_id ) {
+        $user = User::find($user_id);
+
+        foreach( $event->meetings->where("user_id", $user->id) as $meeting ){
+            foreach( $meeting->scores as $score ){
+                $score->delete();
+            }
+            $meeting->delete();
+        }
+        $event->users()->detach($user);
         $event->save();
 
-      return redirect()->back();
+        return redirect()->back();
     }
 
-    public function showStudent( Event $event, Student $student ){
+    public function showStudent( Event $event, Student $student, Meeting $meeting ){
         return view("events.showStudent")->with([
             "event" => $event,
-            "student" => $student
+            "student" => $student,
+            "meeting" => $meeting
         ]);
     }
 

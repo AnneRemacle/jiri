@@ -25,7 +25,7 @@
                                 @foreach ($event->users as $user)
                                     <li class="list-group-item">
                                         <section>
-                                            <h3>{{ $user->name }}</h3>
+                                            <h3>{{ $user->name }}  <a href="{{ route("events.removeJury", ["event" => $event, "user" => $user]) }}" class="btn btn-danger pull-right">Supprimer</a></h3>
                                         </section>
                                         @foreach( $event->performances as $performance )
                                             <section class="single-item">

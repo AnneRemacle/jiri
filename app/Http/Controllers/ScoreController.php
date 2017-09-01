@@ -14,6 +14,14 @@ class ScoreController extends Controller
         ]);
         $score->save();
 
+        $student = $score->meeting->student;
+        $event = $score->meeting->event;
+        $performance = $student->performances->where("event_id", $event->id)->first();
+        $performance->update([
+            "calculated_score" => $student->weighted_calculated_final( $event )
+        ]);
+        $performance->save();
+
         return redirect()->back();
     }
 }

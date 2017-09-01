@@ -207,6 +207,10 @@ li.item > form {
   color: #00A883;
 }
 
+.single-item__content {
+  margin-left: 5%;
+}
+
 .single-event {
   margin: 2em 0;
 }

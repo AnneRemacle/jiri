@@ -9,7 +9,7 @@
         <section>
             <h3>Projets à évaluer</h3>
             @foreach( $meeting->student->implementations->where("event_id", $event->id) as $implementation )
-                <section class="single-project">
+                <section class="single-project col-sm-12">
                     <h4>
                         <a data-toggle="collapse" data-parent="#accordion" href="#project-{{$implementation->project->id}}" class="title-collapse" >
                         {{ $implementation->project->name }}
@@ -24,8 +24,13 @@
                         @include( "scores.forms.update" )
                     </div>
                 </section>
-
             @endforeach
+                <section class="single-project col-sm-12">
+                    <h4><a data-toggle="collapse" data-parent="#accordion" href="#project-global" class="title-collapse">Évaluation globale</a></h4>
+                    <div id="project-global" class="collapse single-event__content">
+                        @include( "meetings.forms.update" )
+                    </div>
+                </section>
         </section>
 
     </section>

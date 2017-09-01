@@ -4,6 +4,7 @@ namespace Jiri;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Jiri\Event;
 
 /**
  * Jiri\Student
@@ -64,5 +65,21 @@ class Student extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'meetings');
+    }
+
+    public function average_general_evaluation( Event $event ){
+        return $this->meetings->where("event_id", $event->id)->avg("general_evaluation");
+    }
+
+    public function weighted_calculated_final( Event $event ){
+        $sum = 0;
+
+        foreach( $this->implementations->where("event_id", $event->id) as $implementation ){
+            foreach( $implementation->scores as $score ){
+                $sum += $implementation->scores->avg("score") * $implementation->project->weights->where("event_id", $event->id)->first()->weight;
+            }
+        }
+
+        return $sum;
     }
 }

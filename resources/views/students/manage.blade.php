@@ -18,17 +18,18 @@
                     <div class="panel-heading">
                         <p class="panel-title">Étudiants ajoutés</p>
                     </div>
-                    <p class="list-group-item">
-                        Vous pouvez compléter les URLs nécessaires pour chaque étudiant
-                    </p>
+
                     @if ($performances->count())
+                        <p class="list-group-item">
+                            Vous pouvez compléter les URLs nécessaires pour chaque étudiant
+                        </p>
                         {!! Form::open(["route" => ["implementations.update", $event], "class" => "form-inline form-edit", "method" => "PUT" ]) !!}
 
                             <ul class="panel-body list-group">
                                 @foreach ($performances as $performance)
                                     <li class="list-group-item clearfix">
                                         <section>
-                                            <h3>{{ $performance->student->name }}  <a href="{{ route("events.removeStudent", ["event" => $event, "student" => $performance->student]) }}" class="btn btn-danger">Supprimer</a></h3>
+                                            <h3>{{ $performance->student->name }}  <a href="{{ route("events.removeStudent", ["event" => $event, "student" => $performance->student]) }}" class="btn btn-danger pull-right">Supprimer</a></h3>
                                             @foreach( $event->projects as $project )
                                                 <section class="single-item">
                                                     <h4 class="single-item__title">{{ $project->name }}</h4>

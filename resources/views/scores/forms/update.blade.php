@@ -1,4 +1,4 @@
-{!! Form::model($implementation->scores->where("meeting_id", $meeting->id), ["route" => ["scores.update", $implementation->scores->where("meeting_id", $meeting->id)->first()], "class" => "form col-sm-8", "method" => "PUT"] ) !!}
+{!! Form::model($implementation->scores->where("meeting_id", $meeting->id), ["route" => ["scores.update", $implementation->scores->where("meeting_id", $meeting->id)->first()], "class" => "form col-sm-4", "method" => "PUT"] ) !!}
 
     <div class="form-group">
         {{ Form::label("score", "Note", ["class" => "form-label"]) }}

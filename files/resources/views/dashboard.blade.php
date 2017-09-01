@@ -11,7 +11,7 @@
     <h1>{{ $event->course_name }} - {{ $event->academic_year }} - session n° {{ $event->exam_session }}</h1>
     <ul>
         @foreach($event->students as $student)
-        <li>{{ $student->name }} - {{ $student->performances->first()->manual_score }}</li>
+            <li>{{ $student->name }} - {{ $student->performances->first()->manual_score }}</li>
         @endforeach
     </ul>
 </body>

@@ -49,7 +49,8 @@ class Meeting extends Model
      */
     protected $fillable = [
         'start_time',
-        'end_time'
+        'end_time',
+        'general_evaluation'
     ];
 
     protected $table = 'meetings';

@@ -20,7 +20,7 @@
                     <div id="exam-{{$event->id}}" class="collapse single-event__content">
                         <p><strong>Professeur responsable : {{ $event->owner->name }}</strong></p>
                         <ul>
-                        @foreach($event->meetings->where("user_id", $user->id) as $meeting)
+                        @foreach($event->meetings->where("user_id", $user->id)->where("student_id", "!=", null) as $meeting)
                             <li>
                                 <a href="{{ route("events.meetingShow", ["meeting" => $meeting, "event" => $event])}}">
                                     {{ $meeting->student->name }}

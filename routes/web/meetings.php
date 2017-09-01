@@ -17,4 +17,9 @@
             "uses" => "MeetingController@updateOrStore",
             "middleware" => "can:administrate"
         ]);
+
+        Route::put("/update/{meeting}", [
+            "as" => "meetings.update",
+            "uses" => "MeetingController@update",
+        ]);
     } );

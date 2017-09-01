@@ -7,6 +7,7 @@ use Jiri\Event;
 use Jiri\Project;
 use Jiri\Weight;
 use Jiri\Implementation;
+use Jiri\Score;
 
 class ProjectController extends Controller
 {
@@ -42,6 +43,17 @@ class ProjectController extends Controller
                 $implementation->event()->associate($event);
                 $implementation->project()->associate($project);
                 $implementation->save();
+            }
+
+            foreach( $student->meetings as $meeting ){
+                foreach( $student->implementations->where("event_id", $event->id)->where("project_id", $project->id) as $implementation ){
+                    if( !$implementation->scores->where("meeting_id", $meeting->id)->count() ){
+                        $score = Score::create();
+                        $score->meeting()->associate($meeting);
+                        $score->implementation()->associate($implementation);
+                        $score->save();
+                    }
+                }
             }
         }
 

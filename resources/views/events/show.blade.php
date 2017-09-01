@@ -8,6 +8,7 @@
 
         <nav class="nav-buttons">
             <h3 class="nav-title">Options disponibles</h3>
+
             <a href="{{ route("projects.manage", $event) }}" class="btn btn-primary">Gérer les projets</a>
             @if( $event->projects->count() )
                 <a href="{{ route("students.manage", $event) }}" class="btn btn-primary">Gérer les étudiants</a>
@@ -37,12 +38,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach( $event->students as $student )
+                    @foreach( $event->performances as $performance )
                         <tr>
-                            <th><a href="{{ route("events.showStudent", ["event" => $event, "student" => $student]) }}">{{ $student->name }}</a></th>
+                            <th><a href="{{ route("events.showStudent", ["event" => $event, "student" => $performance->student]) }}">{{ $performance->student->name }}</a></th>
                             @foreach( $event->users as $jury )
-                                @if( $event->meetings->where("user_id", $jury->id)->where("student_id", $student->id)->count() )
-                                    @foreach( $event->meetings->where("user_id", $jury->id)->where("student_id", $student->id)->first()->scores as $score )
+                                @if( $event->meetings->where("user_id", $jury->id)->where("student_id", $performance->student->id)->count() )
+                                    @foreach( $event->meetings->where("user_id", $jury->id)->where("student_id", $performance->student->id)->first()->scores as $score )
                                         <td>{{ $score->score }}</td>
                                     @endforeach
                                 @else

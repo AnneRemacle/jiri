@@ -58,4 +58,14 @@ class MeetingController extends Controller
 
         return redirect()->back();
     }
+
+    public function update( Meeting $meeting, Request $request ){
+        $meeting->fill([
+            "general_evaluation" => $request->get("general_evaluation")
+        ]);
+
+        $meeting->save();
+
+        return redirect()->back();
+    }
 }
