@@ -18,64 +18,74 @@
                     <div class="panel-heading">
                         <p class="panel-title">Étudiants ajoutés</p>
                     </div>
-                    {!! Form::open(["route" => ["implementations.updateOrStore", $event], "class" => "form-inline form-edit"]) !!}
+                    <p class="list-group-item">
+                        Vous pouvez compléter les URLs nécessaires pour chaque étudiant
+                    </p>
+                    @if ($performances->count())
+                        {!! Form::open(["route" => ["implementations.update", $event], "class" => "form-inline form-edit", "method" => "PUT" ]) !!}
 
-                        <ul class="panel-body list-group">
-                            @foreach ($performances as $performance)
-                                <li class="list-group-item clearfix">
-                                    <section>
-                                        <h3>{{ $performance->student->name }}</h3>
-                                        @foreach( $event->projects as $project )
-                                            <section class="single-item">
-                                                <h4 class="single-item__title">{{ $project->name }}</h4>
+                            <ul class="panel-body list-group">
+                                @foreach ($performances as $performance)
+                                    <li class="list-group-item clearfix">
+                                        <section>
+                                            <h3>{{ $performance->student->name }}  <a href="{{ route("events.removeStudent", ["event" => $event, "student" => $performance->student]) }}" class="btn btn-danger">Supprimer</a></h3>
+                                            @foreach( $event->projects as $project )
+                                                <section class="single-item">
+                                                    <h4 class="single-item__title">{{ $project->name }}</h4>
 
-                                                @if( $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->count() )
-                                                    <div class="form-group">
-                                                        {!! Form::label("results[".$performance->student->id."][".$project->id."][url_repo]", "URL repo") !!}
-                                                        {!! Form::text(
-                                                            "results[".$performance->student->id."][".$project->id."][url_repo]",
-                                                            $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->first()->url_repo,
-                                                            ["class" => "form-control"])
-                                                        !!}
-                                                    </div>
+                                                    @if( $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->count() )
+                                                        <div class="form-group">
+                                                            {!! Form::label("results[".$performance->student->id."][".$project->id."][url_repo]", "URL repo") !!}
+                                                            {!! Form::text(
+                                                                "results[".$performance->student->id."][".$project->id."][url_repo]",
+                                                                $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->first()->url_repo,
+                                                                ["class" => "form-control"])
+                                                            !!}
+                                                        </div>
 
-                                                    <div class="form-group">
-                                                        {!! Form::label("results[".$performance->student->id."][".$project->id."][url_project]", "URL projet") !!}
-                                                        {!! Form::text(
-                                                            "results[".$performance->student->id."][".$project->id."][url_project]",
-                                                            $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->first()->url_project,
-                                                            ["class" => "form-control"])
-                                                        !!}
-                                                    </div>
-                                                @else
-                                                    <div class="form-group">
-                                                        {!! Form::label("results[".$performance->student->id."][".$project->id."][url_repo]", "URL repo") !!}
-                                                        {!! Form::text(
-                                                            "results[".$performance->student->id."][".$project->id."][url_repo]",
-                                                            null,
-                                                            ["class" => "form-control"])
-                                                        !!}
-                                                    </div>
+                                                        <div class="form-group">
+                                                            {!! Form::label("results[".$performance->student->id."][".$project->id."][url_project]", "URL projet") !!}
+                                                            {!! Form::text(
+                                                                "results[".$performance->student->id."][".$project->id."][url_project]",
+                                                                $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->first()->url_project,
+                                                                ["class" => "form-control"])
+                                                            !!}
+                                                        </div>
+                                                    @else
+                                                        <div class="form-group">
+                                                            {!! Form::label("results[".$performance->student->id."][".$project->id."][url_repo]", "URL repo") !!}
+                                                            {!! Form::text(
+                                                                "results[".$performance->student->id."][".$project->id."][url_repo]",
+                                                                null,
+                                                                ["class" => "form-control"])
+                                                            !!}
+                                                        </div>
 
-                                                    <div class="form-group">
-                                                        {!! Form::label("results[".$performance->student->id."][".$project->id."][url_project]", "URL projet") !!}
-                                                        {!! Form::text(
-                                                            "results[".$performance->student->id."][".$project->id."][url_project]",
-                                                            null,
-                                                            ["class" => "form-control"])
-                                                        !!}
-                                                    </div>
-                                                @endif
-                                            </section>
-                                        @endforeach
-                                    </section>
-                                </li>
-                            @endforeach
-                        </ul>
+                                                        <div class="form-group">
+                                                            {!! Form::label("results[".$performance->student->id."][".$project->id."][url_project]", "URL projet") !!}
+                                                            {!! Form::text(
+                                                                "results[".$performance->student->id."][".$project->id."][url_project]",
+                                                                null,
+                                                                ["class" => "form-control"])
+                                                            !!}
+                                                        </div>
+                                                    @endif
+                                                </section>
+                                            @endforeach
+                                        </section>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        {!! Form::submit("Enregistrer", ["class" => "btn btn-primary save-button"]) !!}
+                            {!! Form::submit("Enregistrer", ["class" => "btn btn-primary save-button"]) !!}
 
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
+                    @else
+                        <p class="list-group-item">
+                            Il n'y a pas encore d'étudiant ajouté à cet événement
+                        </p>
+                    @endif
+
                 </div>
             </div>
         </div>

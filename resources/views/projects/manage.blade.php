@@ -18,47 +18,52 @@
                     <div class="panel-heading">
                         <p class="panel-title">Projets ajoutés</p>
                     </div>
-                    {!! Form::open(["route" => ["projects.update", $event], "class" => "form-inline form-edit"]) !!}
+                    @if ($event->projects->count())
+                        {!! Form::open(["route" => ["projects.update", $event], "class" => "form-inline form-edit", "method" => "PUT"]) !!}
 
-                        <ul class="panel-body list-group">
-                            @foreach ($event->projects as $project)
-                                <li class="list-group-item clearfix">
+                            <ul class="panel-body list-group">
+                                @foreach ($event->projects as $project)
+                                    <li class="list-group-item clearfix">
 
-                                        @if( $project->count() )
-                                            <div class="form-group">
-                                                {!! Form::label("name", "Nom") !!}
-                                                {!! Form::text("name", $project->name, ["class" => "form-control"]) !!}
-                                            </div>
-                                            <div class="form-group">
-                                                {!! Form::label("description", "Description") !!}
-                                                {!! Form::textarea("description", $project->description, ["class" => "form-control", "rows" => "1"]) !!}
-                                            </div>
-                                            <div class="form-group">
-                                                {{ Form::label("weight", "Pondération", ["class" => "form-label"]) }}
-                                                {{ Form::text("weight", $project->weights->where("event_id", $event->id)->first()->weight, ["class" => "form-control form-control__text"]) }}
-                                            </div>
-                                        @else
-                                            <div class="form-group">
-                                                {!! Form::label("name", "Nom") !!}
-                                                {!! Form::text("name", null, ["class" => "form-control"]) !!}
-                                            </div>
-                                            <div class="form-group">
-                                                {!! Form::label("description", "Description") !!}
-                                                {!! Form::textarea("description", null, ["class" => "form-control", "rows" => "1"]) !!}
-                                            </div>
-                                            <div class="form-group">
-                                                {{ Form::label("weight", "Pondération", ["class" => "form-label"]) }}
-                                                {{ Form::text("weight", null, ["class" => "form-control form-control__text"]) }}
-                                            </div>
-                                        @endif
-                                        <a href="{{ route("events.removeProject", ["event" => $event, "project" => $project]) }}" class="btn btn-danger delete-button pull-right">Enlever</a>
-                                </li>
-                            @endforeach
-                        </ul>
+                                            @if( $project->count() )
+                                                <div class="form-group">
+                                                    {!! Form::label("name", "Nom") !!}
+                                                    {!! Form::text("results[".$project->id."][name]", $project->name, ["class" => "form-control"]) !!}
+                                                </div>
+                                                <div class="form-group">
+                                                    {!! Form::label("description", "Description") !!}
+                                                    {!! Form::textarea("results[".$project->id."][description]", $project->description, ["class" => "form-control", "rows" => "1"]) !!}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ Form::label("weight", "Pondération", ["class" => "form-label"]) }}
+                                                    {{ Form::text("results[".$project->id."][weight]", $project->weights->where("event_id", $event->id)->first()->weight, ["class" => "form-control form-control__text"]) }}
+                                                </div>
+                                            @else
+                                                <div class="form-group">
+                                                    {!! Form::label("name", "Nom") !!}
+                                                    {!! Form::text("name", null, ["class" => "form-control"]) !!}
+                                                </div>
+                                                <div class="form-group">
+                                                    {!! Form::label("description", "Description") !!}
+                                                    {!! Form::textarea("description", null, ["class" => "form-control", "rows" => "1"]) !!}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ Form::label("weight", "Pondération", ["class" => "form-label"]) }}
+                                                    {{ Form::text("weight", null, ["class" => "form-control form-control__text"]) }}
+                                                </div>
+                                            @endif
+                                            <a href="{{ route("events.removeProject", ["event" => $event, "project" => $project]) }}" class="btn btn-danger delete-button pull-right">Enlever</a>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        {!! Form::submit("Enregistrer", ["class" => "btn btn-primary save-button"]) !!}
+                            {!! Form::submit("Enregistrer", ["class" => "btn btn-primary save-button"]) !!}
 
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
+                    @else
+                        <p class="list-group-item">Il n'y a pas encore de projets ajoutés à cet événement</p>
+                    @endif
+
                 </div>
             </div>
         </div>
