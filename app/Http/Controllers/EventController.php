@@ -53,7 +53,7 @@ class EventController extends Controller
             "updated_at" => \Carbon\Carbon::now(),
         ]);
 
-        return redirect()->route("user.events");
+        return redirect()->route("users.events");
     }
 
     /**
@@ -97,7 +97,7 @@ class EventController extends Controller
         $event->fill($request->all());
         $event->save();
 
-        return redirect()->route("user.events");
+        return redirect()->route("users.events");
     }
 
     /**
@@ -108,9 +108,21 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        foreach( $event->implementations as $implementation ) {
+            $implementation->delete();
+        }
+
+        foreach( $event->meetings as $meeting ) {
+            $meeting->delete();
+        }
+
+        foreach( $event->performances as $performance ) {
+            $performance->delete();
+        }
+
         $event->delete();
 
-        return redirect()->route("user.events");
+        return redirect()->route("users.events");
     }
 
     public function inviteStudent(Event $event){
@@ -121,10 +133,11 @@ class EventController extends Controller
     }
 
     public function removeStudent( Event $event, Student $student ) {
+        $student->performances->where("event_id", $event->id)->first()->delete();
         $event->students()->detach($student);
         $event->save();
 
-      return redirect()->back();
+        return redirect()->back();
     }
 
     public function inviteJury(Event $event){
@@ -157,6 +170,11 @@ class EventController extends Controller
 
     public function removeProject( Event $event, Project $project ) {
         $event->projects()->detach($project);
+
+        foreach( $event->implementations->where("project_id", $project->id) as $implementation ){
+            $implementation->delete();
+        }
+
         $event->save();
 
       return redirect()->back();
