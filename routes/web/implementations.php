@@ -1,8 +1,8 @@
 <?php
     Route::group(["prefix" => "implementations"], function() {
-        Route::post("/updateOrStore/{event}", [
-            "as" => "implementations.updateOrStore",
-            "uses" => "ImplementationController@updateOrStore",
+        Route::put("/update/{event}", [
+            "as" => "implementations.update",
+            "uses" => "ImplementationController@update",
             "middleware" => "can:administrate"
         ]);
     });
