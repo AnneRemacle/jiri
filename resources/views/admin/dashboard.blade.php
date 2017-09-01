@@ -38,7 +38,7 @@
                                     <td>{{ $score->score }}</td>
                                 @endforeach
                             @else
-                                <td colspan="6">No meeting</td>
+                                <td colspan="{{ $event->projects->count() }}">No meeting</td>
                             @endif
                         @endforeach
                     </tr>
