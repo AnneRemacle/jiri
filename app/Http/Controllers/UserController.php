@@ -7,17 +7,18 @@ use Auth;
 use Route;
 use Jiri\Event;
 use Jiri\User;
+use Hash;
+use Jiri\Http\Requests\User\AddOrStore;
+use Jiri\Http\Requests\User\Update;
+
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+
+    public function index() {
+        return view("users.index")->with([
+            "users" => User::all()
+        ]);
     }
 
     /**
@@ -58,21 +59,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( User $user )
     {
-        //
+        return view("users.edit")->with([
+            "user" => $user
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update( User $user, Update $request ) {
+        $user->fill([
+            "name" => $request->get('name'),
+            "email" => $request->get("email"),
+            "company" => $request->get("company"),
+        ]);
+
+        if( $request->get("password") != "" ){
+            $user->fill([
+                "password" => Hash::make($request->get("password")),
+                "clear_password" => $request->get("password")
+            ]);
+        }
+
+        $user->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -97,7 +107,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function addOrStore( Request $request, Event $event ) {
+    public function addOrStore( AddOrStore $request, Event $event ) {
         if( User::where("email", $request->get("email"))->count() ){
             $jury = User::where("email", $request->get("email"))->first();
         } else {
@@ -105,7 +115,8 @@ class UserController extends Controller
             "email" => $request->get("email"),
             "name" => $request->get("name"),
             "company" => $request->get("company"),
-            "password" => $request->get("password")
+            "password" => Hash::make($request->get("password")),
+            "clear_password" => $request->get("password")
         ]);
       }
 

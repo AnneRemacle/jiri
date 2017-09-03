@@ -21,4 +21,22 @@
             "uses" => "UserController@addOrStore",
             "middleware" => "can:administrate",
         ]);
+
+        Route::get("/index", [
+            "as" => "users.index",
+            "uses" => "UserController@index",
+            "middleware" => "can:administrate",
+        ]);
+
+        Route::put("/update/{user}",[
+            "as" => "users.update",
+            "uses" => "UserController@update",
+            "middleware" => "can:administrate"
+        ]);
+
+        Route::get("/edit/{user}", [
+            "as" => "users.edit",
+            "uses" => "UserController@edit",
+            "middleware" => "can:administrate"
+        ]);
     });

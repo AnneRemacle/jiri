@@ -34,4 +34,16 @@
             "uses" => "StudentController@update",
             "middleware" => "can:administrate"
         ]);
+
+        Route::get("/index", [
+            "as" => "students.index",
+            "uses" => "StudentController@index",
+            "middleware" => "can:administrate"
+        ]);
+
+        Route::get("/edit/{student}", [
+            "as" => "students.edit",
+            "uses" => "StudentController@edit",
+            "middleware" => "can:administrate"
+        ]);
     });
