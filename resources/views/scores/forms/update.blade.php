@@ -1,4 +1,4 @@
-{!! Form::model($implementation->scores->where("meeting_id", $meeting->id), ["route" => ["scores.update", $implementation->scores->where("meeting_id", $meeting->id)->first()], "class" => "form col-sm-4", "method" => "PUT"] ) !!}
+{!! Form::model($implementation->scores->where("meeting_id", $meeting->id), ["route" => ["scores.update", $implementation->scores->where("meeting_id", $meeting->id)->first()], "class" => "form col-sm-7", "method" => "PUT"] ) !!}
 
     <div class="form-group">
         {{ Form::label("score", "Note", ["class" => "form-label"]) }}
@@ -6,10 +6,10 @@
     </div>
     <div class="form-group">
         {{ Form::label("comment", "Commentaire", ["class" => "form-label"]) }}
-        {{ Form::text("comment", $implementation->scores->where("meeting_id", $meeting->id)->first()->comment, ["class" => "form-control form-control__text"]) }}
+        {{ Form::textarea("comment", $implementation->scores->where("meeting_id", $meeting->id)->first()->comment, ["class" => "form-control form-control__text"]) }}
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-default">Ajouter</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
     </div>
 
 {!! Form::close() !!}

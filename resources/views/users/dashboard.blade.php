@@ -5,10 +5,18 @@
 @section( "content" )
 
     <section class="main container">
-        <h2 class="page-header title">Dashboard de {{ Auth::user()->name }}</h2>
+        <h2 class="page-header title">
+            Dashboard de {{ Auth::user()->name }}
+            @if ( Auth::user()->is_admin )
+                <a href="/admin/dashboard" class="btn-sm btn green pull-right">Retour</a>
+            @endif
+        </h2>
 
         <section id="accordion">
-            <h3>Événéments auxquels je participe</h3>
+            <h3>
+                Événéments auxquels je participe
+
+            </h3>
 
             @foreach($events as $event)
                 <section class="single-event">

@@ -66,4 +66,9 @@
             "as" => "events.removeProject",
             "uses" => "EventController@removeProject"
         ]);
+
+        Route::get("/{event}/jury/{user}", [
+            "as" => "events.showJury",
+            "uses" => "EventController@showJury"
+        ]);
     });

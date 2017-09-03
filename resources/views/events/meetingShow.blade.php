@@ -17,8 +17,8 @@
                     </h4>
                     <div id="project-{{$implementation->project->id}}" class="collapse single-event__content">
                         <div class="links">
-                            <a href="{{ $implementation->project->url_repo }}" class="links__single">Voir le repo github</a>
-                            <a href="{{ $implementation->project->url_project }}" class="links__single">Voir le projet</a>
+                            <a href="{{ $implementation->project->url_repo }}" class="links__single btn btn-primary">Voir le repo github</a>
+                            <a href="{{ $implementation->project->url_project }}" class="links__single btn btn-primary">Voir le projet</a>
                         </div>
 
                         @include( "scores.forms.update" )

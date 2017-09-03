@@ -1,4 +1,4 @@
-{!! Form::open( ["route" => "events.store", "class" => "form col-sm-8"] ) !!}
+{!! Form::open( ["route" => "events.store", "class" => "form col-sm-8 col-md-offset-2"] ) !!}
 
     <div class="form-group">
         {{ Form::label("course_name", "Nom du cours", ["class" => "form-label"]) }}

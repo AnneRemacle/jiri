@@ -14,15 +14,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     @if(Auth::check())
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="navbar-right">
-
-
-
-            </div>
-
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="">Étudiants</a></li>
-              <li><a href="">Jurys</a></li>
+            @if( Auth::user()->isAdmin )
+                <li><a href="{{ route('students.index') }}">Étudiants</a></li>
+                <li><a href="{{ route( 'users.index' ) }}">Jurys</a></li>
+            @endif
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{
                         Auth::user()->name }}
@@ -31,11 +27,9 @@
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li>
                         {!! Form::open( ["url" => "/logout", "class" => "form-logout navbar-form"] ) !!}
-
                             <div>
                                 <button type="submit" class="btn btn-default">Se déconnecter</button>
                             </div>
-
                         {!! Form::close() !!}
                     </li>
                   </ul>

@@ -17,6 +17,10 @@
             @if( $event->implementations->count() )
                 <a href="{{ route("users.manage", $event) }}" class="btn btn-primary">Gérer les jurés</a>
             @endif
+
+            @if( $event->meetings->count() )
+                <a href="{{ route("meetings.print", $event) }}" class="btn btn-primary">Imprimer les meetings</a>
+            @endif
         </nav>
 
         @if( $event->meetings->count() )
@@ -25,7 +29,7 @@
                     <tr>
                         <th></th>
                         @foreach( $event->users as $jury )
-                            <th colspan="{{ $event->projects->count() }}">{{ $jury->name }}</th>
+                            <th colspan="{{ $event->projects->count() }}"><a href="{{ route("events.showJury", ["event" => $event, "user" => $jury]) }}">{{ $jury->name }}</a></th>
                         @endforeach
                     </tr>
                     <tr>

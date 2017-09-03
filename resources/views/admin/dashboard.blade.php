@@ -1,6 +1,6 @@
 @extends( "layouts.template" )
 
-@section( "title", "Dashboard de $user->name" )
+@section( "title", "Dashboard de ".Auth::user()->name )
 @include("layouts.header")
 @section( "content" )
     <nav class="navbar col-sm-8 col-md-offset-1">
@@ -19,7 +19,7 @@
                     <tr>
                         <th></th>
                         @foreach( $event->users as $jury )
-                            <th colspan="{{ $event->projects->count() }}">{{ $jury->name }}</th>
+                            <th colspan="{{ $event->projects->count() }}"><a href="{{ route("events.showJury", ["event" => $event, "user" => $jury]) }}">{{ $jury->name }}</a></th>
                         @endforeach
                     </tr>
                     <tr>
