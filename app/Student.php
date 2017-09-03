@@ -41,7 +41,8 @@ class Student extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'email'
     ];
     protected $table = 'students';
 
