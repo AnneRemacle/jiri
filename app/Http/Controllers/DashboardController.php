@@ -23,9 +23,7 @@ class DashboardController extends Controller
     }
 
     public function admin(Request $request) {
-        $apiRequest = Request::create('/api/events/1/students', 'GET', ['embed' => 'performances']);
-        $request->replace($apiRequest->input());
-        $event = Route::dispatch($apiRequest)->getOriginalContent();
+        $event = Event::orderBy("created_at", "DESC")->first();
         $user = Auth::user();
 
         return view("admin/dashboard", compact('event', 'user'));
