@@ -22,4 +22,19 @@
             "as" => "meetings.update",
             "uses" => "MeetingController@update",
         ]);
+
+        Route::get("/print/{event}", [
+            "as" => "meetings.print",
+            "uses" => "MeetingController@printMeetings"
+        ]);
+
+        Route::get("/getPDF/meetingsByUser/{event}", [
+            "as" => "meetings.getUserMeetingsPDF",
+            "uses" => "MeetingController@getUserMeetingsPDF"
+        ]);
+
+        Route::get("/getPDF/meetingsByStudent/{event}", [
+            "as" => "meetings.getStudentMeetingsPDF",
+            "uses" => "MeetingController@getStudentMeetingsPDF"
+        ]);
     } );
