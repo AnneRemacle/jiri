@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Myriam Dupont',
             'email' => 'myriam.dupont@hepl.be',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'HEPL'
         ]);
         \Jiri\User::create([
@@ -23,6 +24,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Dominique Vilain',
             'email' => 'dominique.vilain@hepl.be',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'HEPL'
         ]);
         \Jiri\User::create([
@@ -30,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Léa Vérou',
             'email' => 'lea@verou.me',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'W3C'
         ]);
         \Jiri\User::create([
@@ -37,6 +40,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Benjamin Decock',
             'email' => 'benjamin@stripe.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Stripe'
         ]);
         \Jiri\User::create([
@@ -44,6 +48,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Tim Van Damme',
             'email' => 'max@voltar.be',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Abstract'
         ]);
         \Jiri\User::create([
@@ -51,6 +56,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Mike Monteiro',
             'email' => 'mike@monteiro.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Mule Design'
         ]);
         \Jiri\User::create([
@@ -58,6 +64,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Mariam Faso',
             'email' => 'mariam@faso.be',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => null
         ]);
         \Jiri\User::create([
@@ -65,6 +72,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Vincent De Oliveira',
             'email' => 'vincent@oliveira.fr',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => null
         ]);
         \Jiri\User::create([
@@ -72,6 +80,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Raphaël Goëtter',
             'email' => 'raphael@alsacreation.fr',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Alsacréation'
         ]);
         \Jiri\User::create([
@@ -79,6 +88,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Molly Holzschlag',
             'email' => 'me@molly.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => null
         ]);
         \Jiri\User::create([
@@ -86,6 +96,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Andy Clarke',
             'email' => 'andy@stuffandnonsense.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Stuff & nonsense'
         ]);
         \Jiri\User::create([
@@ -93,6 +104,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => null
         ]);
         \Jiri\User::create([
@@ -100,6 +112,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Dan Cederholm',
             'email' => 'dan@dribbble.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Dribbble'
         ]);
         \Jiri\User::create([
@@ -107,6 +120,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Quentin Deltour',
             'email' => 'quentin@espacep.be',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'Espace P'
         ]);
         \Jiri\User::create([
@@ -114,6 +128,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Anne-Marie Dal',
             'email' => 'anne-marie@csiangleur.be',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'CSIA'
         ]);
         \Jiri\User::create([
@@ -121,6 +136,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Matt Stauffer',
             'email' => 'matt@stauffer.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => null
         ]);
         \Jiri\User::create([
@@ -128,6 +144,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Jeffrey Zeldman',
             'email' => 'jeffrey@ala.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'A list apart'
         ]);
         \Jiri\User::create([
@@ -135,6 +152,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Jason Santa Maria',
             'email' => 'jason@santa-maria.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => null
         ]);
         \Jiri\User::create([
@@ -142,6 +160,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Jeremy Keith',
             'email' => 'jeremey@clearleft.com',
             'password' => Hash::make('azerty'),
+            'clear_password' => 'azerty',
             'company' => 'clearleft'
         ]);
     }
