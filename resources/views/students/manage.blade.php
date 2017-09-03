@@ -20,6 +20,7 @@
                     </div>
 
                     @if ($performances->count())
+
                         <p class="list-group-item">
                             Vous pouvez compléter les URLs nécessaires pour chaque étudiant
                         </p>
@@ -33,7 +34,17 @@
                                             @foreach( $event->projects as $project )
                                                 <section class="single-item">
                                                     <h4 class="single-item__title">{{ $project->name }}</h4>
+                                                    @if( $errors->any() && old("results.".$performance->student->id.".".$project->id.".url_repo") != null)
+                                                        <div class="alert alert-danger">
+                                                            {{ $errors->first("results.".$performance->student->id.".".$project->id.".url_repo") }}
+                                                        </div>
+                                                    @endif
 
+                                                    @if( $errors->any() && old("results.".$performance->student->id.".".$project->id.".url_project") != null)
+                                                        <div class="alert alert-danger">
+                                                            {{ $errors->first("results.".$performance->student->id.".".$project->id.".url_project") }}
+                                                        </div>
+                                                    @endif
                                                     @if( $event->implementations->where("project_id", $project->id)->where("student_id", $performance->student->id)->count() )
                                                         <div class="form-group">
                                                             {!! Form::label("results[".$performance->student->id."][".$project->id."][url_repo]", "URL repo") !!}
@@ -103,12 +114,27 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Ajouter un étudiant</h4>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="modal-body">
                         @include("students.forms.create")
                     </div>
                 </div>
             </div>
         </div>
+
+        @if( $errors->any() && old("results") == null )
+            <script type="text/javascript">
+                $("#add").modal("show")
+            </script>
+        @endif
 
     </section>
 @endsection

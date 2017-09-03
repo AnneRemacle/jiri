@@ -10,17 +10,10 @@ use Jiri\Meeting;
 use Jiri\Project;
 Use Route;
 
+use Jiri\Http\Requests\Event\Store;
+
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -42,7 +35,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Store $request)
     {
         Event::insert([
             "course_name" => $request->get("course_name"),
@@ -72,17 +65,6 @@ class EventController extends Controller
             "event" => $event,
             "users" => User::where("is_admin", 1)->get(),
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -172,11 +154,10 @@ class EventController extends Controller
         return redirect()->back();
     }
 
-    public function showStudent( Event $event, Student $student, Meeting $meeting ){
+    public function showStudent( Event $event, Student $student ){
         return view("events.showStudent")->with([
             "event" => $event,
-            "student" => $student,
-            "meeting" => $meeting
+            "student" => $student
         ]);
     }
 
@@ -197,5 +178,12 @@ class EventController extends Controller
         $event->save();
 
       return redirect()->back();
+    }
+
+    public function showJury( Event $event, User $user ){
+        return view("events.showJury")->with([
+            "event" => $event,
+            "user" => $user
+        ]);
     }
 }

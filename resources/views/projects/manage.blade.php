@@ -19,6 +19,16 @@
                         <p class="panel-title">Projets ajoutés</p>
                     </div>
                     @if ($event->projects->count())
+                        @if ($errors->any() && old("results") != null)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         {!! Form::open(["route" => ["projects.update", $event], "class" => "form-inline form-edit", "method" => "PUT"]) !!}
 
                             <ul class="panel-body list-group">
@@ -79,6 +89,15 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Ajouter un projet</h4>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="modal-body">
                         @include("projects.forms.create")
                     </div>
@@ -86,5 +105,11 @@
             </div>
         </div>
     </section>
+
+    @if( $errors->any() && old("results") == null )
+        <script type="text/javascript">
+            $("#add").modal("show")
+        </script>
+    @endif
 
 @endsection

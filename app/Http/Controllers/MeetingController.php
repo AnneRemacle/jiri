@@ -7,6 +7,8 @@ use Jiri\Event;
 use Carbon\Carbon;
 use Jiri\Meeting;
 use Jiri\Score;
+use PDF;
+use Jiri\Http\Requests\Meetings\Update;
 
 class MeetingController extends Controller
 {
@@ -59,7 +61,7 @@ class MeetingController extends Controller
         return redirect()->back();
     }
 
-    public function update( Meeting $meeting, Request $request ){
+    public function update( Meeting $meeting, Update $request ){
         $meeting->fill([
             "general_evaluation" => $request->get("general_evaluation")
         ]);
@@ -67,5 +69,28 @@ class MeetingController extends Controller
         $meeting->save();
 
         return redirect()->back();
+    }
+
+    public function printMeetings( Event $event ){
+        return view("meetings.print")->with([
+            "event" => $event,
+            "meetings" => $event->meetings
+        ]);
+    }
+
+    public function getUserMeetingsPDF( Event $event ){
+        $data = [
+            "event" => $event
+        ];
+        $pdf = PDF::loadView("meetings.printable.meetingsByUser", $data);
+        return $pdf->stream("meetingsByUser.pdf");
+    }
+
+    public function getStudentMeetingsPDF( Event $event ){
+        $data = [
+            "event" => $event
+        ];
+        $pdf = PDF::loadView("meetings.printable.meetingsByStudent", $data);
+        return $pdf->stream("meetingsByStudent.pdf");
     }
 }

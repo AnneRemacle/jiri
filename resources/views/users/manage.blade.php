@@ -35,13 +35,13 @@
                                                     {!! Form::text(
                                                         "results[".$user->id."][".$performance->student->id."][start_time]",
                                                         $event->meetings->where("user_id", $user->id)->where("student_id", $performance->student->id)->first()->start_time->format("H:i"),
-                                                        ["class" => "form-control"])
+                                                        ["class" => "form-control flatpickr"])
                                                     !!}
                                                     {!! Form::label("results[".$user->id."][".$performance->student->id."][end_time]", "à") !!}
                                                     {!! Form::text(
                                                         "results[".$user->id."][".$performance->student->id."][end_time]",
                                                         $event->meetings->where("user_id", $user->id)->where("student_id", $performance->student->id)->first()->end_time->format("H:i"),
-                                                        ["class" => "form-control"])
+                                                        ["class" => "form-control flatpickr"])
                                                     !!}
                                                 @else
                                                     {!! Form::label("results[".$user->id."][".$performance->student->id."][start_time]", "De") !!}
@@ -86,6 +86,15 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Ajouter un jury</h4>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="modal-body">
                         @include("users.forms.create")
                     </div>
@@ -94,4 +103,11 @@
         </div>
 
     </section>
+
+    @if( $errors->any() && old("results") == null )
+        <script type="text/javascript">
+            $("#add").modal("show")
+        </script>
+    @endif
+
 @endsection

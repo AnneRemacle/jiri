@@ -9,6 +9,9 @@ use Jiri\Weight;
 use Jiri\Implementation;
 use Jiri\Score;
 
+use Jiri\Http\Requests\Project\Update;
+use Jiri\Http\Requests\Project\AddOrStore;
+
 class ProjectController extends Controller
 {
     public function create( Event $event, Project $project ) {
@@ -20,7 +23,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function addOrStore( Event $event, Request $request ){
+    public function addOrStore( Event $event, AddOrStore $request ){
 
         if( Project::where("name", $request->get("name"))->count() ){
             $project = Project::where("name", $request->get("name"))->first();
@@ -71,7 +74,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function update( Event $event, Request $request ) {
+    public function update( Event $event, Update $request ) {
         foreach( $request->get("results") as $project_id => $data){
             $project = Project::find($project_id);
             $project->update([

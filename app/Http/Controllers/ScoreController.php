@@ -4,10 +4,11 @@ namespace Jiri\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Jiri\Score;
+use Jiri\Http\Requests\Score\Update;
 
 class ScoreController extends Controller
 {
-    public function update( Score $score, Request $request ) {
+    public function update( Score $score, Update $request ) {
         $score->update([
             "score" => $request->get("score"),
             "comment" => $request->get("comment")
