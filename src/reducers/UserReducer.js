@@ -4,14 +4,17 @@ import {
     GET_TOKEN_ERROR,
     GET_USER_SUCCESS,
     GET_USER_ERROR,
-    DECONNECT_USER
+    DECONNECT_USER,
+    GET_USER_EVENTS_ERROR,
+    GET_USER_EVENTS_SUCCESS
 } from '../actions/user';
 
 const INITIAL_STATE = {
     token: null,
     error: null,
     user: null,
-    loginPending: false
+    loginPending: false,
+    events: null,
 };
 
 export default function( state = INITIAL_STATE, action ) {
@@ -53,6 +56,16 @@ export default function( state = INITIAL_STATE, action ) {
             return {
                 ...state,
                 user: null
+            }
+        case GET_USER_EVENTS_SUCCESS:
+            return {
+                ...state,
+                events: action.events
+            }
+        case GET_USER_EVENTS_ERROR:
+            return {
+                ...state,
+                error: action.error
             }
         default:
             return state;

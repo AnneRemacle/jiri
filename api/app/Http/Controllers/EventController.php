@@ -16,9 +16,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view("events.index")->with([
-            "events" => Event::all()
-        ]);
+
     }
 
     /**
@@ -40,15 +38,15 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $event = Event::create([
-            "course_name" => $request->get("course_name"),
+            "course_name" => $request->get("name"),
             "academic_year" => $request->get("academic_year"),
-            "exam_session" => $request->get("exam_session")
+            "exam_session" => $request->get("session")
         ]);
 
-        $event->user()->associate(Auth::user());
+        $event->user()->associate($request->get("user_id"));
         $event->save();
 
-        return redirect()->route("events.index");
+        return response()->json("ok");
     }
 
     /**
@@ -57,20 +55,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($event);
     }
 
     /**
@@ -80,19 +67,18 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        $event->fill($request->only("academic_year","exam_session","course_name"));
+        $event->save();
+
+        return response()->json("ok");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete(Event $event)
     {
-        //
+        $event->delete();
+
+        return response()->json("ok");
     }
 }

@@ -27,7 +27,7 @@ export default class AdminDashboard extends Component {
                     <h3 className="sro">Navigation secondaire</h3>
                     <Link to="/createEvent" className="nav-second__link">Créer un événement</Link>
                     <Link to="" className="nav-second__link">Voir l'événement en cours</Link>
-                    <Link to="" className="nav-second__link">Événements que j'organise</Link>
+                    <Link to="/my/events" className="nav-second__link">Événements que j'organise</Link>
                     <Link to="" className="nav-second__link">Événements passés</Link>
                 </nav>
             </section>

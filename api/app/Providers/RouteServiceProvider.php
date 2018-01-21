@@ -56,7 +56,6 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/web/page.php');
-            require base_path('routes/web/events.php');
             require base_path('routes/web/users.php');
         });
     }
@@ -76,6 +75,7 @@ class RouteServiceProvider extends ServiceProvider
             "prefix" => "api",
         ], function ($router) {
             require base_path('routes/api/users.php');
+            require base_path('routes/api/events.php');
         });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\User;
 
 class UserController extends Controller
 {
@@ -108,5 +109,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getUserEvents(User $user){
+        return response()->json($user->events);
     }
 }
