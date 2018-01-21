@@ -84,11 +84,16 @@ export default class AddProject extends Component {
     }
 
     render() {
+        if (!this.props.event) {
+            return(
+                <p>Chargement</p>
+            );
+        }
         return(
             <section className="main">
-                <Link className="back">Retour au dashboard</Link>
+                <Link  to={ `showEvent/${this.props.params.id}` } className="back">Retour à l'événement</Link>
 
-                <h2 className="section__title">Ajouter un projet</h2>
+                <h2 className="section__title">Ajouter un projet à {this.props.event.course_name}</h2>
 
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
@@ -111,7 +116,7 @@ export default class AddProject extends Component {
                         <input type="submit" className="form__button" value='Ajouter'/>
                     </div>
                 </form>
-                <h3>Projet(s) de l'évènement</h3>
+                <h3>Projet(s) ajoutés à {this.props.event.course_name}</h3>
                 <ul>
                     {
                         this.props.eventProjects
