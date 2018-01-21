@@ -44,6 +44,16 @@ export default class Header extends Component {
                 <h1 className="header__title">
                     <Link to="/" title="Retour à l'accueil">Jiri</Link>
                 </h1>
+
+                { user.is_admin ?
+                    <nav className="menu">
+                        <h2 className="sro">Navigation</h2>
+                        <a href="" className="nav__link">Étudiants</a>
+                        <a href="" className="nav__link">Jurys</a>
+                        <a href="" className="nav__link">Projets</a>
+                    </nav>
+                : "" }
+                
                 <div className="user">
                     {user.name} <i className="fa fa-caret-down"></i>
 
