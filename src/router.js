@@ -8,6 +8,9 @@ import Dashboard from "./components/Dashboard";
 import CreateEvent from './components/CreateEvent';
 import UserEvents from './components/UserEvents';
 import EditEvent from './components/EditEvent';
+import ShowEvent from './components/ShowEvent';
+import AddProject from './components/AddProject';
+import EditProject from './components/EditProject';
 
 // build the router
 const router = (
@@ -18,6 +21,9 @@ const router = (
         <Route path="/createEvent" component={CreateEvent} />
         <Route path="/my/events" component={UserEvents} />
         <Route path="/editEvent/:id" component={EditEvent} />
+        <Route path="/showEvent/:id" component={ShowEvent} />
+        <Route path="/event/:id/manageProjects" component={AddProject} />
+        <Route path="/project/:id/edit" component={EditProject} />
     </Route>
   </Router>
 );

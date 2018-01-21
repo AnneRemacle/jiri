@@ -15,4 +15,6 @@ class Project extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    protected $fillable = ["name","description"];
 }

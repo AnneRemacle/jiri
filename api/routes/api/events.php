@@ -19,4 +19,14 @@
             "as" => "event.delete",
             "uses" => "EventController@delete"
         ]);
+
+        Route::get("/{event}/projects", [
+            "as" => "event.projects",
+            "uses" => "EventController@projects"
+        ]);
+
+        Route::get("/{event}/removeProject/{project}", [
+            "as" => "events.removeProject",
+            "uses" => "EventController@removeProject"
+        ]);
     });

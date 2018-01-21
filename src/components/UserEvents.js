@@ -67,7 +67,7 @@ export default class AdminDashboard extends Component {
                 { this.props.events
                     ? this.props.events.map( event =>
                         <div key={event.id}>
-                            <p>Nom: {event.course_name}</p>
+                            <p>Nom: <Link to={`/showEvent/${event.id}`}>{event.course_name}</Link></p>
                             <p>Année académique: {event.academic_year}</p>
                             <p>Session: {event.exam_session}</p>
                             <Link to={"/editEvent/"+event.id}>Modifier</Link>

@@ -7,14 +7,19 @@ import {
     UPDATE_EVENT_ERROR,
     UPDATE_EVENT_SUCCESS,
     DELETE_EVENT_ERROR,
-    DELETE_EVENT_SUCCESS
+    DELETE_EVENT_SUCCESS,
+    GET_EVENT_PROJECTS_SUCCESS,
+    GET_EVENT_PROJECTS_ERROR,
+    REMOVE_PROJECT_ERROR,
+    REMOVE_PROJECT_SUCCESS
 } from '../actions/event';
 
 const INITIAL_STATE = {
     createEventPending: false,
     createEventErrors: null,
     event: null,
-    errors: null
+    errors: null,
+    project: null
 }
 
 export default function( state = INITIAL_STATE, action ) {
@@ -60,6 +65,26 @@ export default function( state = INITIAL_STATE, action ) {
                 event: null,
             }
         case DELETE_EVENT_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case GET_EVENT_PROJECTS_SUCCESS:
+            return {
+                ...state,
+                projects: action.projects
+            }
+        case GET_EVENT_PROJECTS_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case REMOVE_PROJECT_SUCCESS:
+            return {
+                ...state,
+                project: null
+            }
+        case REMOVE_PROJECT_ERROR:
             return {
                 ...state,
                 error: action.error

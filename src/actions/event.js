@@ -10,7 +10,11 @@ export const
     UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS',
     UPDATE_EVENT_ERROR = 'UPDATE_EVENT_ERROR',
     DELETE_EVENT_SUCCESS = 'DELETE_EVENT_SUCCESS',
-    DELETE_EVENT_ERROR = 'DELETE_EVENT_ERROR';
+    DELETE_EVENT_ERROR = 'DELETE_EVENT_ERROR',
+    GET_EVENT_PROJECTS_SUCCESS = 'GET_EVENT_PROJECTS_SUCCESS',
+    GET_EVENT_PROJECTS_ERROR = 'GET_EVENT_PROJECTS_ERROR',
+    REMOVE_PROJECT_SUCCESS = 'REMOVE_PROJECT_SUCCESS',
+    REMOVE_PROJECT_ERROR = 'REMOVE_PROJECT_ERROR';
 
 const ROOT_URL = 'http://localhost:8000/api';
 
@@ -100,6 +104,43 @@ export function deleteEvent(event_id, user_id){
         }).catch((errors) => {
             dispatch({
                 type: DELETE_EVENT_ERROR,
+                error: errors
+            })
+        })
+    }
+}
+
+export function getEventProjects(event_id){
+    const request = axios.get(`${ROOT_URL}/events/${event_id}/projects`);
+
+    return (dispatch) => {
+        request.then((response) => {
+            dispatch({
+                type: GET_EVENT_PROJECTS_SUCCESS,
+                projects: response.data
+            })
+        }).catch((errors) => {
+            dispatch({
+                type: GET_EVENT_PROJECTS_ERROR,
+                error: errors
+            })
+        })
+    }
+}
+
+export function removeProject( event_id, project_id ) {
+    const request = axios.get( `${ROOT_URL}/events/${event_id}/removeProject/${project_id}` );
+
+    return (dispatch) => {
+        request.then((response) => {
+            dispatch({
+                type: REMOVE_PROJECT_SUCCESS,
+                projects: response.data
+            })
+            dispatch(getEventProjects(event_id))
+        }).catch((errors) => {
+            dispatch({
+                type: REMOVE_PROJECT_ERROR,
                 error: errors
             })
         })

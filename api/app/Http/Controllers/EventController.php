@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\Project;
 
 use Auth;
 
@@ -80,5 +81,21 @@ class EventController extends Controller
         $event->delete();
 
         return response()->json("ok");
+    }
+
+    public function projects(Event $event){
+        return response()->json($event->projects);
+    }
+
+    public function removeProject( Event $event, Project $project ) {
+        $event->projects()->detach($project);
+
+        // foreach( $event->implementations->where("project_id", $project->id) as $implementation ){
+        //     $implementation->delete();
+        // }
+
+        $event->save();
+
+      return response()->json("ok");
     }
 }

@@ -76,6 +76,7 @@ class RouteServiceProvider extends ServiceProvider
         ], function ($router) {
             require base_path('routes/api/users.php');
             require base_path('routes/api/events.php');
+            require base_path('routes/api/projects.php');
         });
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Project;
+use App\Event;
 
 class ProjectController extends Controller
 {
@@ -13,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Project::all());
     }
 
     /**
@@ -43,9 +45,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        //
+        return response()->json($project);
     }
 
     /**
@@ -66,10 +68,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function update(Request $request, Project $project)
+     {
+         $project->fill($request->only("name","description"));
+         $project->save();
+
+         return response()->json("ok");
+     }
 
     /**
      * Remove the specified resource from storage.
@@ -80,5 +85,23 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addOrStore(Request $request){
+        $event = Event::find($request->get("event_id"));
+
+        if( Project::where("name", $request->get("name"))->count() ){
+            $project = Project::where("name", $request->get("name"))->first();
+        }else{
+            $project = Project::create([
+                "name" => $request->get("name"),
+                "description" => $request->get("description")
+            ]);
+            $project->save();
+        }
+
+        $event->projects()->attach($project);
+
+        return response()->json("ok");
     }
 }
