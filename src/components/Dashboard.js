@@ -4,6 +4,8 @@ import { history } from '../store';
 
 import * as userActions from '../actions/user';
 
+import AdminDashboard from './AdminDashboard';
+
 const EMPTY_ERRORS = {
     email: [],
     password: []
@@ -48,8 +50,16 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        if(this.props.user){
-            return <p>"Vous êtes connecté" {this.props.user.name}</p>
+        if (!this.props.user) {
+            return(
+                <p>Chargement</p>
+            );
+        }
+
+        if(this.props.user.is_admin){
+            return (
+                <AdminDashboard user={this.props.user} />
+            );
         }
 
         return <p>{"Vous n'êtes pas connecté"}</p>
