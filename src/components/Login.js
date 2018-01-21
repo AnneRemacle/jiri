@@ -39,7 +39,6 @@ export default class Login extends Component {
 
     componentWillReceiveProps(oNextProps){
         if(oNextProps.user){
-            console.warn(oNextProps.user);
             history.push("/");
         }
     }
