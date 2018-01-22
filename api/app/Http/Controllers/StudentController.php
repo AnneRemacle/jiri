@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Student;
 use App\Event;
+use App\Implementation;
+use App\Performance;
 
 use Image;
 use File;
@@ -65,6 +67,21 @@ class StudentController extends Controller
 
         $event->students()->attach($student);
 
+        $performance = Performance::create();
+        $performance->student()->associate($student);
+        $performance->event()->associate($event);
+        $performance->save();
+
+        foreach( $event->projects as $project ){
+            if( !$event->implementations->where("student_id", $student->id)->where("project", $project->id)->count() ){
+                $implementation = Implementation::create();
+                $implementation->student()->associate($student);
+                $implementation->event()->associate($event);
+                $implementation->project()->associate($project);
+                $implementation->save();
+            }
+        }
+
         return response()->json("ok");
     }
 
@@ -102,7 +119,7 @@ class StudentController extends Controller
          if( $student->photo != null ){
              File::delete( public_path()."/img/students/".$student->picture );
          }
-         
+
          if( $request->get("picture") != null){
              $uploadedImage = $request->file("picture");
              $pictureName = $uploadedImage->getClientOriginalName();
@@ -124,6 +141,25 @@ class StudentController extends Controller
          $student->save();
 
          return response()->json(["msg" => "ok"]);
+     }
+
+     public function getImplentationsForEvent(Student $student, Event $event){
+         return response()->json($student->implementations->where("event_id", $event->id));
+     }
+
+     public function updateImplementations(Request $request, Student $student, Event $event){
+         foreach(json_decode($request->get("data")) as $id => $project){
+             $implementation = $student->implementations->where("event_id", $event->id)->where("project_id", $id)->first();
+
+             $implementation->update([
+                 "url_repo" => $project->githubUrl,
+                 "url_project" => $project->siteUrl
+             ]);
+
+             $implementation->save();
+         }
+
+        return response()->json("ok");
      }
 
     /**

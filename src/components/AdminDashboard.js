@@ -6,8 +6,24 @@ const mapStateToProps = state => ({
     user: state.userSelectors.user,
 });
 
-@connect(mapStateToProps)
+const mapActionsToProps = dispatch => ({
+    getUser(token){
+        dispatch(userActions.getUser(token))
+    },
+})
+
+@connect(mapStateToProps, mapActionsToProps)
 export default class AdminDashboard extends Component {
+    componentWillMount(){
+        if(sessionStorage.getItem("token") && !this.props.user){
+            this.props.getUser(sessionStorage.getItem("token"));
+        }
+
+        if(!sessionStorage.getItem("token") && !this.props.user){
+            history.push("/login");
+        }
+    }
+
     render() {
         const {user} = this.props;
 
@@ -16,6 +32,7 @@ export default class AdminDashboard extends Component {
                 <p>Chargement…</p>
             );
         }
+
         return(
             <section className="main">
                 <h2 className="section__title">

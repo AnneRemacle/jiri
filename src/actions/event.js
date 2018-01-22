@@ -18,7 +18,11 @@ export const
     GET_EVENT_STUDENTS_SUCCESS = 'GET_EVENT_STUDENTS_SUCCESS',
     GET_EVENT_STUDENTS_ERROR = 'GET_EVENT_STUDENTS_ERROR',
     REMOVE_STUDENT_SUCCESS = 'REMOVE_STUDENT_SUCCESS',
-    REMOVE_STUDENT_ERROR = 'REMOVE_STUDENT_ERROR';
+    REMOVE_STUDENT_ERROR = 'REMOVE_STUDENT_ERROR',
+    GET_EVENT_JURYS_SUCCESS = 'GET_EVENT_JURYS_SUCCESS',
+    GET_EVENT_JURYS_ERROR = 'GET_EVENT_JURYS_ERROR',
+    REMOVE_JURY_SUCCESS = 'REMOVE_JURY_SUCCESS',
+    REMOVE_JURY_ERROR = 'REMOVE_JURY_ERROR';
 
 const ROOT_URL = 'http://localhost:8000/api';
 
@@ -182,6 +186,43 @@ export function removeStudent( event_id, student_id ) {
         }).catch((errors) => {
             dispatch({
                 type: REMOVE_STUDENT_ERROR,
+                error: errors
+            })
+        })
+    }
+}
+
+export function getEventJurys(event_id){
+    const request = axios.get(`${ROOT_URL}/events/${event_id}/jurys`);
+
+    return (dispatch) => {
+        request.then((response) => {
+            dispatch({
+                type: GET_EVENT_JURYS_SUCCESS,
+                jurys: response.data
+            })
+        }).catch((errors) => {
+            dispatch({
+                type: GET_EVENT_JURYS_ERROR,
+                error: errors
+            })
+        })
+    }
+}
+
+export function removeJury( event_id, user_id ) {
+    const request = axios.get( `${ROOT_URL}/events/${event_id}/removeJury/${user_id}` );
+
+    return (dispatch) => {
+        request.then((response) => {
+            dispatch({
+                type: REMOVE_JURY_SUCCESS,
+                jury: response.data
+            })
+            dispatch(getEventJurys(event_id))
+        }).catch((errors) => {
+            dispatch({
+                type: REMOVE_JURY_ERROR,
                 error: errors
             })
         })

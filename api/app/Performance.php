@@ -15,4 +15,12 @@ class Performance extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function event(){
+        return $this->belongsTo("App\Event");
+    }
+
+    public function student(){
+        return $this->belongsTo("App\Student");
+    }
 }

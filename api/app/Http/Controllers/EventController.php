@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Project;
 use App\Student;
+use App\User;
 
 use Auth;
 
@@ -114,5 +115,16 @@ class EventController extends Controller
         $event->save();
 
       return response()->json("ok");
+    }
+
+    public function jurys(Event $event){
+        return response()->json($event->users);
+    }
+
+    public function removeJury( Event $event, User $user) {
+        $event->users()->detach($user);
+        $event->save();
+
+        return response()->json("ok");
     }
 }

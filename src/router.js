@@ -13,6 +13,9 @@ import AddProject from './components/AddProject';
 import EditProject from './components/EditProject';
 import AddStudent from './components/AddStudent';
 import EditStudent from './components/EditStudent';
+import AddJury from './components/AddJury';
+import EditJury from './components/EditJury';
+import ManageStudent from './components/ManageStudent';
 
 // build the router
 const router = (
@@ -26,8 +29,11 @@ const router = (
         <Route path="/showEvent/:id" component={ShowEvent} />
         <Route path="/event/:id/manageProjects" component={AddProject} />
         <Route path="/event/:id/manageStudents" component={AddStudent} />
+        <Route path="/event/:event_id/manageStudent/:student_id" component={ManageStudent} />
+        <Route path="/event/:id/manageJurys" component={AddJury} />
         <Route path="/project/:id/edit" component={EditProject} />
         <Route path="/student/:id/edit" component={EditStudent} />
+        <Route path="/jury/:id/edit" component={EditJury} />
     </Route>
   </Router>
 );

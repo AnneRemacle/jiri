@@ -7,11 +7,16 @@ export const
     ADD_OR_STORE_STUDENT_SUCCESS = 'ADD_OR_STORE_STUDENT_SUCCESS',
     ADD_OR_STORE_STUDENT_ERROR = 'ADD_OR_STORE_STUDENT_ERROR',
     GET_STUDENTS_SUCCESS = 'GET_STUDENTS_SUCCESS',
+    GET_STUDENT = 'GET_STUDENT',
     GET_STUDENTS_ERROR = 'GET_STUDENTS_ERROR',
     GET_STUDENT_SUCCESS = 'GET_STUDENT_SUCCESS',
     GET_STUDENT_ERROR = 'GET_STUDENT_ERROR',
     UPDATE_STUDENT_SUCCESS = 'UPDATE_STUDENT_SUCCESS',
-    UPDATE_STUDENT_ERROR = 'UPDATE_STUDENT_ERROR';
+    UPDATE_STUDENT_ERROR = 'UPDATE_STUDENT_ERROR',
+    UPDATE_IMPLEMENTATIONS_SUCCESS = 'UPDATE_IMPLEMENTATIONS_SUCCESS',
+    UPDATE_IMPLEMENTATIONS_ERROR = 'UPDATE_IMPLEMENTATIONS_ERROR',
+    GET_IMPLEMENTATIONS_SUCCESS = 'GET_IMPLEMENTATIONS_SUCCESS',
+    GET_IMPLEMENTATIONS_ERROR = 'GET_IMPLEMENTATIONS_ERROR';
 
 const ROOT_URL = 'http://localhost:8000/api';
 
@@ -77,16 +82,59 @@ export function getStudents() {
 export function getStudent(student_id) {
     const request = axios.get( `${ROOT_URL}/students/${student_id}`);
     return (dispatch) => {
+        dispatch({
+            type: GET_STUDENT,
+            pending: true,
+        })
         request.then( (response) => {
             dispatch({
                 type: GET_STUDENT_SUCCESS,
                 student: response.data,
+                pending: false,
             })
         } ).catch( (errors) => {
             dispatch({
                 type: GET_STUDENT_ERROR,
                 errors: errors,
+                pending: false,
             })
         })
     };
+}
+
+export function getImplementationsForEvent(student_id, event_id){
+    const request = axios.get(`${ROOT_URL}/students/${student_id}/getImplementationsForEvent/${event_id}`);
+
+    return (dispatch) => {
+        request.then( (response) => {
+            dispatch({
+                type: GET_IMPLEMENTATIONS_SUCCESS,
+                implementations: response.data
+            })
+        } ).catch( (errors) => {
+            dispatch({
+                type: GET_IMPLEMENTATIONS_ERROR,
+                errors: errors,
+            })
+        })
+    }
+}
+
+export function updateImplementations(data, student_id, event_id){
+    const request = axios.post(`${ROOT_URL}/students/${student_id}/updateImplementations/${event_id}`, {
+        data: JSON.stringify(data)
+    });
+
+    return (dispatch) => {
+        request.then( (response) => {
+            dispatch({
+                type: UPDATE_IMPLEMENTATIONS_SUCCESS,
+            })
+        } ).catch( (errors) => {
+            dispatch({
+                type: UPDATE_IMPLEMENTATIONS_ERROR,
+                errors: errors,
+            })
+        })
+    }
 }

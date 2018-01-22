@@ -19,4 +19,14 @@
             "as" => "students.update",
             "uses" => "StudentController@update"
         ]);
+
+        Route::get("/{student}/getImplementationsForEvent/{event}", [
+            "as" => "students.getImplentationsForEvent",
+            "uses" => "StudentController@getImplentationsForEvent"
+        ]);
+
+        Route::post("/{student}/updateImplementations/{event}", [
+            "as" => "students.updateImplementations",
+            "uses" => "StudentController@updateImplementations"
+        ]);
     });

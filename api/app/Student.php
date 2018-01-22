@@ -17,4 +17,8 @@ class Student extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ["name","email","photo"];
+
+    public function implementations(){
+        return $this->hasMany("App\Implementation");
+    }
 }

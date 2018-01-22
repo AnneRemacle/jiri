@@ -15,12 +15,12 @@ class CreateImplementationsTable extends Migration
     {
         Schema::create('implementations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
-            $table->integer('student_id');
-            $table->integer('event_id');
-            $table->string('url_repo');
-            $table->string('url_project');
-            $table->tinyInteger('weight');
+            $table->integer('project_id')->nullable();
+            $table->integer('student_id')->nullable();
+            $table->integer('event_id')->nullable();
+            $table->string('url_repo')->default("");
+            $table->string('url_project')->default("");
+            $table->tinyInteger('weight')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

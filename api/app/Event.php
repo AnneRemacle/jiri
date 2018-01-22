@@ -24,4 +24,13 @@ class Event extends Model
     public function students(){
         return $this->belongsToMany("App\Student");
     }
+
+    public function users(){
+        return $this->belongsToMany("App\User");
+    }
+
+    public function implementations(){
+        return $this->hasMany("App\Implementation");
+    }
+
 }

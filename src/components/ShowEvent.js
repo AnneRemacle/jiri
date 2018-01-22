@@ -6,7 +6,8 @@ import * as eventActions from '../actions/event';
 
 const mapStateToProps = state => ({
     event: state.eventSelectors.event,
-    eventProjects: state.eventSelectors.projects
+    eventProjects: state.eventSelectors.projects,
+    eventStudents: state.eventSelectors.students
 })
 
 const mapActionsToProps = dispatch => ({
@@ -15,6 +16,9 @@ const mapActionsToProps = dispatch => ({
     },
     getEventProjects(event_id){
         dispatch(eventActions.getEventProjects(event_id))
+    },
+    getEventStudents(event_id){
+        dispatch(eventActions.getEventStudents(event_id))
     }
 })
 
@@ -27,6 +31,7 @@ export default class ShowEvent extends Component {
     componentWillMount() {
         this.props.getEvent( this.props.params.id );
         this.props.getEventProjects( this.props.params.id );
+        this.props.getEventStudents( this.props.params.id );
     }
 
     render() {
@@ -46,6 +51,10 @@ export default class ShowEvent extends Component {
                     <Link to={`/event/${event.id}/manageStudents`} className="button">Gérer les étudiants</Link>
                     : ""
                  }
+                 { this.props.eventStudents ?
+                     <Link to={`/event/${event.id}/manageJurys`} className="button">Gérer les jurys</Link>
+                     : ""
+                  }
             </section>
         );
     }

@@ -9,41 +9,46 @@ import * as studentActions from '../actions/student';
 const mapStateToProps = state => ({
     user: state.userSelectors.user,
     event: state.eventSelectors.event,
-    eventStudents: state.eventSelectors.students,
-    allStudents: state.studentSelectors.students,
-    student: state.eventSelectors.student,
-    studentAddOrStorePending: state.studentSelectors.addOrStorePending
+    allJurys: state.userSelectors.jurys,
+    eventJurys: state.eventSelectors.jurys,
+    jury: state.eventSelectors.jury,
+    userAddOrStorePending: state.userSelectors.addOrStorePending
 });
 
 const mapActionsToProps = dispatch => ({
-    getStudents(){
-        dispatch(studentActions.getStudents())
-    },
     getUser(token){
         dispatch(userActions.getUser(token))
     },
     getEvent(event_id){
         dispatch(eventActions.getEvent(event_id));
     },
-    getEventStudents(event_id){
-        dispatch(eventActions.getEventStudents(event_id))
+    getJurys() {
+        dispatch(userActions.getJurys());
     },
-    addOrStoreStudent(formData){
-        dispatch(studentActions.addOrStore(formData))
+    getEventJurys(event_id){
+        dispatch(eventActions.getEventJurys(event_id))
     },
-    removeStudent(event_id, student_id){
-        dispatch(eventActions.removeStudent(event_id, student_id))
+    addOrStoreJury(formData){
+        dispatch(userActions.addOrStore(formData))
+    },
+    getJury(user_id){
+        dispatch(userActions.getJury(user_id))
+    },
+    removeJury(event_id, user_id){
+        dispatch(eventActions.removeJury(event_id, user_id))
     }
 })
 
 @connect(mapStateToProps, mapActionsToProps)
-export default class AddStudent extends Component {
+export default class AddJury extends Component {
     constructor(oProps) {
         super(oProps);
 
         this.state= {
             name: "",
             email: "",
+            company:'',
+            password: '',
             photo: null,
             values: {
                 newPicture: ""
@@ -55,9 +60,9 @@ export default class AddStudent extends Component {
     }
 
     componentWillMount(){
-        this.props.getStudents();
+        this.props.getJurys();
         this.props.getEvent(this.props.params.id);
-        this.props.getEventStudents(this.props.params.id);
+        this.props.getEventJurys(this.props.params.id);
 
         if(sessionStorage.getItem("token") && !this.props.user){
             this.props.getUser(sessionStorage.getItem("token"));
@@ -69,10 +74,12 @@ export default class AddStudent extends Component {
     }
 
     componentWillReceiveProps(oNextProps){
-        if(!oNextProps.studentAddOrStorePending && oNextProps.studentAddOrStorePending != this.props.studentAddOrStorePending){
+        if(!oNextProps.userAddOrStorePending && oNextProps.userAddOrStorePending != this.props.userAddOrStorePending){
             this.setState({
                 name: "",
                 email: "",
+                company: "",
+                password: "",
                 file: null,
                 imagePreviewUrl: null,
             })
@@ -92,20 +99,33 @@ export default class AddStudent extends Component {
 
         formData.append("name", this.state.name);
         formData.append("email", this.state.email);
+        formData.append("password", this.state.password);
         formData.append("event_id", this.props.event.id);
 
-        this.props.addOrStoreStudent( formData );
+        this.props.addOrStoreJury( formData );
     }
 
-    handleStudentNameChange(e) {
+    handleJuryNameChange(e) {
         this.setState({
             name: e.target.value
         })
     }
 
-    handleStudentEmailChange(e) {
+    handleJuryEmailChange(e) {
         this.setState({
             email: e.target.value
+        })
+    }
+
+    handleJuryCompanyChange(e) {
+        this.setState({
+            company: e.target.value
+        })
+    }
+
+    handleJuryPasswordChange(e) {
+        this.setState({
+            password: e.target.value
         })
     }
 
@@ -125,8 +145,7 @@ export default class AddStudent extends Component {
 
     handleDeleteClick(e) {
         e.preventDefault();
-        console.warn(this.props.event.id, parseFloat(e.target.dataset.student));
-        this.props.removeStudent( this.props.event.id, parseFloat(e.target.dataset.student) );
+        this.props.removeJury( this.props.event.id, parseFloat(e.target.dataset.jury) );
     }
 
     renderFigure(){
@@ -148,23 +167,27 @@ export default class AddStudent extends Component {
             <section className="main">
                 <Link  to={ `showEvent/${this.props.params.id}` } className="back">Retour à l'événement</Link>
 
-                <h2 className="section__title">Ajouter un étudiant à {this.props.event.course_name}</h2>
+                <h2 className="section__title">Ajouter un jury à {this.props.event.course_name}</h2>
 
                 <form className="form form-regular" onSubmit={ this.handleSubmit.bind(this) } encType="multipart/form-data">
                     <div className="form-group">
                         <label htmlFor="email" className="form__label">Email</label>
-                        <input list="students" type="email" name="email" id="email" placeholder="jon@snow.be" className="form__input" onChange={this.handleStudentEmailChange.bind(this)} value={this.state.email}/>
+                        <input value={this.state.email} list="students" type="email" name="email" id="email" placeholder="jon@snow.be" className="form__input" onChange={this.handleJuryEmailChange.bind(this)}/>
                         <datalist id='students'>
                             {
-                                this.props.allStudents
-                                ? this.props.allStudents.map( student => <option key={student.id} value={student.email} />)
+                                this.props.allJurys
+                                ? this.props.allJurys.map( jury => <option key={jury.id} value={jury.email} />)
                                 : ""
                             }
                         </datalist>
                     </div>
                     <div className="form-group">
                         <label htmlFor="name" className="form__label">Nom</label>
-                        <input type="text" id='name' name="name" placeholder="Jon Snow" className="form__input" onChange={this.handleStudentNameChange.bind(this)} value={this.state.name} />
+                        <input value={this.state.name} type="text" id='name' name="name" placeholder="Jon Snow" className="form__input" onChange={this.handleJuryNameChange.bind(this)} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="company" className="form__label">Entreprise</label>
+                        <input value={this.state.company} type="text" id='company' name="company" placeholder="Google" className="form__input" onChange={this.handleJuryCompanyChange.bind(this)} />
                     </div>
                     <div className="form-group">
                         <label className="form__label form__label--file" htmlFor="photo">
@@ -175,22 +198,25 @@ export default class AddStudent extends Component {
                         <input className="hidden" type="file" name="photo" id="photo" onChange={ this.handlePictureChange.bind(this) }/>
                     </div>
                     <div className="form-group">
+                        <label htmlFor="password" className="form__label">Mot de passe</label>
+                        <input value={this.state.password} type="text" id='password' name="password" className="form__input" onChange={this.handleJuryPasswordChange.bind(this)} />
+                    </div>
+                    <div className="form-group">
                         <input type="submit" className="form__button" value='Ajouter'/>
                     </div>
                 </form>
                 <section className="sub-section">
-                    <h3>Étudiant(s) ajoutés à {this.props.event.course_name}</h3>
+                    <h3>Jury(s) ajoutés à {this.props.event.course_name}</h3>
                     <ul>
                         {
-                            this.props.eventStudents
-                            ? this.props.eventStudents.map( student =>
-                                <li key={student.id}>
-                                    {student.name}
-                                    <Link to={`event/${this.props.event.id}/manageStudent/${student.id}`}>Gérer</Link> - 
-                                    <Link to={`student/${student.id}/edit`}>Modifier</Link> - <a href="#" onClick={this.handleDeleteClick.bind(this)} data-student={student.id}>Supprimer</a>
+                            this.props.eventJurys
+                            ? this.props.eventJurys.map( jury =>
+                                <li key={jury.id}>
+                                    {jury.name}
+                                    <Link to={`jury/${jury.id}/edit`}>Modifier</Link> - <a href="#" onClick={this.handleDeleteClick.bind(this)} data-jury={jury.id}>Supprimer</a>
                                 </li>
                             )
-                            : <p>Il n'y a pas encore d'étudiants pour cet événement</p>
+                            : <p>Il n'y a pas encore de jurys pour cet événement</p>
                         }
                     </ul>
                 </section>

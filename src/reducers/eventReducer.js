@@ -15,7 +15,12 @@ import {
     GET_EVENT_STUDENTS_SUCCESS,
     GET_EVENT_STUDENTS_ERROR,
     REMOVE_STUDENT_ERROR,
-    REMOVE_STUDENT_SUCCESS
+    REMOVE_STUDENT_SUCCESS,
+    GET_EVENT_JURYS_SUCCESS,
+    GET_EVENT_JURYS_ERROR,
+    REMOVE_JURY_ERROR,
+    REMOVE_JURY_SUCCESS
+
 } from '../actions/event';
 
 const INITIAL_STATE = {
@@ -26,7 +31,9 @@ const INITIAL_STATE = {
     project: null,
     projects: null,
     students: null,
-    student: null
+    student: null,
+    jurys: null,
+    jury: null
 }
 
 export default function( state = INITIAL_STATE, action ) {
@@ -112,6 +119,26 @@ export default function( state = INITIAL_STATE, action ) {
                 student: null
             }
         case REMOVE_STUDENT_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case GET_EVENT_JURYS_SUCCESS:
+            return {
+                ...state,
+                jurys: action.jurys
+            }
+        case GET_EVENT_JURYS_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case REMOVE_JURY_SUCCESS:
+            return {
+                ...state,
+                jury: null
+            }
+        case REMOVE_JURY_ERROR:
             return {
                 ...state,
                 error: action.error

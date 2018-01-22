@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Event;
+use App\Implementation;
 
 class ProjectController extends Controller
 {
@@ -101,6 +102,16 @@ class ProjectController extends Controller
         }
 
         $event->projects()->attach($project);
+
+        foreach( $event->students as $student ){
+            if( !$event->implementations->where("student_id", $student->id)->where("project_id", $project->id)->count() ){
+                $implementation = Implementation::create();
+                $implementation->student()->associate($student);
+                $implementation->event()->associate($event);
+                $implementation->project()->associate($project);
+                $implementation->save();
+            }
+        }
 
         return response()->json("ok");
     }

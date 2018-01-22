@@ -15,10 +15,10 @@ class CreatePerformancesTable extends Migration
     {
         Schema::create('performances', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('calculated_score');
-            $table->float('manual_score');
-            $table->integer('student_id');
-            $table->integer('event_id');
+            $table->float('calculated_score')->default(0);
+            $table->float('manual_score')->default(0);
+            $table->integer('student_id')->nullable();
+            $table->integer('event_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

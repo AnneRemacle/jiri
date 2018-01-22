@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
+use App\Event;
+use Image;
+use Hash;
 
 class UserController extends Controller
 {
@@ -42,7 +45,40 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(User::all());
+    }
+
+    public function addOrStore(Request $request)
+    {
+        $event = Event::find($request->get("event_id"));
+        $pictureName = "";
+
+        if( User::where("email", $request->get("email"))->count() ){
+            $jury = User::where("email", $request->get("email"))->first();
+        }else {
+            if( $request->file("picture") != null ){
+                $uploadedImage = $request->file("picture");
+                $pictureName = $uploadedImage->getClientOriginalName();
+
+                $img = Image::make( $uploadedImage );
+                $img->fit(200)->save( public_path()."/img/users/".$pictureName );
+            }
+
+            $jury = User::create([
+                "email" => $request->get("email"),
+                "name" => $request->get("name"),
+                "photo" => $pictureName,
+                "company" => $request->get("company"),
+                "clear_password" => $request->get("password"),
+                "password" => bcrypt($request->get("password")),
+            ]);
+
+            $jury->save();
+        }
+
+        $event->users()->attach($jury);
+
+        return response()->json("ok");
     }
 
     /**
@@ -72,10 +108,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+     public function show(User $user)
+     {
+         return response()->json($user);
+     }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,10 +131,38 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function update( Request $request, User $user ) {
+         $pictureName = null;
+
+         if( $user->photo != null ){
+             File::delete( public_path()."/img/users/".$user->picture );
+         }
+
+         if( $request->file("picture") != null){
+             $uploadedImage = $request->file("picture");
+             $pictureName = $uploadedImage->getClientOriginalName();
+
+             $img = Image::make( $uploadedImage );
+             $img->fit(200)->save( public_path()."/img/users/".$pictureName );
+
+             $user->update([
+                 "photo" => $pictureName
+             ]);
+         }
+
+         $user->update([
+             "email" => $request->get("email"),
+             "name" => $request->get("name"),
+             "photo" => $pictureName,
+             "company" => $request->get("company"),
+             "clear_password" => $request->get("password"),
+             "password" => bcrypt($request->get("password")),
+         ]);
+
+         $user->save();
+
+         return response()->json(["msg" => "ok"]);
+     }
 
     /**
      * Remove the specified resource from storage.

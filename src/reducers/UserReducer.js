@@ -6,7 +6,17 @@ import {
     GET_USER_ERROR,
     DECONNECT_USER,
     GET_USER_EVENTS_ERROR,
-    GET_USER_EVENTS_SUCCESS
+    GET_USER_EVENTS_SUCCESS,
+    GET_USERS_SUCCESS,
+    GET_USERS_ERROR,
+    ADD_OR_STORE_USER,
+    ADD_OR_STORE_USER_SUCCESS,
+    ADD_OR_STORE_USER_ERROR,
+    GET_JURY,
+    GET_JURY_SUCCESS,
+    GET_JURY_ERROR,
+    UPDATE_JURY_SUCCESS,
+    UPDATE_JURY_ERROR,
 } from '../actions/user';
 
 const INITIAL_STATE = {
@@ -15,6 +25,10 @@ const INITIAL_STATE = {
     user: null,
     loginPending: false,
     events: null,
+    users: null,
+    addOrStorePending: false,
+    jury: null,
+    getPending: null,
 };
 
 export default function( state = INITIAL_STATE, action ) {
@@ -63,6 +77,56 @@ export default function( state = INITIAL_STATE, action ) {
                 events: action.events
             }
         case GET_USER_EVENTS_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case GET_USERS_SUCCESS:
+            return {
+                ...state,
+                users: action.users
+            }
+        case GET_USERS_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case ADD_OR_STORE_USER:
+            return {
+                ...state,
+                addOrStorePending: action.pending
+            }
+        case ADD_OR_STORE_USER_SUCCESS:
+            return {
+                ...state,
+                addOrStorePending: action.pending
+            }
+        case ADD_OR_STORE_USER_ERROR:
+            return {
+                ...state,
+                error: action.error,
+                addOrStorePending: action.pending
+            }
+        case GET_JURY:
+            return {
+                ...state,
+                getPending: true,
+            }
+        case GET_JURY_SUCCESS:
+            return {
+                ...state,
+                jury: action.jury,
+                getPending: false,
+            }
+        case GET_JURY_ERROR:
+            return {
+                ...state,
+                error: action.error,
+                getPending: false,
+            }
+        case UPDATE_JURY_SUCCESS:
+            return state
+        case UPDATE_JURY_ERROR:
             return {
                 ...state,
                 error: action.error
