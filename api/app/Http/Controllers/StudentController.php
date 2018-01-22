@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Student;
+use App\Event;
+
+use Image;
+use File;
+
 class StudentController extends Controller
 {
     /**
@@ -13,7 +19,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Student::all());
     }
 
     /**
@@ -32,9 +38,34 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addOrStore(Request $request)
     {
-        //
+        $event = Event::find($request->get("event_id"));
+        $pictureName = "";
+
+        if( Student::where("email", $request->get("email"))->count() ){
+            $student = Student::where("email", $request->get("email"))->first();
+        }else {
+            if( $request->get("picture") != null ){
+                $uploadedImage = $request->file("picture");
+                $pictureName = $uploadedImage->getClientOriginalName();
+
+                $img = Image::make( $uploadedImage );
+                $img->fit(200)->save( public_path()."/img/students/".$pictureName );
+            }
+
+            $student = Student::create([
+                "name" => $request->get("name"),
+                "email" => $request->get("email"),
+                "photo" => $pictureName
+            ]);
+
+            $student->save();
+        }
+
+        $event->students()->attach($student);
+
+        return response()->json("ok");
     }
 
     /**
@@ -43,10 +74,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+     public function show(Student $student)
+     {
+         return response()->json($student);
+     }
 
     /**
      * Show the form for editing the specified resource.
@@ -66,10 +97,34 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function update( Request $request, Student $student ) {
+
+         if( $student->photo != null ){
+             File::delete( public_path()."/img/students/".$student->picture );
+         }
+         
+         if( $request->get("picture") != null){
+             $uploadedImage = $request->file("picture");
+             $pictureName = $uploadedImage->getClientOriginalName();
+
+             $img = Image::make( $uploadedImage );
+             $img->fit(200)->save( public_path()."/img/students/".$pictureName );
+
+             $student->update([
+                 "photo" => $pictureName
+             ]);
+         }
+
+         $student->update([
+             "name" => $request->get("name"),
+             "email" => $request->get("email")
+         ]);
+
+
+         $student->save();
+
+         return response()->json(["msg" => "ok"]);
+     }
 
     /**
      * Remove the specified resource from storage.

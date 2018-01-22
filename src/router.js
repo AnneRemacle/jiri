@@ -11,6 +11,8 @@ import EditEvent from './components/EditEvent';
 import ShowEvent from './components/ShowEvent';
 import AddProject from './components/AddProject';
 import EditProject from './components/EditProject';
+import AddStudent from './components/AddStudent';
+import EditStudent from './components/EditStudent';
 
 // build the router
 const router = (
@@ -23,7 +25,9 @@ const router = (
         <Route path="/editEvent/:id" component={EditEvent} />
         <Route path="/showEvent/:id" component={ShowEvent} />
         <Route path="/event/:id/manageProjects" component={AddProject} />
+        <Route path="/event/:id/manageStudents" component={AddStudent} />
         <Route path="/project/:id/edit" component={EditProject} />
+        <Route path="/student/:id/edit" component={EditStudent} />
     </Route>
   </Router>
 );

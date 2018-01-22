@@ -51,6 +51,7 @@ export default class EditProject extends Component {
     componentWillMount(){
         this.props.getProject(this.props.params.id);
         this.props.getEvent( this.props.event.id );
+        this.props.getProjects();
 
         if(sessionStorage.getItem("token") && !this.props.user){
             this.props.getUser(sessionStorage.getItem("token"));
@@ -95,7 +96,7 @@ export default class EditProject extends Component {
         }
         return(
             <section className="main">
-                <Link to="/" className="back">Retour au dashboard</Link>
+                <Link to={`event/${this.props.params.id}/manageProjects`} className="back">Retour au dashboard</Link>
 
                 <h2 className="section__title">Modifier le projet</h2>
 

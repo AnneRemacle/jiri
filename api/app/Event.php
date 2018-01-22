@@ -20,4 +20,8 @@ class Event extends Model
     public function projects(){
         return $this->belongsToMany("App\Project");
     }
+
+    public function students(){
+        return $this->belongsToMany("App\Student");
+    }
 }
