@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
     event: state.eventSelectors.event,
     eventStudents: state.eventSelectors.students,
     allStudents: state.studentSelectors.students,
-    student: state.eventSelectors.student
+    student: state.eventSelectors.student,
+    studentAddOrStorePending: state.studentSelectors.addOrStorePending
 });
 
 const mapActionsToProps = dispatch => ({
@@ -64,6 +65,19 @@ export default class AddStudent extends Component {
 
         if(!sessionStorage.getItem("token") && !this.props.user){
             history.push("/login");
+        }
+    }
+
+    componentWillReceiveProps(oNextProps){
+        if(!oNextProps.studentAddOrStorePending && oNextProps.studentAddOrStorePending != this.props.studentAddOrStorePending){
+            this.setState({
+                name: "",
+                email: "",
+                file: null,
+                imagePreviewUrl: null,
+            })
+
+            document.querySelector("#photo").value = null;
         }
     }
 
@@ -139,7 +153,7 @@ export default class AddStudent extends Component {
                 <form className="form form-regular" onSubmit={ this.handleSubmit.bind(this) } encType="multipart/form-data">
                     <div className="form-group">
                         <label htmlFor="email" className="form__label">Email</label>
-                        <input list="students" type="email" name="email" id="email" placeholder="jon@snow.be" className="form__input" onChange={this.handleStudentEmailChange.bind(this)}/>
+                        <input list="students" type="email" name="email" id="email" placeholder="jon@snow.be" className="form__input" onChange={this.handleStudentEmailChange.bind(this)} value={this.state.email}/>
                         <datalist id='students'>
                             {
                                 this.props.allStudents
@@ -150,7 +164,7 @@ export default class AddStudent extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="name" className="form__label">Nom</label>
-                        <input type="text" id='name' name="name" placeholder="Jon Snow" className="form__input" onChange={this.handleStudentNameChange.bind(this)} />
+                        <input type="text" id='name' name="name" placeholder="Jon Snow" className="form__input" onChange={this.handleStudentNameChange.bind(this)} value={this.state.name} />
                     </div>
                     <div className="form-group">
                         <label className="form__label form__label--file" htmlFor="photo">

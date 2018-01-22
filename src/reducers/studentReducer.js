@@ -6,13 +6,15 @@ import {
     GET_STUDENT_ERROR,
     GET_STUDENT_SUCCESS,
     UPDATE_STUDENT_SUCCESS,
-    UPDATE_STUDENT_ERROR
+    UPDATE_STUDENT_ERROR,
+    ADD_OR_STORE_STUDENT
 } from '../actions/student';
 
 const INITIAL_STATE = {
     error: null,
     students: null,
-    student: null
+    student: null,
+    addOrStorePending: false
 };
 
 export default function( state = INITIAL_STATE, action ) {
@@ -27,12 +29,21 @@ export default function( state = INITIAL_STATE, action ) {
                 ...state,
                 error: action.error
             }
+        case ADD_OR_STORE_STUDENT:
+            return {
+                ...state,
+                addOrStorePending: action.pending
+            }
         case ADD_OR_STORE_STUDENT_SUCCESS:
-            return state
+            return {
+                ...state,
+                addOrStorePending: action.pending
+            }
         case ADD_OR_STORE_STUDENT_ERROR:
             return {
                 ...state,
-                error: action.error
+                error: action.error,
+                addOrStorePending: action.pending
             }
         case GET_STUDENT_SUCCESS:
             return {

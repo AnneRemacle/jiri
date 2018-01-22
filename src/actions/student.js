@@ -1,7 +1,9 @@
 import axios from 'axios';
 import {history} from '../store';
+import * as eventActions from "./event";
 
 export const
+    ADD_OR_STORE_STUDENT = 'ADD_OR_STORE_STUDENT',
     ADD_OR_STORE_STUDENT_SUCCESS = 'ADD_OR_STORE_STUDENT_SUCCESS',
     ADD_OR_STORE_STUDENT_ERROR = 'ADD_OR_STORE_STUDENT_ERROR',
     GET_STUDENTS_SUCCESS = 'GET_STUDENTS_SUCCESS',
@@ -13,17 +15,23 @@ export const
 
 const ROOT_URL = 'http://localhost:8000/api';
 
-export function addOrStore(data) {
+export function addOrStore(data, event_id) {
     const request = axios.post(`${ROOT_URL}/students/addOrStore`, data, {headers: { 'content-type': 'multipart/form-data' }});
 
     return (dispatch) => {
+        dispatch({
+            type: ADD_OR_STORE_STUDENT,
+            pending: true,
+        })
+
         request.then( (response) => {
             dispatch({
                 type: ADD_OR_STORE_STUDENT_SUCCESS,
             })
+            dispatch(eventActions.getEventStudents(data.get("event_id")))
         } ).catch( (errors) => {
             dispatch({
-                type: ADD_OR_STORE_STUDENT_SUCCESS,
+                type: ADD_OR_STORE_STUDENT_ERROR,
                 errors: errors,
             })
         })
