@@ -1,0 +1,91 @@
+.nav {
+    &-second {
+        width: 100%;
+        margin: 1.5em auto;
+
+        &__link {
+            display: block;
+            width: 100%;
+            @include gradient;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            margin-bottom: 1.2em;
+            border-radius: 5px;
+
+            &:focus, &:hover {
+                @include dark-gradient;
+                transition: background-color .2s ease;
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 525px)  {
+    .nav {
+        &-second {
+            width: 90%;
+        }
+    }
+}
+
+@media screen and (min-width: 625px)  {
+    .nav {
+        &-second {
+            width: 70%;
+        }
+    }
+}
+
+@media screen and (min-width: 768px)  {
+    .nav {
+        &-second {
+            width: 90%;
+
+            &__link {
+                display: inline-block;
+                width: 45%;
+
+                &:nth-child(even) {
+                    margin-right: 5%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 981px)  {
+    .nav {
+        &-second {
+            width: 80%;
+
+        }
+    }
+}
+@media screen and (min-width: 1024px)  {
+    .nav {
+        &-second {
+            width: 75%;
+
+        }
+    }
+}
+
+@media screen and (min-width: 1540px)  {
+    .nav {
+        &-second {
+            width: 100%;
+            &__link {
+                width: 22%;
+
+                &:nth-child(even) {
+                    margin-right: 3%;
+                    margin-left: 3%;
+                }
+            }
+
+        }
+    }
+}
