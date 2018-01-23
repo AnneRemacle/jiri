@@ -1,0 +1,19 @@
+ $textColor: #260205;
+$lightColor: #80DDE2;
+$middleColor: #169775;
+
+@mixin gradient {
+  background: $middleColor;
+  background: -webkit-linear-gradient(to bottom left, $middleColor , $lightColor); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(to top right, $middleColor, $lightColor); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(to top right, $middleColor, $lightColor); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top right, $middleColor , $lightColor); /* Standard syntax */
+ }
+
+.gradient {
+   background: $middleColor;
+   background: -webkit-linear-gradient(to bottom left, $middleColor , $lightColor); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(to top right, $middleColor, $lightColor); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(to top right, $middleColor, $lightColor); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(to top right, $middleColor , $lightColor); /* Standard syntax */
+  }

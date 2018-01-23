@@ -1,0 +1,44 @@
+ .hidden {
+     display: none;
+ }
+
+.hidden-link {
+    text-decoration: none;
+    color: $textColor;
+    cursor: pointer;
+}
+
+ .sro {
+     position: absolute;
+     top: -99999px;
+     left: -99999px;
+ }
+
+ .clearfix:before,
+ .clearfix:after {
+     content: " "; /* 1 */
+     display: table; /* 2 */
+ }
+
+ .clearfix:after {
+     clear: both;
+ }
+
+ .center {
+     text-align: center;
+ }
+
+ .text-alone {
+     padding: 1.875em 9.375%;
+     font-size: 1.1em;
+     vertical-align: middle;
+     position: relative;
+ }
+
+ .block {
+     display: block;
+ }
+
+ .light {
+     font-weight: lighter;
+ }
