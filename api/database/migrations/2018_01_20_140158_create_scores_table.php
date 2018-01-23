@@ -15,8 +15,8 @@ class CreateScoresTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('meeting_id');
-            $table->integer('implementation_id');
+            $table->integer('meeting_id')->nullable();
+            $table->integer('implementation_id')->nullable();
             $table->smallInteger('score');
             $table->text('comment');
             $table->softDeletes();

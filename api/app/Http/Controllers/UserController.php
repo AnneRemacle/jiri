@@ -7,6 +7,7 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 use App\Event;
+use App\Student;
 use Image;
 use Hash;
 
@@ -177,5 +178,9 @@ class UserController extends Controller
 
     public function getUserEvents(User $user){
         return response()->json($user->events);
+    }
+
+    public function getMeetings(User $user, Event $event){
+        return response()->json($user->meetings()->where("event_id", $event->id)->with("student")->get());
     }
 }

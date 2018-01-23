@@ -21,4 +21,12 @@ class Student extends Model
     public function implementations(){
         return $this->hasMany("App\Implementation");
     }
+
+    public function meetings(){
+        return $this->hasMany("App\Meeting");
+    }
+
+    public function performances(){
+        return $this->hasMany("App\Performance");
+    }
 }

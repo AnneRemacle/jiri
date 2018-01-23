@@ -49,7 +49,7 @@ class EventController extends Controller
         $event->user()->associate($request->get("user_id"));
         $event->save();
 
-        return response()->json("ok");
+        return response()->json($event->id);
     }
 
     /**
@@ -86,7 +86,8 @@ class EventController extends Controller
     }
 
     public function projects(Event $event){
-        return response()->json($event->projects);
+        $projects = $event->projects()->orderBy("name")->get();
+        return response()->json($projects);
     }
 
     public function removeProject( Event $event, Project $project ) {
@@ -102,7 +103,24 @@ class EventController extends Controller
     }
 
     public function students(Event $event){
-        return response()->json($event->students);
+        return response()->json($event
+            ->students()
+            ->with(
+                [
+                    'meetings' => function ($q) use ($event){
+                        $q->where("event_id", $event->id);
+                    },
+                    'meetings.scores' => function ($q) use ($event){
+                        $q->orderBy("implementation_id","ASC");
+                    },
+                    'meetings.user',
+                    'performances' => function ($q) use ($event){
+                        $q->where("event_id", $event->id);    
+                    },
+                    'meetings.scores.implementation',
+                    'meetings.scores.implementation.project'
+                ]
+            )->get());
     }
 
     public function removeStudent( Event $event, Student $student ) {
@@ -126,5 +144,11 @@ class EventController extends Controller
         $event->save();
 
         return response()->json("ok");
+    }
+
+    public function currentEvent(Request $request) {
+        $event = Event::orderBy("created_at", "DESC")->first();
+
+        return response()->json($event);
     }
 }

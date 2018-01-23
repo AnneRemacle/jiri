@@ -16,7 +16,7 @@ class Implementation extends Model
      */
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ["url_repo", "url_project"];
+    protected $fillable = ["url_repo", "url_project","weight"];
 
     public function project(){
         return $this->belongsTo("App\Project");
@@ -28,5 +28,9 @@ class Implementation extends Model
 
     public function student(){
         return $this->belongsTo("App\Student");
+    }
+
+    public function scores(){
+        return $this->hasMany("App\Score");
     }
 }

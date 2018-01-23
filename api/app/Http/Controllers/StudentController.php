@@ -8,6 +8,7 @@ use App\Student;
 use App\Event;
 use App\Implementation;
 use App\Performance;
+use App\Meeting;
 
 use Image;
 use File;
@@ -153,7 +154,8 @@ class StudentController extends Controller
 
              $implementation->update([
                  "url_repo" => $project->githubUrl,
-                 "url_project" => $project->siteUrl
+                 "url_project" => $project->siteUrl,
+                 "weight" => floatval($project->weight)
              ]);
 
              $implementation->save();
@@ -171,5 +173,15 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getImplementations(Student $student, Event $event, Meeting $meeting){
+        return response()->json($student->implementations()->where("event_id", $event->id)
+                                        ->with([
+                                            "project",
+                                            "scores" => function ($q) use ($meeting){
+                                                $q->where("meeting_id", $meeting->id);
+                                            }
+                                        ])->get());
     }
 }

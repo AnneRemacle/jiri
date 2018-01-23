@@ -15,4 +15,22 @@ class Meeting extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    protected $fillable = ["general_evaluation"];
+
+    public function user(){
+        return $this->belongsTo("App\User");
+    }
+
+    public function scores(){
+        return $this->hasMany("App\Score");
+    }
+
+    public function student(){
+        return $this->belongsTo("App\Student");
+    }
+
+    public function event(){
+        return $this->belongsTo("App\Event");
+    }
 }

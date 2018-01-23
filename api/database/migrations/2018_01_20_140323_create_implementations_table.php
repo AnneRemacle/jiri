@@ -20,7 +20,7 @@ class CreateImplementationsTable extends Migration
             $table->integer('event_id')->nullable();
             $table->string('url_repo')->default("");
             $table->string('url_project')->default("");
-            $table->tinyInteger('weight')->default(1);
+            $table->float('weight')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

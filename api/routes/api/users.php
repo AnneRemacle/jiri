@@ -34,4 +34,9 @@
             "as" => "users.update",
             "uses" => "UserController@update"
         ]);
+
+        Route::get("/{user}/meetings/{event}", [
+            "as" => "users.studentsInMeeting",
+            "uses" => "UserController@getMeetings"
+        ]);
     });

@@ -16,6 +16,8 @@ class Performance extends Model
      */
     protected $dates = ['deleted_at'];
 
+    protected $fillable = ["calculated_score"];
+
     public function event(){
         return $this->belongsTo("App\Event");
     }

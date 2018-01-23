@@ -15,4 +15,14 @@ class Score extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    protected $fillable = ["score","comment"];
+
+    public function meeting(){
+        return $this->belongsTo("App\Meeting");
+    }
+
+    public function implementation(){
+        return $this->belongsTo("App\Implementation");
+    }
 }

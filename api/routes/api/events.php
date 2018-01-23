@@ -49,4 +49,9 @@
             "as" => "events.removeJury",
             "uses" => "EventController@removeJury"
         ]);
+
+        Route::get("/currentEvent", [
+            "as" => "events.currentEvent",
+            "uses" => "EventController@currentEvent"
+        ]);
     });
