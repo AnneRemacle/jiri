@@ -1,0 +1,133 @@
+.header {
+    margin-bottom: 5em;
+    color: white;
+    margin-top: 1em;
+    .bg {
+        padding-bottom: 10em;
+        height: 10em;
+        border-radius: 80%;
+        width: 150%;
+        position: absolute;
+        left: -25%;
+        top: -1.5em;
+        @include gradient;
+        z-index: -1;
+    }
+
+    &__title {
+        font-size: $titlexl;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 6.25%;
+        a {
+            color: white;
+
+            &:focus, &:hover {
+                color: rgba(white, 0.8);
+                transition: color .2s ease;
+                text-decoration: none;
+            }
+        }
+    }
+    &__menu {
+        display: none;
+    }
+}
+
+.user {
+    position: relative;
+    float: right;
+    right: 6.25%;
+    top: 1.2em;
+    text-align: right;
+
+    &__name {
+        padding-bottom: 3em;
+        color: white;
+
+        &:focus, &:hover {
+            color: rgba(white, 0.8);
+            transition: color .2s ease;
+            text-decoration: none;
+
+            .user__logout{
+                display: block;
+
+                &:hover {
+                    background: rgba(white, 0.8);
+                    color: $middleColor;
+                    transition: all .2s ease;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+
+    &__logout {
+        display: none;
+        position: absolute;
+        background: white;
+        top: 2em;
+        right: 0;
+        text-decoration: none;
+        color: $textColor;
+        text-align: center;
+        padding: .5em;
+        border: none;
+        border-radius: 10px;
+
+        &:focus, &:hover {
+            color: rgba(white, 0.8);
+            transition: color .2s ease;
+            text-decoration: none;
+        }
+    }
+}
+
+@media screen and (min-width:625px) {
+    .header {
+        margin-bottom: 6em;
+        .bg {
+            padding-bottom: 11em;
+        }
+    }
+}
+
+@media screen and (min-width:868px) {
+    .user {
+        top: 1em;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    .header {
+        margin-bottom: 7em;
+        .bg {
+            padding-bottom: 12em;
+        }
+    }
+}
+
+@media screen and (min-width:1740px) {
+    .header {
+        margin-top: 1.5em;
+    }
+    .user {
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (min-width:2000px) {
+    .header {
+        margin-bottom: 8em;
+        .bg {
+            height: 14em;
+            padding-bottom: 13em;
+            top: -2em;
+        }
+    }
+    .user {
+        font-size: 1.2em;
+    }
+}
