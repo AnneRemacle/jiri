@@ -1,0 +1,20 @@
+// 1. Settings - Variables globales
+
+@import "../stylesheets/settings/colors";
+@import "../stylesheets/settings/fonts";
+
+// 2. Tools - Mixins globaux, functions & outils
+@import "../stylesheets/tools/utils";
+
+// 3. Generic - Style de remise à zéro (reset, normalize…)
+@import "../stylesheets/generic/meyer-reset";
+@import "../stylesheets/generic/box-sizing";
+
+// 4. Base - Éléments bruts
+@import "../stylesheets/base/root";
+
+// 5. Components - Design des composants, morceaux d'UI
+@import "../stylesheets/components/section";
+@import "../stylesheets/components/form";
+@import "../stylesheets/components/button";
+@import "../stylesheets/components/header";

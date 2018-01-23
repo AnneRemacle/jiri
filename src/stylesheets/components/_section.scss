@@ -1,0 +1,24 @@
+.colored {
+    @include gradient;
+    height: 100vh;
+}
+
+.main {
+    &__title {
+        color: white;
+        font-size: $title;
+        padding-top: .5em;
+        padding-left: 6.25%;
+    }
+    &__intro {
+        margin: 1.5em 0;
+    }
+}
+
+@media screen and(min-width:2000px) {
+    .main {
+        &__title {
+            font-size: $titlexxl;
+        }
+    }
+}

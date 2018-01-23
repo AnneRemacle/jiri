@@ -1,0 +1,18 @@
+.button {
+    text-decoration: none;
+    color: $textColor;
+    text-align: center;
+    padding: .8em 2em;
+    display: block;
+    border: none;
+    border-radius: 10px;
+
+    &:focus, &:hover {
+        color: $middleColor;
+        background: rgba(white, 0.9);
+    }
+
+    &__reverse {
+        background: white;
+    }
+}
