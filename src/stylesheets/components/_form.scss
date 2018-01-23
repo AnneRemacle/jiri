@@ -38,6 +38,53 @@
     }
 }
 
+.form{
+    &-regular {
+        width: 100%;
+        margin: 2em auto;
+        .form {
+            &-group {
+                position: relative;
+
+                > i {
+                    position: absolute;
+                    top: 3em;
+                    right: 4%;
+                }
+            }
+            &__input {
+                border: 1px solid #666;
+
+                &:focus, &:active {
+                    border: 1px solid $middleColor;
+                }
+            }
+            &__select {
+                border: 1px solid #666;
+                background: white;
+                width: 100%;
+                height: 2.812em;
+
+                &:focus, &:active {
+                    outline: none;
+                    border: 1px solid $middleColor;
+                }
+            }
+            &__button {
+                @include gradient;
+                width: 90%;
+                color: white;
+
+                &:hover, &:focus {
+                    @include dark-gradient;
+                    transition: all .2s ease;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
 @media screen and (min-width:425px) {
     .form {
         &-container {
@@ -60,6 +107,16 @@
             width: 55%;
         }
     }
+    .form{
+        &-regular {
+            width: 90%;
+            .form {
+                &__button {
+                    width: 70%;
+                }
+            }
+        }
+    }
 }
 
 @media screen and (min-width:768px) {
@@ -68,12 +125,34 @@
             width: 50%;
         }
     }
+
+    .form{
+        &-regular {
+            width: 75%;
+            .form {
+                &__button {
+                    width: 60%;
+                }
+            }
+        }
+    }
 }
 
 @media screen and (min-width:868px) {
     .form {
         &-container {
             width: 45%;
+        }
+    }
+
+    .form{
+        &-regular {
+            width: 60%;
+            .form {
+                &__button {
+                    width: 55%;
+                }
+            }
         }
     }
 }
@@ -92,6 +171,12 @@
             width: 35%;
         }
     }
+
+    .form{
+        &-regular {
+            width: 50%;
+        }
+    }
 }
 
 
@@ -99,6 +184,12 @@
     .form {
         &-container {
             width: 30%;
+        }
+    }
+
+    .form{
+        &-regular {
+            width: 45%;
         }
     }
 }
@@ -131,6 +222,12 @@
     .form {
         &-container {
             max-width: 20%;
+        }
+    }
+
+    .form{
+        &-regular {
+            max-width: 40%;
         }
     }
 }
