@@ -5,6 +5,7 @@ import { history } from '../store';
 import * as userActions from '../actions/user';
 
 import AdminDashboard from './AdminDashboard';
+import GuestDashboard from './GuestDashboard';
 
 const EMPTY_ERRORS = {
     email: [],
@@ -59,6 +60,12 @@ export default class Dashboard extends Component {
         if(this.props.user.is_admin){
             return (
                 <AdminDashboard user={this.props.user} />
+            );
+        }
+
+        if(!this.props.user.is_admin){
+            return (
+                <GuestDashboard user={this.props.user} />
             );
         }
 

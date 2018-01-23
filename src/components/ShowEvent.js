@@ -43,18 +43,22 @@ export default class ShowEvent extends Component {
             );
         }
         return(
-            <section className="main">
+            <section className="section">
+                <Link className="back" to="my/events"><i className="fa fa-caret-left"></i>Mes événements</Link>
                 <h2 className="section__title">{event.course_name}</h2>
+                <nav className="nav-second">
+                    <h3 className="sro">Options disponibles</h3>
+                    <Link to={`/event/${event.id}/manageProjects`} className="nav-second__link">Gérer les projets</Link>
+                    { this.props.eventProjects ?
+                        <Link to={`/event/${event.id}/manageStudents`} className="nav-second__link">Gérer les étudiants</Link>
+                        : ""
+                     }
+                     { this.props.eventStudents ?
+                         <Link to={`/event/${event.id}/manageJurys`} className="nav-second__link">Gérer les jurys</Link>
+                         : ""
+                      }
+                </nav>
 
-                <Link to={`/event/${event.id}/manageProjects`} className="button">Gérer les projets</Link>
-                { this.props.eventProjects ?
-                    <Link to={`/event/${event.id}/manageStudents`} className="button">Gérer les étudiants</Link>
-                    : ""
-                 }
-                 { this.props.eventStudents ?
-                     <Link to={`/event/${event.id}/manageJurys`} className="button">Gérer les jurys</Link>
-                     : ""
-                  }
             </section>
         );
     }

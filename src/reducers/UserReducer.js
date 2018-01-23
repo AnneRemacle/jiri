@@ -17,6 +17,8 @@ import {
     GET_JURY_ERROR,
     UPDATE_JURY_SUCCESS,
     UPDATE_JURY_ERROR,
+    GET_MEETINGS_SUCCESS,
+    GET_MEETINGS_ERROR,
 } from '../actions/user';
 
 const INITIAL_STATE = {
@@ -28,7 +30,8 @@ const INITIAL_STATE = {
     users: null,
     addOrStorePending: false,
     jury: null,
-    getPending: null,
+    meetings: null,
+    implementations: null,
 };
 
 export default function( state = INITIAL_STATE, action ) {
@@ -127,6 +130,16 @@ export default function( state = INITIAL_STATE, action ) {
         case UPDATE_JURY_SUCCESS:
             return state
         case UPDATE_JURY_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case GET_MEETINGS_SUCCESS:
+            return {
+                ...state,
+                meetings: action.meetings
+            }
+        case GET_MEETINGS_ERROR:
             return {
                 ...state,
                 error: action.error

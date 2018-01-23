@@ -41,23 +41,27 @@ export default class Header extends Component {
 
         return(
             <header className="header">
+            <div className="bg"></div>
                 <h1 className="header__title">
                     <Link to="/" title="Retour à l'accueil">Jiri</Link>
                 </h1>
 
                 { user.is_admin ?
-                    <nav className="menu">
+                    <nav className="header__menu">
                         <h2 className="sro">Navigation</h2>
                         <a href="" className="nav__link">Étudiants</a>
                         <a href="" className="nav__link">Jurys</a>
                         <a href="" className="nav__link">Projets</a>
                     </nav>
                 : "" }
-                
-                <div className="user">
-                    {user.name} <i className="fa fa-caret-down"></i>
 
-                    <a href="#" className="user__logout button" onClick={this.handleLogout.bind(this)}>Déconnexion</a>
+                <div className="user">
+                    <button tabIndex="1" className="user__name">
+                        {user.name} <i className="fa fa-caret-down"></i>
+
+                        <a href="#" tabIndex="2" className="user__logout" onClick={this.handleLogout.bind(this)}>Déconnexion</a>
+                    </button>
+
                 </div>
             </header>
         );

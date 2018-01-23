@@ -16,6 +16,9 @@ import EditStudent from './components/EditStudent';
 import AddJury from './components/AddJury';
 import EditJury from './components/EditJury';
 import ManageStudent from './components/ManageStudent';
+import CurrentEvent from './components/CurrentEvent';
+import StudentsList from './components/StudentsList';
+import EditMeeting from './components/EditMeeting';
 
 // build the router
 const router = (
@@ -34,6 +37,9 @@ const router = (
         <Route path="/project/:id/edit" component={EditProject} />
         <Route path="/student/:id/edit" component={EditStudent} />
         <Route path="/jury/:id/edit" component={EditJury} />
+        <Route path="/currentEvent" component={CurrentEvent} />
+        <Route path="/currentEvent/students" component={StudentsList} />
+        <Route path="/editMeeting/:id" component={EditMeeting} />
     </Route>
   </Router>
 );

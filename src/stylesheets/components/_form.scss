@@ -35,6 +35,7 @@
         width: 50%;
         margin: 1em auto;
         display: block;
+        padding: .8em 0;
     }
 }
 
@@ -42,6 +43,13 @@
     &-regular {
         width: 100%;
         margin: 2em auto;
+
+        > .item {
+            width: 100%;
+            &:nth-child(even) {
+                margin-left: 0;
+            }
+        }
         .form {
             &-group {
                 position: relative;
@@ -70,16 +78,40 @@
                     border: 1px solid $middleColor;
                 }
             }
+            &__area {
+                border: 1px solid #666;
+                resize: none;
+                font-size: 1em;
+                border-radius: 10px;
+                width: 100%;
+                padding: 10px;
+
+                &:focus, &:active {
+                    outline: none;
+                    border: 1px solid $middleColor;
+                }
+            }
             &__button {
                 @include gradient;
                 width: 90%;
                 color: white;
+                padding: .8em 0;
 
                 &:hover, &:focus {
                     @include dark-gradient;
                     transition: all .2s ease;
                     color: white;
                 }
+            }
+        }
+
+        .edit-avatar {
+            width: 10em;
+            height: 10em;
+            margin: 0 auto;
+
+            img {
+                width: 100%;
             }
         }
     }

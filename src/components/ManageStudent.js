@@ -62,33 +62,21 @@ export default class ManageStudent extends Component {
     }
 
     componentWillReceiveProps(oNextProps){
-        let projects = {};
-        if(oNextProps.projects && oNextProps.projects != this.props.projects){
-            oNextProps.projects.map( project =>
-                projects[project.id] = {
-                    "githubUrl": "",
-                    "siteUrl": ""
-                }
-            )
-
-            this.setState({
-                projectsUrls: {
-                    ...projects
-                }
-            })
-        }
+        let projects = {},
+            results = {};
 
         if(oNextProps.implementations && oNextProps.implementations != this.props.implementations){
-            oNextProps.implementations.map( implementation =>
-                projects[implementation.project_id] = {
-                    "githubUrl": implementation.url_repo,
-                    "siteUrl": implementation.url_project
+            Object.entries(oNextProps.implementations).map( implementation =>
+                results[implementation[1].project_id] = {
+                    "githubUrl": implementation[1].url_repo,
+                    "siteUrl": implementation[1].url_project,
+                    "weight": implementation[1].weight,
                 }
             );
 
             this.setState({
                 projectsUrls: {
-                    ...projects
+                    ...results
                 }
             })
         }
@@ -97,6 +85,8 @@ export default class ManageStudent extends Component {
     handleSubmit(e){
         e.preventDefault();
         let data = this.state.projectsUrls;
+
+        console.warn(data);
 
         this.props.updateImplementations(data, this.props.student.id, this.props.event.id);
     }
@@ -133,11 +123,27 @@ export default class ManageStudent extends Component {
         })
     }
 
+    handleWeightChange(e){
+        let results = {};
+
+        results[e.target.dataset.project] = {
+            ...this.state.projectsUrls[e.target.dataset.project],
+            weight: e.target.value
+        }
+
+        this.setState({
+            projectsUrls: {
+                ...this.state.projectsUrls,
+                ...results
+            }
+        })
+    }
+
     renderProjectsForm(){
         return (
             this.props.projects.map( project =>
-                <div className="form-item" key={project.id}>
-                    <p>{project.name}</p>
+                <section className="form-item item" key={project.id}>
+                    <h3 className="item__name">{project.name}</h3>
                     <div className="form-group">
                         <label htmlFor="github" className="form__label">Repo Github</label>
                         <input value={this.state.projectsUrls[project.id] ? this.state.projectsUrls[project.id].githubUrl : ""} type="text" name="github" id="github" className="form__input" data-project={project.id} onChange={this.handleGithubUrlChange.bind(this)}/>
@@ -146,7 +152,11 @@ export default class ManageStudent extends Component {
                         <label htmlFor="site" className="form__label">Url Site</label>
                         <input value={this.state.projectsUrls[project.id] ? this.state.projectsUrls[project.id].siteUrl : ""} type="text" name="site" id="site" className="form__input" data-project={project.id} onChange={this.handleSiteUrlChange.bind(this)}/>
                     </div>
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="weight" className="form__label">Pondération</label>
+                        <input value={this.state.projectsUrls[project.id] ? this.state.projectsUrls[project.id].weight : ""} type="number" name="weight" id="weight" className="form__input" data-project={project.id} onChange={this.handleWeightChange.bind(this)}/>
+                    </div>
+                </section>
             )
         )
     }
@@ -159,22 +169,21 @@ export default class ManageStudent extends Component {
         }
 
         return(
-            <section className="main">
-                <Link to={`/showEvent/${this.props.params.event_id}`}>Retour</Link>
-                <h2 className="section__title">etudiant</h2>
+            <section className="section">
+                <Link className='back' to={`/event/${this.props.params.event_id}/manageStudents`}><i className="fa fa-caret-left"></i>Retour</Link>
                 {
                     this.props.student
-                    ? <h3>{this.props.student.name}</h3>
+                    ? <h2 className="section__title">{this.props.student.name}</h2>
                     : <p>Pas d'étudiant</p>
                 }
-                <form onSubmit={this.handleSubmit.bind(this)}>
+                <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
                     {
                         this.props.projects
                         ? this.renderProjectsForm()
                         : <p>Pas de projet</p>
                     }
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Enregistrer'/>
+                        <input type="submit" className="form__button button" value='Enregistrer'/>
                     </div>
                 </form>
             </section>

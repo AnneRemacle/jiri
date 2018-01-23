@@ -20,9 +20,11 @@ export const
     GET_JURY_SUCCESS = 'GET_JURY_SUCCESS',
     GET_JURY_ERROR = 'GET_JURY_ERROR',
     UPDATE_JURY_SUCCESS = 'UPDATE_JURY_SUCCESS',
-    UPDATE_JURY_ERROR = 'UPDATE_JURY_ERROR';
+    UPDATE_JURY_ERROR = 'UPDATE_JURY_ERROR',
+    GET_MEETINGS_ERROR = 'GET_MEETINGS_ERROR',
+    GET_MEETINGS_SUCCESS = 'GET_MEETINGS_SUCCESS';
 
-const ROOT_URL = 'http://localhost:8000/api';
+const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function userConnect( email, password ) {
     const getTokenRequest = axios.get( `${ROOT_URL}/user/authenticate?email=${email}&password=${password}` );
@@ -170,7 +172,25 @@ export function editJury(data, user_id){
         } ).catch( (errors) => {
             dispatch({
                 type: UPDATE_JURY_ERROR,
-                errors: errors,
+                error: errors,
+            })
+        })
+    }
+}
+
+export function getMeetings(event_id, user_id){
+    const request = axios.get(`${ROOT_URL}/user/${user_id}/meetings/${event_id}`);
+
+    return (dispatch) => {
+        request.then((response) => {
+            dispatch({
+                type: GET_MEETINGS_SUCCESS,
+                meetings: response.data
+            })
+        }).catch( (errors) => {
+            dispatch({
+                type: GET_MEETINGS_ERROR,
+                error: errors
             })
         })
     }

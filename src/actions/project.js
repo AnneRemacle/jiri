@@ -12,7 +12,7 @@ export const
     GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS',
     GET_PROJECT_ERROR = 'GET_PROJECT_ERROR';
 
-const ROOT_URL = 'http://localhost:8000/api';
+const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function getProjects() {
     const request = axios.get( `${ROOT_URL}/projects`);

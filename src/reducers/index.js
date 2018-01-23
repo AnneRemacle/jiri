@@ -5,6 +5,7 @@ import userReducer from './userReducer';
 import eventReducer from './eventReducer';
 import projectReducer from './projectReducer';
 import studentReducer from './studentReducer';
+import meetingReducer from './meetingReducer';
 
 // main reducers
 export const reducers = combineReducers({
@@ -13,4 +14,5 @@ export const reducers = combineReducers({
   eventSelectors: eventReducer,
   projectSelectors: projectReducer,
   studentSelectors: studentReducer,
+  meetingSelectors: meetingReducer
 });

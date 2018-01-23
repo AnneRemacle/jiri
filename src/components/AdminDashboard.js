@@ -34,7 +34,7 @@ export default class AdminDashboard extends Component {
         }
 
         return(
-            <section className="main">
+            <section className="section">
                 <h2 className="section__title">
                     Bonjour, {user.name}
                     <span className="section__title--small">Que voulez-vous faire?</span>
@@ -43,7 +43,7 @@ export default class AdminDashboard extends Component {
                 <nav className="nav-second">
                     <h3 className="sro">Navigation secondaire</h3>
                     <Link to="/createEvent" className="nav-second__link">Créer un événement</Link>
-                    <Link to="" className="nav-second__link">Voir l'événement en cours</Link>
+                    <Link to="/currentEvent" className="nav-second__link">Voir l'événement en cours</Link>
                     <Link to="/my/events" className="nav-second__link">Événements que j'organise</Link>
                     <Link to="" className="nav-second__link">Événements passés</Link>
                 </nav>

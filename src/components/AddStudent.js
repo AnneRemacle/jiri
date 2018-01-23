@@ -145,8 +145,8 @@ export default class AddStudent extends Component {
         }
 
         return(
-            <section className="main">
-                <Link  to={ `showEvent/${this.props.params.id}` } className="back">Retour à l'événement</Link>
+            <section className="section">
+                <Link  to={ `showEvent/${this.props.params.id}` } className="back"><i className="fa fa-caret-left"></i>Retour à l'événement</Link>
 
                 <h2 className="section__title">Ajouter un étudiant à {this.props.event.course_name}</h2>
 
@@ -175,24 +175,24 @@ export default class AddStudent extends Component {
                         <input className="hidden" type="file" name="photo" id="photo" onChange={ this.handlePictureChange.bind(this) }/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Ajouter'/>
+                        <input type="submit" className="form__button button" value='Ajouter'/>
                     </div>
                 </form>
                 <section className="sub-section">
-                    <h3>Étudiant(s) ajoutés à {this.props.event.course_name}</h3>
-                    <ul>
-                        {
-                            this.props.eventStudents
-                            ? this.props.eventStudents.map( student =>
-                                <li key={student.id}>
-                                    {student.name}
-                                    <Link to={`event/${this.props.event.id}/manageStudent/${student.id}`}>Gérer</Link> - 
-                                    <Link to={`student/${student.id}/edit`}>Modifier</Link> - <a href="#" onClick={this.handleDeleteClick.bind(this)} data-student={student.id}>Supprimer</a>
-                                </li>
-                            )
-                            : <p>Il n'y a pas encore d'étudiants pour cet événement</p>
-                        }
-                    </ul>
+                    <h3 className="sub-section__title">Étudiant(s) ajoutés à {this.props.event.course_name}</h3>
+                    {
+                        this.props.eventStudents
+                        ? this.props.eventStudents.map( student =>
+                            <div className="item" key={student.id}>
+                                <span className="item__name">{student.name}</span>
+                                <Link to={`event/${this.props.event.id}/manageStudent/${student.id}`}>Encoder les urls</Link>
+                                <Link className="buttons edit-button" to={`student/${student.id}/edit`} title={`modifier la fiche de ${student.name}`}>
+                                <i className="fa fa-pencil"></i></Link>
+                                <a className="buttons delete-button" href="#" onClick={this.handleDeleteClick.bind(this)} data-student={student.id} title={`supprimer ${student.name} de l’événement`}><i data-student={student.id} className="fa fa-trash"></i></a>
+                            </div>
+                        )
+                        : <p>Il n'y a pas encore d'étudiants pour cet événement</p>
+                    }
                 </section>
             </section>
         );

@@ -149,8 +149,8 @@ export default class EditJury extends Component {
         }
 
         return(
-            <section className="main">
-                <Link  to="" className="back">Retour à l'événement</Link>
+            <section className="section">
+                <Link to={`event/${this.props.event.id}/manageJurys`} className="back"><i className="fa fa-caret-left"></i>Retour aux jurys</Link>
 
                 <h2 className="section__title">Modifier le jury</h2>
 
@@ -187,7 +187,7 @@ export default class EditJury extends Component {
                         <input value={this.state.password} type="text" id='password' name="password" className="form__input" onChange={this.handleJuryPasswordChange.bind(this)} />
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Enregistrer'/>
+                        <input type="submit" className="form__button button" value='Enregistrer'/>
                     </div>
                 </form>
 

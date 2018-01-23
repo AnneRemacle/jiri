@@ -1,7 +1,9 @@
 .header {
-    margin-bottom: 5em;
     color: white;
-    margin-top: 1em;
+    width: 100%;
+    position: relative;
+    height: 10em;
+    overflow:hidden;
     .bg {
         padding-bottom: 10em;
         height: 10em;
@@ -19,6 +21,7 @@
         display: inline-block;
         vertical-align: middle;
         margin-left: 6.25%;
+        margin-top: .6em;
         a {
             color: white;
 
@@ -38,7 +41,7 @@
     position: relative;
     float: right;
     right: 6.25%;
-    top: 1.2em;
+    top: 2em;
     text-align: right;
 
     &__name {
@@ -89,7 +92,7 @@
 
 @media screen and (min-width:625px) {
     .header {
-        margin-bottom: 6em;
+        height: 11em;
         .bg {
             padding-bottom: 11em;
         }
@@ -104,7 +107,7 @@
 
 @media screen and (min-width:1440px) {
     .header {
-        margin-bottom: 8em;
+        height: 12em;
         .bg {
             padding-bottom: 12em;
         }
@@ -112,9 +115,7 @@
 }
 
 @media screen and (min-width:1740px) {
-    .header {
-        margin-top: 1.5em;
-    }
+
     .user {
         font-size: 1.1em;
     }
@@ -122,7 +123,7 @@
 
 @media screen and (min-width:2000px) {
     .header {
-        margin-bottom: 10em;
+        height: 13em;
         .bg {
             height: 14em;
             padding-bottom: 13em;

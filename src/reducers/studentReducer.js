@@ -19,7 +19,7 @@ const INITIAL_STATE = {
     student: null,
     addOrStorePending: false,
     getPending: false,
-    implementations: null
+    implementations: null,
 };
 
 export default function( state = INITIAL_STATE, action ) {
@@ -73,6 +73,16 @@ export default function( state = INITIAL_STATE, action ) {
                 student: action.student
             }
         case UPDATE_STUDENT_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+        case GET_IMPLEMENTATIONS_SUCCESS:
+            return {
+                ...state,
+                implementations: action.implementations
+            }
+        case GET_IMPLEMENTATIONS_ERROR:
             return {
                 ...state,
                 error: action.error

@@ -62,21 +62,23 @@ export default class AdminDashboard extends Component {
         }
 
         return(
-            <section className="main">
-                <Link to={"/"}>Retour au dashboard</Link>
-                { this.props.events
-                    ? this.props.events.map( event =>
-                        <div key={event.id}>
-                            <p>Nom: <Link to={`/showEvent/${event.id}`}>{event.course_name}</Link></p>
-                            <p>Année académique: {event.academic_year}</p>
-                            <p>Session: {event.exam_session}</p>
-                            <Link to={"/editEvent/"+event.id}>Modifier</Link>
-                             -
-                            <a href="#" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}>Supprimer</a>
-                        </div>
-                      )
-                    : <p>Pas encore d'évènements</p>
-                }
+            <section className="section">
+                <Link className="back" to={"/"}><i className="fa fa-caret-left"></i> Retour au dashboard</Link>
+                <h2 className="section__title">Mes événements</h2>
+                <div className="list">
+                    { this.props.events
+                        ? this.props.events.map( event =>
+                            <div key={event.id} className="item">
+                                <Link className="item__name" to={`/showEvent/${event.id}`}>{event.course_name}</Link>
+                                <p>Année académique: {event.academic_year}</p>
+                                <p>Session: {event.exam_session}</p>
+                                <Link className="edit-button buttons" to={"/editEvent/"+event.id} title={`modifier ${event.course_name}`}><i className="fa fa-pencil"></i></Link>
+                                <a href="#" className="delete-button buttons" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}><i className="fa fa-trash"></i></a>
+                            </div>
+                          )
+                        : <p>Vous n'avez pas encore créé d'événement</p>
+                    }
+                </div>
             </section>
         );
     }

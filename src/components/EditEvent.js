@@ -105,9 +105,9 @@ export default class EditEvent extends Component {
         }
 
         return(
-            <section className="main">
-                <Link to='/' className="back">Retour au dashboard</Link>
-                <h2 className="section__title">Créer un événement</h2>
+            <section className="section">
+                <Link to='/my/events' className="back"><i className="fa fa-caret-left"></i>Mes événements</Link>
+                <h2 className="section__title">Modifier {this.props.event.course_name}</h2>
 
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
@@ -128,7 +128,7 @@ export default class EditEvent extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Modifier cet événement'/>
+                        <input type="submit" className="form__button button" value='Modifier cet événement'/>
                     </div>
                 </form>
             </section>

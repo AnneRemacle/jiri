@@ -63,8 +63,8 @@ export default class CreateEvent extends Component {
 
     render() {
         return(
-            <section className="main">
-                <Link to='/' className="back">Retour au dashboard</Link>
+            <section className="section">
+                <Link to='/' className="back"><i className="fa fa-caret-left"></i>Retour au dashboard</Link>
                 <h2 className="section__title">Créer un événement</h2>
 
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
@@ -77,6 +77,7 @@ export default class CreateEvent extends Component {
                         <select name="academic_year" id="academic_year" className="form__select" onChange={this.handleAcademicYearChange.bind(this)}>
                             {this.renderOptions()}
                         </select>
+                        <i className="fa fa-caret-down"></i>
                     </div>
                     <div className="form-group">
                         <label htmlFor="session" className="form__label">Session</label>
@@ -84,9 +85,10 @@ export default class CreateEvent extends Component {
                             <option value="1">1</option>
                             <option value="2">2</option>
                         </select>
+                        <i className="fa fa-caret-down"></i>
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Créer un événement'/>
+                        <input type="submit" className="form__button button" value='Créer un événement'/>
                     </div>
                 </form>
             </section>

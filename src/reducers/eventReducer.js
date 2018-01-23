@@ -19,7 +19,10 @@ import {
     GET_EVENT_JURYS_SUCCESS,
     GET_EVENT_JURYS_ERROR,
     REMOVE_JURY_ERROR,
-    REMOVE_JURY_SUCCESS
+    REMOVE_JURY_SUCCESS,
+    GET_CURRENT_EVENT,
+    GET_CURRENT_EVENT_SUCCESS,
+    GET_CURRENT_EVENT_ERROR
 
 } from '../actions/event';
 
@@ -33,7 +36,10 @@ const INITIAL_STATE = {
     students: null,
     student: null,
     jurys: null,
-    jury: null
+    jury: null,
+    currentEvent: null,
+    getCurrentEventPending: false,
+    students: null,
 }
 
 export default function( state = INITIAL_STATE, action ) {
@@ -142,6 +148,23 @@ export default function( state = INITIAL_STATE, action ) {
             return {
                 ...state,
                 error: action.error
+            }
+        case GET_CURRENT_EVENT:
+            return {
+                ...state,
+                getCurrentEventPending: action.pending,
+            }
+        case GET_CURRENT_EVENT_SUCCESS:
+            return {
+                ...state,
+                currentEvent: action.currentEvent,
+                getCurrentEventPending: action.pending,
+            }
+        case GET_CURRENT_EVENT_ERROR:
+            return {
+                ...state,
+                error: action.error,
+                getCurrentEventPending: action.pending,
             }
         default:
             return state;

@@ -9,7 +9,7 @@ import * as studentActions from '../actions/student';
 const mapStateToProps = state => ({
     user: state.userSelectors.user,
     event: state.eventSelectors.event,
-    allJurys: state.userSelectors.jurys,
+    allJurys: state.userSelectors.users,
     eventJurys: state.eventSelectors.jurys,
     jury: state.eventSelectors.jury,
     userAddOrStorePending: state.userSelectors.addOrStorePending
@@ -157,6 +157,7 @@ export default class AddJury extends Component {
     }
 
     render() {
+        console.warn(this.props.allJurys);
         if (!this.props.event) {
             return(
                 <p>Chargement</p>
@@ -164,16 +165,16 @@ export default class AddJury extends Component {
         }
 
         return(
-            <section className="main">
-                <Link  to={ `showEvent/${this.props.params.id}` } className="back">Retour à l'événement</Link>
+            <section className="section">
+                <Link  to={ `showEvent/${this.props.params.id}` } className="back"><i className="fa fa-caret-left"></i>Retour à l'événement</Link>
 
                 <h2 className="section__title">Ajouter un jury à {this.props.event.course_name}</h2>
 
                 <form className="form form-regular" onSubmit={ this.handleSubmit.bind(this) } encType="multipart/form-data">
                     <div className="form-group">
                         <label htmlFor="email" className="form__label">Email</label>
-                        <input value={this.state.email} list="students" type="email" name="email" id="email" placeholder="jon@snow.be" className="form__input" onChange={this.handleJuryEmailChange.bind(this)}/>
-                        <datalist id='students'>
+                        <input value={this.state.email} list="jurys" type="email" name="email" id="email" placeholder="jon@snow.be" className="form__input" onChange={this.handleJuryEmailChange.bind(this)}/>
+                        <datalist id='jurys'>
                             {
                                 this.props.allJurys
                                 ? this.props.allJurys.map( jury => <option key={jury.id} value={jury.email} />)
@@ -202,23 +203,22 @@ export default class AddJury extends Component {
                         <input value={this.state.password} type="text" id='password' name="password" className="form__input" onChange={this.handleJuryPasswordChange.bind(this)} />
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Ajouter'/>
+                        <input type="submit" className="form__button button" value='Ajouter'/>
                     </div>
                 </form>
                 <section className="sub-section">
-                    <h3>Jury(s) ajoutés à {this.props.event.course_name}</h3>
-                    <ul>
-                        {
-                            this.props.eventJurys
-                            ? this.props.eventJurys.map( jury =>
-                                <li key={jury.id}>
-                                    {jury.name}
-                                    <Link to={`jury/${jury.id}/edit`}>Modifier</Link> - <a href="#" onClick={this.handleDeleteClick.bind(this)} data-jury={jury.id}>Supprimer</a>
-                                </li>
-                            )
-                            : <p>Il n'y a pas encore de jurys pour cet événement</p>
-                        }
-                    </ul>
+                    <h3 className="sub-section__title">Jury(s) ajoutés à {this.props.event.course_name}</h3>
+                    {
+                        this.props.eventJurys
+                        ? this.props.eventJurys.map( jury =>
+                            <div className='item' key={jury.id}>
+                                <span className="item__name">{jury.name}</span>
+                                <Link className="buttons edit-button" title={`Modifier la fiche de ${jury.name}`} to={`jury/${jury.id}/edit`}><i className="fa fa-pencil"></i></Link>
+                                <a className="buttons delete-button" title={`Supprimer ${jury.name}`} href="#" onClick={this.handleDeleteClick.bind(this)} data-jury={jury.id}><i data-jury={jury.id} className="fa fa-trash"></i></a>
+                            </div>
+                        )
+                        : <p>Il n'y a pas encore de jurys pour cet événement</p>
+                    }
                 </section>
             </section>
         );

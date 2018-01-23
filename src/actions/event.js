@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as userActions from "./user";
+import {history} from "../store";
 
 export const
     CREATE_EVENT = 'CREATE_EVENT',
@@ -22,9 +23,12 @@ export const
     GET_EVENT_JURYS_SUCCESS = 'GET_EVENT_JURYS_SUCCESS',
     GET_EVENT_JURYS_ERROR = 'GET_EVENT_JURYS_ERROR',
     REMOVE_JURY_SUCCESS = 'REMOVE_JURY_SUCCESS',
-    REMOVE_JURY_ERROR = 'REMOVE_JURY_ERROR';
+    REMOVE_JURY_ERROR = 'REMOVE_JURY_ERROR',
+    GET_CURRENT_EVENT = 'GET_CURRENT_EVENT',
+    GET_CURRENT_EVENT_SUCCESS = 'GET_CURRENT_EVENT_SUCCESS',
+    GET_CURRENT_EVENT_ERROR = 'GET_CURRENT_EVENT_ERROR';
 
-const ROOT_URL = 'http://localhost:8000/api';
+const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function createEvent(name, academic_year, session, user_id) {
     const request = axios.post( `${ROOT_URL}/events/store`, {
@@ -42,10 +46,11 @@ export function createEvent(name, academic_year, session, user_id) {
 
         request.then( (response) => {
             dispatch({
-                    type: CREATE_EVENT_SUCCESS,
-                    event: response.data,
-                    createEventPending: false
+                type: CREATE_EVENT_SUCCESS,
+                event: response.data,
+                createEventPending: false
             })
+            history.push(`/showEvent/${response.data}`)
         } ).catch( (errors) => {
             dispatch({
                 type: CREATE_EVENT_ERROR,
@@ -224,6 +229,31 @@ export function removeJury( event_id, user_id ) {
             dispatch({
                 type: REMOVE_JURY_ERROR,
                 error: errors
+            })
+        })
+    }
+}
+
+export function getCurrentEvent() {
+    const request = axios.get( `${ROOT_URL}/events/currentEvent` );
+
+    return (dispatch) => {
+        dispatch({
+            type: GET_CURRENT_EVENT,
+            pending: true,
+        })
+        request.then((response) => {
+            dispatch({
+                type: GET_CURRENT_EVENT_SUCCESS,
+                currentEvent: response.data,
+                pending: false,
+            })
+            dispatch(getEventJurys(event_id))
+        }).catch((errors) => {
+            dispatch({
+                type: GET_CURRENT_EVENT_ERROR,
+                error: errors,
+                pending: false
             })
         })
     }

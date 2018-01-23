@@ -15,10 +15,10 @@ export const
     UPDATE_STUDENT_ERROR = 'UPDATE_STUDENT_ERROR',
     UPDATE_IMPLEMENTATIONS_SUCCESS = 'UPDATE_IMPLEMENTATIONS_SUCCESS',
     UPDATE_IMPLEMENTATIONS_ERROR = 'UPDATE_IMPLEMENTATIONS_ERROR',
-    GET_IMPLEMENTATIONS_SUCCESS = 'GET_IMPLEMENTATIONS_SUCCESS',
-    GET_IMPLEMENTATIONS_ERROR = 'GET_IMPLEMENTATIONS_ERROR';
+    GET_IMPLEMENTATIONS_ERROR = 'GET_IMPLEMENTATIONS_ERROR',
+    GET_IMPLEMENTATIONS_SUCCESS = 'GET_IMPLEMENTATIONS_SUCCESS';
 
-const ROOT_URL = 'http://localhost:8000/api';
+const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function addOrStore(data, event_id) {
     const request = axios.post(`${ROOT_URL}/students/addOrStore`, data, {headers: { 'content-type': 'multipart/form-data' }});
@@ -134,6 +134,24 @@ export function updateImplementations(data, student_id, event_id){
             dispatch({
                 type: UPDATE_IMPLEMENTATIONS_ERROR,
                 errors: errors,
+            })
+        })
+    }
+}
+
+export function getImplementations(event_id, student_id, meeting_id){
+    const request = axios.get(`${ROOT_URL}/students/${student_id}/implementations/${event_id}/meeting/${meeting_id}`);
+
+    return (dispatch) => {
+        request.then((response) => {
+            dispatch({
+                type: GET_IMPLEMENTATIONS_SUCCESS,
+                implementations: response.data
+            })
+        }).catch( (error) => {
+            dispatch({
+                type: GET_IMPLEMENTATIONS_ERROR,
+                error: error
             })
         })
     }

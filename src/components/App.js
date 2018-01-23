@@ -14,7 +14,7 @@ export default class App extends React.Component {
     }
 
     return (
-        <div className="container">
+        <div className="main-container">
             <Header hide={hide} />
             {this.props.children}
         </div>

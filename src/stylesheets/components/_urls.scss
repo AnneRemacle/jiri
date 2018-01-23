@@ -1,0 +1,16 @@
+.urls {
+    margin: 1em auto 1.5em;
+    &__link {
+        color: $darkColor;
+        display: inline-block;
+
+        &:first-child {
+            margin-right: 5%;
+        }
+
+        &:focus, &:hover {
+            color: $middleColor;
+            text-decoration: none;
+        }
+    }
+}

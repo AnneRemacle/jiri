@@ -111,7 +111,7 @@ export default class EditStudent extends Component {
     }
 
     renderFigure(){
-        if (this.props.student.photo === "") {
+        if (this.props.student.photo === "" || this.props.student.photo === null) {
             return (<figure className="edit-avatar__figure">
                 <img src={ this.state.imagePreviewUrl ? this.state.imagePreviewUrl : "https://placeimg.com/200/200/people/grayscale"} className="edit-avatar__img" />
             </figure>);
@@ -131,8 +131,8 @@ export default class EditStudent extends Component {
         }
 
         return(
-            <section className="main">
-                <Link  to={ `event/${this.props.params.id}/manageStudents` } className="back">Retour à l'événement</Link>
+            <section className="section">
+                <Link to={ `event/${this.props.params.id}/manageStudents` } className="back"><i className="fa fa-caret-left"></i>Retour aux étudiants</Link>
 
                 <h2 className="section__title">Modifier l'étudiant</h2>
 
@@ -161,7 +161,7 @@ export default class EditStudent extends Component {
                         <input className="hidden" type="file" name="photo" id="photo" value="" onChange={ this.handlePictureChange.bind(this) }/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Modifier'/>
+                        <input type="submit" className="form__button button" value='Modifier'/>
                     </div>
                 </form>
             </section>

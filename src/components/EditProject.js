@@ -66,7 +66,7 @@ export default class EditProject extends Component {
         if(oNextProps.project && oNextProps.project != this.props.project){
             this.setState({
                 name: oNextProps.project.name,
-                description: oNextProps.project.description
+                description: oNextProps.project.description,
             })
         }
     }
@@ -95,8 +95,8 @@ export default class EditProject extends Component {
             );
         }
         return(
-            <section className="main">
-                <Link to={`event/${this.props.params.id}/manageProjects`} className="back">Retour au dashboard</Link>
+            <section className="section">
+                <Link to={`event/${this.props.params.id}/manageProjects`} className="back"><i className="fa fa-caret-left"></i>Retour au dashboard</Link>
 
                 <h2 className="section__title">Modifier le projet</h2>
 
@@ -114,11 +114,11 @@ export default class EditProject extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="description" className="form__label">Description</label>
-                        <textarea name="description" id="description" className="form__select" onChange={this.handleDescriptionChange.bind(this)} value={this.state.description ? this.state.description : ""} >
+                        <textarea name="description" id="description" className="form__area" onChange={this.handleDescriptionChange.bind(this)} value={this.state.description ? this.state.description : ""} >
                         </textarea>
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Enregistrer'/>
+                        <input type="submit" className="form__button button" value='Enregistrer'/>
                     </div>
                 </form>
             </section>

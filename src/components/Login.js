@@ -120,6 +120,7 @@ export default class Login extends Component {
                 <h1 className="main__title">Jiri</h1>
 
                 <section className="form-container">
+                    <p className="main__intro">Bienvenue sur Jiri, l'assistant aux jurys de l'option web de la HEPL. Introduisez vos identifiants pour continuer.</p>
                     <h2 className="form-container__title">Connexion</h2>
 
                     <form className="form" onSubmit={this.handleSubmit.bind(this)}>

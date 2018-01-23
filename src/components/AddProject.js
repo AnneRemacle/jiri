@@ -43,7 +43,7 @@ export default class AddProject extends Component {
 
         this.state= {
             name: "",
-            description: ""
+            description: "",
         }
     }
 
@@ -64,6 +64,10 @@ export default class AddProject extends Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.addOrStoreProject(this.state.name, this.state.description, this.props.event.id, this.props.user.id);
+        this.setState({
+            name:"",
+            description:""
+        })
     }
 
     handleProjectNameChange(e) {
@@ -90,15 +94,15 @@ export default class AddProject extends Component {
             );
         }
         return(
-            <section className="main">
-                <Link  to={ `showEvent/${this.props.params.id}` } className="back">Retour à l'événement</Link>
+            <section className="section">
+                <Link  to={ `showEvent/${this.props.params.id}` } className="back"><i className="fa fa-caret-left"></i>Retour à l'événement</Link>
 
                 <h2 className="section__title">Ajouter un projet à {this.props.event.course_name}</h2>
 
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
                         <label htmlFor="name" className="form__label">Nom du projet</label>
-                        <input list="projects" type="text" name="name" id="name" placeholder="CV à la manière de…" className="form__input" onChange={this.handleProjectNameChange.bind(this)}/>
+                        <input value={this.state.name} list="projects" type="text" name="name" id="name" placeholder="CV à la manière de…" className="form__input" onChange={this.handleProjectNameChange.bind(this)}/>
                         <datalist id='projects'>
                             {
                                 this.props.allProjects
@@ -109,26 +113,28 @@ export default class AddProject extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="description" className="form__label">Description</label>
-                        <textarea name="description" id="description" className="form__select" onChange={this.handleDescriptionChange.bind(this)}>
+                        <textarea value={this.state.description} name="description" id="description" className="form__area" onChange={this.handleDescriptionChange.bind(this)}>
                         </textarea>
                     </div>
                     <div className="form-group">
-                        <input type="submit" className="form__button" value='Ajouter'/>
+                        <input type="submit" className="form__button button" value='Ajouter'/>
                     </div>
                 </form>
-                <h3>Projet(s) ajoutés à {this.props.event.course_name}</h3>
-                <ul>
+                <section className="sub-section">
+                    <h3 className="sub-section__title">Projet(s) ajoutés à {this.props.event.course_name}</h3>
                     {
                         this.props.eventProjects
                         ? this.props.eventProjects.map( project =>
-                            <li key={project.id}>
-                                {project.name}
-                                <Link to={`project/${project.id}/edit`}>Modifier</Link> - <a href="#" onClick={this.handleDeleteClick.bind(this)} data-project={project.id}>Supprimer</a>
-                            </li>
+                            <div className="item" key={project.id}>
+                                <span className="item__name">{project.name}</span>
+                                <Link className="buttons edit-button" to={`project/${project.id}/edit`}><i className="fa fa-pencil"></i></Link>
+                                <a className="buttons delete-button" href="#" onClick={this.handleDeleteClick.bind(this)} data-project={project.id}><i className="fa fa-trash" data-project={project.id}></i></a>
+                            </div>
                         )
                         : <p>Il n'y a pas encore de projets pour cet événement</p>
                     }
-                </ul>
+                </section>
+
             </section>
         );
     }
