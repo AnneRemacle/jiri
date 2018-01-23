@@ -1,0 +1,14 @@
+.back {
+    color: $textColor;
+    display: inline-block;
+    margin: 1em 0;
+
+    &:hover, &:focus {
+        color: $middleColor;
+        text-decoration: none;
+        transition: color .2s ease;
+    }
+    > i {
+        margin-right: 6px;
+    }
+}
