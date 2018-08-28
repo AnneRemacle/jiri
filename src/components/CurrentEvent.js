@@ -9,8 +9,7 @@ const mapStateToProps = state => ({
     user: state.userSelectors.user,
     currentEvent: state.eventSelectors.currentEvent,
     eventStudents: state.eventSelectors.students,
-    eventProjects: state.eventSelectors.projects,
-    eventJurys: state.eventSelectors.jurys,
+    currentEventPending: state.eventSelectors.currentEventPending,
 });
 
 const mapActionsToProps = dispatch => ({
@@ -23,19 +22,12 @@ const mapActionsToProps = dispatch => ({
     getEventStudents(event_id) {
         dispatch( eventActions.getEventStudents(event_id) );
     },
-    getEventProjects(event_id) {
-        dispatch( eventActions.getEventProjects(event_id) );
-    },
-    getEventJurys(event_id) {
-        dispatch( eventActions.getEventJurys(event_id) );
-    }
 });
 
 @connect(mapStateToProps, mapActionsToProps)
 export default class CurrentEvent extends Component {
     constructor(oProps) {
         super(oProps);
-        this.props.getCurrentEvent();
     }
 
     componentWillMount(){
@@ -46,13 +38,13 @@ export default class CurrentEvent extends Component {
         if(!sessionStorage.getItem("token") && !this.props.user){
             history.push("/login");
         }
+
+        this.props.getCurrentEvent();
     }
 
-    componentWillReceiveProps(oNextProps){
-        if(oNextProps.currentEvent && this.props.currentEvent != oNextProps.currentEvent){
+    componentDidUpdate(oPrevProps){
+        if(oPrevProps.eventStudents === null){
             this.props.getEventStudents(this.props.currentEvent.id);
-            this.props.getEventProjects(this.props.currentEvent.id);
-            this.props.getEventJurys(this.props.currentEvent.id);
         }
     }
 
@@ -99,7 +91,8 @@ export default class CurrentEvent extends Component {
     }
 
     render() {
-        if (!this.props.currentEvent) {
+        console.warn(this.props.currentEvent, this.props.currentEventPending);
+        if (this.props.currentEventPending || this.props.currentEvent === null) {
             return(
                 <p>Chargement</p>
             )

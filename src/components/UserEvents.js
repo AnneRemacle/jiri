@@ -73,7 +73,7 @@ export default class AdminDashboard extends Component {
                                 <p>Année académique: {event.academic_year}</p>
                                 <p>Session: {event.exam_session}</p>
                                 <Link className="edit-button buttons" to={"/editEvent/"+event.id} title={`modifier ${event.course_name}`}><i className="fa fa-pencil"></i></Link>
-                                <a href="#" className="delete-button buttons" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}><i className="fa fa-trash"></i></a>
+                                <a href="#" className="delete-button buttons" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}><i data-event={event.id} className="fa fa-trash"></i></a>
                             </div>
                           )
                         : <p>Vous n'avez pas encore créé d'événement</p>

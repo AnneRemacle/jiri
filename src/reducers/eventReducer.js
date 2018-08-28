@@ -38,7 +38,7 @@ const INITIAL_STATE = {
     jurys: null,
     jury: null,
     currentEvent: null,
-    getCurrentEventPending: false,
+    currentEventPending: false,
     students: null,
 }
 
@@ -152,19 +152,20 @@ export default function( state = INITIAL_STATE, action ) {
         case GET_CURRENT_EVENT:
             return {
                 ...state,
-                getCurrentEventPending: action.pending,
+                getCurrentEventPending: true,
             }
         case GET_CURRENT_EVENT_SUCCESS:
+            console.warn(action.currentEvent);
             return {
                 ...state,
                 currentEvent: action.currentEvent,
-                getCurrentEventPending: action.pending,
+                getCurrentEventPending: false,
             }
         case GET_CURRENT_EVENT_ERROR:
             return {
                 ...state,
                 error: action.error,
-                getCurrentEventPending: action.pending,
+                getCurrentEventPending: false,
             }
         default:
             return state;
