@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ROOT_URL} from "../config/constants";
 
 import * as eventActions from './event';
 
@@ -24,7 +25,6 @@ export const
     GET_MEETINGS_ERROR = 'GET_MEETINGS_ERROR',
     GET_MEETINGS_SUCCESS = 'GET_MEETINGS_SUCCESS';
 
-const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function userConnect( email, password ) {
     const getTokenRequest = axios.get( `${ROOT_URL}/user/authenticate?email=${email}&password=${password}` );

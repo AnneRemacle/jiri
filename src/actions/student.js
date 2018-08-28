@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {history} from '../store';
 import * as eventActions from "./event";
+import {ROOT_URL} from "../config/constants";
 
 export const
     ADD_OR_STORE_STUDENT = 'ADD_OR_STORE_STUDENT',
@@ -17,8 +18,6 @@ export const
     UPDATE_IMPLEMENTATIONS_ERROR = 'UPDATE_IMPLEMENTATIONS_ERROR',
     GET_IMPLEMENTATIONS_ERROR = 'GET_IMPLEMENTATIONS_ERROR',
     GET_IMPLEMENTATIONS_SUCCESS = 'GET_IMPLEMENTATIONS_SUCCESS';
-
-const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function addOrStore(data, event_id) {
     const request = axios.post(`${ROOT_URL}/students/addOrStore`, data, {headers: { 'content-type': 'multipart/form-data' }});

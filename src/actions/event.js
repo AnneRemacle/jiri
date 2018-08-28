@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as userActions from "./user";
 import {history} from "../store";
+import {ROOT_URL} from "../config/constants";
 
 export const
     CREATE_EVENT = 'CREATE_EVENT',
@@ -27,8 +28,6 @@ export const
     GET_CURRENT_EVENT = 'GET_CURRENT_EVENT',
     GET_CURRENT_EVENT_SUCCESS = 'GET_CURRENT_EVENT_SUCCESS',
     GET_CURRENT_EVENT_ERROR = 'GET_CURRENT_EVENT_ERROR';
-
-const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function createEvent(name, academic_year, session, user_id) {
     const request = axios.post( `${ROOT_URL}/events/store`, {
@@ -240,20 +239,18 @@ export function getCurrentEvent() {
     return (dispatch) => {
         dispatch({
             type: GET_CURRENT_EVENT,
-            pending: true,
         })
+
         request.then((response) => {
             dispatch({
                 type: GET_CURRENT_EVENT_SUCCESS,
                 currentEvent: response.data,
-                pending: false,
             })
             dispatch(getEventJurys(event_id))
         }).catch((errors) => {
             dispatch({
                 type: GET_CURRENT_EVENT_ERROR,
                 error: errors,
-                pending: false
             })
         })
     }

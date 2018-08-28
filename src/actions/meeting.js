@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {history} from "../store";
+import {ROOT_URL} from "../config/constants";
 
 import * as studentActions from "./student";
 import * as meetingActions from "./meeting";
@@ -13,7 +14,6 @@ export const
     UPDATE_SCORES_SUCCESS = 'UPDATE_SCORES_SUCCESS',
     UPDATE_SCORES_ERROR = 'UPDATE_SCORES_ERROR';
 
-const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function createMeeting( user_id, event_id, student_id ) {
     const request = axios.post( `${ROOT_URL}/meetings/create`,{

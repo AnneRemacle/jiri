@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {history} from '../store'
 import * as eventActions from './event';
+import {ROOT_URL} from "../config/constants";
 
 export const
     GET_PROJECTS_SUCCESS = 'GET_PROJECTS_SUCCESS',
@@ -11,8 +12,6 @@ export const
     UPDATE_PROJECT_ERROR = 'UPDATE_PROJECT_ERROR',
     GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS',
     GET_PROJECT_ERROR = 'GET_PROJECT_ERROR';
-
-const ROOT_URL = 'http://jiri-api.anne-remacle.be/api';
 
 export function getProjects() {
     const request = axios.get( `${ROOT_URL}/projects`);
