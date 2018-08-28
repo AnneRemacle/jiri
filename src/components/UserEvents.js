@@ -57,7 +57,7 @@ export default class AdminDashboard extends Component {
     render() {
         const {user} = this.props;
 
-        if (!user) {
+        if (!user && this.props.events) {
             return (
                 <div className="regular-spinner">
                     <Spinner message={'Chargement'} />
@@ -70,14 +70,14 @@ export default class AdminDashboard extends Component {
                 <Link className="back" to={"/"}><i className="fa fa-caret-left"></i> Retour au dashboard</Link>
                 <h2 className="section__title">Mes événements</h2>
                 <div className="list">
-                    { this.props.events.length != 0
+                    { this.props.events && this.props.events.length != 0
                         ? this.props.events.map( event =>
                             <div key={event.id} className="item">
                                 <Link className="item__name" to={`/showEvent/${event.id}`}>{event.course_name}</Link>
                                 <p>Année académique: {event.academic_year}</p>
                                 <p>Session: {event.exam_session}</p>
-                                <Link className="edit-button buttons" to={"/editEvent/"+event.id} title={`modifier ${event.course_name}`}><i className="fa fa-pencil"></i></Link>
-                                <a href="#" className="delete-button buttons" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}><i data-event={event.id} className="fa fa-trash"></i></a>
+                                <Link className="edit-button buttons" to={"/editEvent/"+event.id} title={`modifier ${event.course_name}`}><i className="fas fa-pencil-alt"></i></Link>
+                                <a href="#" className="delete-button buttons" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}><i data-event={event.id} className="fas fa-trash"></i></a>
                             </div>
                           )
                         : <div>

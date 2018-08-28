@@ -192,8 +192,8 @@ export default class AddStudent extends Component {
                                 <span className="item__name">{student.name}</span>
                                 <Link to={`event/${this.props.event.id}/manageStudent/${student.id}`}>Encoder les urls</Link>
                                 <Link className="buttons edit-button" to={`student/${student.id}/edit`} title={`modifier la fiche de ${student.name}`}>
-                                <i className="fa fa-pencil"></i></Link>
-                                <a className="buttons delete-button" href="#" onClick={this.handleDeleteClick.bind(this)} data-student={student.id} title={`supprimer ${student.name} de l’événement`}><i data-student={student.id} className="fa fa-trash"></i></a>
+                                <i className="fas fa-pencil-alt"></i></Link>
+                                <a className="buttons delete-button" href="#" onClick={this.handleDeleteClick.bind(this)} data-student={student.id} title={`supprimer ${student.name} de l’événement`}><i data-student={student.id} className="fas fa-trash"></i></a>
                             </div>
                         )
                         : <p>Il n'y a pas encore d'étudiants pour cet événement</p>

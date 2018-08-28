@@ -132,8 +132,8 @@ export default class AddProject extends Component {
                         ? this.props.eventProjects.map( project =>
                             <div className="item" key={project.id}>
                                 <span className="item__name">{project.name}</span>
-                                <Link className="buttons edit-button" to={`project/${project.id}/edit`}><i className="fa fa-pencil"></i></Link>
-                                <a className="buttons delete-button" href="#" onClick={this.handleDeleteClick.bind(this)} data-project={project.id}><i className="fa fa-trash" data-project={project.id}></i></a>
+                                <Link className="buttons edit-button" to={`project/${project.id}/edit`}><i className="fas fa-pencil-alt"></i></Link>
+                                <a className="buttons delete-button" href="#" onClick={this.handleDeleteClick.bind(this)} data-project={project.id}><i className="fas fa-trash" data-project={project.id}></i></a>
                             </div>
                         )
                         : <p>Il n'y a pas encore de projets pour cet événement</p>

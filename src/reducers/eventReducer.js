@@ -155,7 +155,6 @@ export default function( state = INITIAL_STATE, action ) {
                 getCurrentEventPending: true,
             }
         case GET_CURRENT_EVENT_SUCCESS:
-            console.warn(action.currentEvent);
             return {
                 ...state,
                 currentEvent: action.currentEvent,

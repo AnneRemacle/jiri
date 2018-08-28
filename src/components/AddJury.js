@@ -218,8 +218,8 @@ export default class AddJury extends Component {
                         ? this.props.eventJurys.map( jury =>
                             <div className='item' key={jury.id}>
                                 <span className="item__name">{jury.name}</span>
-                                <Link className="buttons edit-button" title={`Modifier la fiche de ${jury.name}`} to={`jury/${jury.id}/edit`}><i className="fa fa-pencil"></i></Link>
-                                <a className="buttons delete-button" title={`Supprimer ${jury.name}`} href="#" onClick={this.handleDeleteClick.bind(this)} data-jury={jury.id}><i data-jury={jury.id} className="fa fa-trash"></i></a>
+                                <Link className="buttons edit-button" title={`Modifier la fiche de ${jury.name}`} to={`jury/${jury.id}/edit`}><i className="fas fa-pencil-alt"></i></Link>
+                                <a className="buttons delete-button" title={`Supprimer ${jury.name}`} href="#" onClick={this.handleDeleteClick.bind(this)} data-jury={jury.id}><i data-jury={jury.id} className="fas fa-trash"></i></a>
                             </div>
                         )
                         : <p>Il n'y a pas encore de jurys pour cet événement</p>

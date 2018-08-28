@@ -177,7 +177,7 @@ export default class ManageStudent extends Component {
                 <Link className='back' to={`/event/${this.props.params.event_id}/manageStudents`}><i className="fa fa-caret-left"></i>Retour</Link>
                 {
                     this.props.student
-                    ? <h2 className="section__title">{this.props.student.name}</h2>
+                    ? <div><h2 className="section__title">{this.props.student.name}</h2><p>Pour chaque projet de l'étudiant, encodez les urls des repos Github et des sites web.</p></div>
                     : <p>Pas d'étudiant</p>
                 }
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
