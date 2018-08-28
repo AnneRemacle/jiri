@@ -1,0 +1,26 @@
+
+.regular-spinner {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    text-align: center;
+    top: 12em;
+    z-index: 2000;
+
+    > .spinner {
+        > .spinner__text {
+            display: block;
+            text-align: center;
+            color: $darkColor;
+            position: absolute;
+            width: 220%;
+            top: 110%;
+            left: -60%;
+        }
+
+        .fa-spinner {
+            color: $middleColor;
+            font-size: 4em;
+        }
+    }
+}
