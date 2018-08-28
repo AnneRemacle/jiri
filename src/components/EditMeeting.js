@@ -48,9 +48,6 @@ export default class EditMeeting extends Component {
     }
 
     componentWillMount(){
-        this.props.getCurrentEvent();
-        this.props.getMeeting(this.props.params.id);
-
         if(sessionStorage.getItem("token") && !this.props.user){
             this.props.getUser(sessionStorage.getItem("token"));
         }
@@ -58,6 +55,9 @@ export default class EditMeeting extends Component {
         if(!sessionStorage.getItem("token") && !this.props.user){
             history.push("/login");
         }
+
+        this.props.getCurrentEvent();
+        this.props.getMeeting(this.props.params.id);
     }
 
     componentWillReceiveProps(oNextProps){
@@ -65,12 +65,12 @@ export default class EditMeeting extends Component {
 
         if(oNextProps.meeting){
             this.setState({
-                general_evaluation: this.props.meeting.general_evaluation
+                general_evaluation: oNextProps.meeting.general_evaluation
             })
         }
 
-        if(this.props.currentEvent && this.props.meeting && this.props.implementations === null){
-            this.props.getStudentImplementations(this.props.currentEvent.id, this.props.meeting.student.id, this.props.meeting.id);
+        if(oNextProps.currentEvent && oNextProps.meeting && this.props.implementations === null){
+            this.props.getStudentImplementations(oNextProps.currentEvent.id, oNextProps.meeting.student.id, oNextProps.meeting.id);
         }
 
         if(oNextProps.implementations){
@@ -150,7 +150,7 @@ export default class EditMeeting extends Component {
     }
 
     render() {
-        if(!this.props.implementations){
+        if(!this.props.implementations && !this.props.meeting){
             return (
                 <div className="regular-spinner">
                     <Spinner message={'Chargement'} />

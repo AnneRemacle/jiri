@@ -45,7 +45,7 @@ export default class CurrentEvent extends Component {
     }
 
     componentDidUpdate(oPrevProps){
-        if(oPrevProps.eventStudents === null){
+        if(oPrevProps.eventStudents === null && this.props.currentEvent){
             this.props.getEventStudents(this.props.currentEvent.id);
         }
     }
@@ -93,7 +93,6 @@ export default class CurrentEvent extends Component {
     }
 
     render() {
-        console.warn(this.props.currentEvent, this.props.currentEventPending);
         if (this.props.currentEventPending || this.props.currentEvent === null) {
             return (
                 <div className="regular-spinner">

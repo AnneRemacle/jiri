@@ -45,7 +45,6 @@ const mapActionsToProps = dispatch => ({
 export default class StudentsList extends Component {
     constructor(oProps) {
         super(oProps);
-        this.props.getCurrentEvent();
 
         this.handleCreateMeeting = this.handleCreateMeeting.bind(this);
     }
@@ -58,14 +57,16 @@ export default class StudentsList extends Component {
         if(!sessionStorage.getItem("token") && !this.props.user){
             history.push("/login");
         }
+
+        this.props.getCurrentEvent();
     }
 
     componentWillReceiveProps(oNextProps){
-        if(oNextProps.currentEvent && this.props.currentEvent != oNextProps.currentEvent){
-            this.props.getEventStudents(this.props.currentEvent.id);
-            this.props.getEventProjects(this.props.currentEvent.id);
-            this.props.getEventJurys(this.props.currentEvent.id);
-            this.props.getMeetings(this.props.currentEvent.id, this.props.user.id);
+        if(oNextProps.currentEvent && this.props.currentEvent !== oNextProps.currentEvent){
+            this.props.getEventStudents(oNextProps.currentEvent.id);
+            this.props.getEventProjects(oNextProps.currentEvent.id);
+            this.props.getEventJurys(oNextProps.currentEvent.id);
+            this.props.getMeetings(oNextProps.currentEvent.id, oNextProps.user.id);
         }
     }
 
@@ -105,7 +106,7 @@ export default class StudentsList extends Component {
             return this.props.meetings.map( (meeting) =>
                 <Link to={`/editMeeting/${meeting.id}`} className="item" key={meeting.student ? meeting.student.id : ""}>
                     <span className="item__name">{meeting.student ? meeting.student.name : ""}</span>
-                    <span  className="edit-button buttons" title="Modifier l'évaluation"><i className="fa fa-pencil"></i></span>
+                    <span  className="edit-button buttons" title="Modifier l'évaluation"><i className="fas fa-pencil-alt"></i></span>
                 </Link>
             )
         }
@@ -119,6 +120,7 @@ export default class StudentsList extends Component {
                 </div>
             );
         }
+
         return(
             <section className="section">
                 <Link to={`/currentEvent`} className="back"><i className="fa fa-caret-left"></i>Retour à l'événement</Link>
@@ -127,8 +129,7 @@ export default class StudentsList extends Component {
 
                 <section className="sub-section">
                     <h3 className="sub-section__title">Étudiants à voir</h3>
-
-                        {this.renderStudents()}
+                    {this.renderStudents()}
                 </section>
 
 
