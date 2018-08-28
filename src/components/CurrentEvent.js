@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import Spinner from './Spinner';
+
 import * as eventActions from '../actions/event';
 import * as userActions from '../actions/user';
 
@@ -93,9 +95,11 @@ export default class CurrentEvent extends Component {
     render() {
         console.warn(this.props.currentEvent, this.props.currentEventPending);
         if (this.props.currentEventPending || this.props.currentEvent === null) {
-            return(
-                <p>Chargement</p>
-            )
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
+            );
         }
 
         return(

@@ -67,6 +67,8 @@ export default class CreateEvent extends Component {
                 <Link to='/' className="back"><i className="fa fa-caret-left"></i>Retour au dashboard</Link>
                 <h2 className="section__title">Créer un événement</h2>
 
+                <p>Complétez ce formulaire afin de créer un nouvel événement pour le prochain examen.</p>
+
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
                         <label htmlFor="course_name" className="form__label">Nom du cours</label>

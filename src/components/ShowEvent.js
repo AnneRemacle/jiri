@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import Spinner from "./Spinner";
+
 import * as eventActions from '../actions/event';
 
 const mapStateToProps = state => ({
@@ -38,14 +40,17 @@ export default class ShowEvent extends Component {
         const {event} = this.props;
 
         if (!event) {
-            return(
-                <p>Chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
         return(
             <section className="section">
                 <Link className="back" to="my/events"><i className="fa fa-caret-left"></i>Mes événements</Link>
                 <h2 className="section__title">{event.course_name}</h2>
+                <p>Gérer votre événement en y ajoutant les projets à évaluer, les étudiants qui participent à l'examen et les jurys invités.</p>
                 <nav className="nav-second">
                     <h3 className="sro">Options disponibles</h3>
                     <Link to={`/event/${event.id}/manageProjects`} className="nav-second__link">Gérer les projets</Link>

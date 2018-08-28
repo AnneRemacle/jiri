@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { history } from '../store';
 
+import Spinner from "./Spinner";
+
 import * as userActions from '../actions/user';
 import * as eventActions from '../actions/event';
 import * as studentActions from '../actions/student';
@@ -125,8 +127,10 @@ export default class EditStudent extends Component {
 
     render() {
         if (!this.props.event) {
-            return(
-                <p>Chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
 

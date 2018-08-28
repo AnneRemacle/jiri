@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { history } from '../store';
 
+import Spinner from "./Spinner";
+
 import * as userActions from '../actions/user';
 
 const mapStateToProps = state => ({
@@ -10,6 +12,9 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = dispatch => ({
+    getUser(token) {
+        dispatch( userActions.getUser(token) );
+    },
     userLogout() {
         dispatch( userActions.userLogout() )
     }
@@ -19,6 +24,12 @@ const mapActionsToProps = dispatch => ({
 export default class Header extends Component {
     constructor(oProps) {
         super(oProps);
+    }
+
+    componentWillMount(){
+        if(sessionStorage.getItem("token") && !this.props.user){
+            this.props.getUser(sessionStorage.getItem("token"));
+        }
     }
 
     handleLogout() {
@@ -34,8 +45,10 @@ export default class Header extends Component {
         }
 
         if (!this.props.user) {
-            return(
-                <p>Chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
 

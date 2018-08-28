@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import * as userActions from '../actions/user';
 import * as eventActions from '../actions/event';
 
+import Spinner from "./Spinner";
+
 const mapStateToProps = state => ({
     user: state.userSelectors.user,
     events: state.userSelectors.events
@@ -56,8 +58,10 @@ export default class AdminDashboard extends Component {
         const {user} = this.props;
 
         if (!user) {
-            return(
-                <p>Chargement…</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
 
@@ -66,7 +70,7 @@ export default class AdminDashboard extends Component {
                 <Link className="back" to={"/"}><i className="fa fa-caret-left"></i> Retour au dashboard</Link>
                 <h2 className="section__title">Mes événements</h2>
                 <div className="list">
-                    { this.props.events
+                    { this.props.events.length != 0
                         ? this.props.events.map( event =>
                             <div key={event.id} className="item">
                                 <Link className="item__name" to={`/showEvent/${event.id}`}>{event.course_name}</Link>
@@ -76,7 +80,10 @@ export default class AdminDashboard extends Component {
                                 <a href="#" className="delete-button buttons" data-event={event.id} onClick={this.handleDeleteButtonClick.bind(this)}><i data-event={event.id} className="fa fa-trash"></i></a>
                             </div>
                           )
-                        : <p>Vous n'avez pas encore créé d'événement</p>
+                        : <div>
+                            <p>Vous n'avez pas encore créé d'événement</p>
+                            <Link to="/createEvent" className="nav-second__link">Créer un événement</Link>
+                        </div>
                     }
                 </div>
             </section>

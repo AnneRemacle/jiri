@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import Spinner from "./Spinner";
+
 const mapStateToProps = state => ({
     user: state.userSelectors.user,
 });
@@ -28,8 +30,10 @@ export default class AdminDashboard extends Component {
         const {user} = this.props;
 
         if (!user) {
-            return(
-                <p>Chargement…</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
 

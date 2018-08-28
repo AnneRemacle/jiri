@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { history } from '../store';
 
+import Spinner from "./Spinner";
+
 import * as projectActions from '../actions/project';
 import * as userActions from '../actions/user';
 import * as eventActions from '../actions/event';
@@ -90,8 +92,10 @@ export default class EditProject extends Component {
 
     render() {
         if (!this.props.project) {
-            return(
-                <p>chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
         return(

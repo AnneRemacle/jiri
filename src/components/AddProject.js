@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import Spinner from "./Spinner";
+
 import * as projectActions from '../actions/project';
 import * as userActions from '../actions/user';
 import * as eventActions from '../actions/event';
@@ -89,8 +91,10 @@ export default class AddProject extends Component {
 
     render() {
         if (!this.props.event) {
-            return(
-                <p>Chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
         return(
@@ -98,6 +102,7 @@ export default class AddProject extends Component {
                 <Link  to={ `showEvent/${this.props.params.id}` } className="back"><i className="fa fa-caret-left"></i>Retour à l'événement</Link>
 
                 <h2 className="section__title">Ajouter un projet à {this.props.event.course_name}</h2>
+                <p>Ajoutez un projet à évaluer lors de l'examen.</p>
 
                 <form className="form form-regular" onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">

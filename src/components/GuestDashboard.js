@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import Spinner from "./Spinner";
+
 import * as eventActions from '../actions/event';
 import * as userActions from '../actions/user';
 import * as meetingActions from '../actions/meeting';
@@ -111,8 +113,10 @@ export default class GuestDashboard extends Component {
 
     render() {
         if (!this.props.eventStudents) {
-            return(
-                <p>Chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
         return(

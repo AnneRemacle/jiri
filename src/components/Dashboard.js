@@ -6,6 +6,7 @@ import * as userActions from '../actions/user';
 
 import AdminDashboard from './AdminDashboard';
 import GuestDashboard from './GuestDashboard';
+import Spinner from "./Spinner";
 
 const EMPTY_ERRORS = {
     email: [],
@@ -52,8 +53,10 @@ export default class Dashboard extends Component {
 
     render() {
         if (!this.props.user) {
-            return(
-                <p>Chargement</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
             );
         }
 

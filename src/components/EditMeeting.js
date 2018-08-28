@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { history } from '../store';
 
+import Spinner from "./Spinner";
+
 import * as eventActions from '../actions/event';
 import * as userActions from '../actions/user';
 import * as meetingActions from '../actions/meeting';
@@ -149,7 +151,11 @@ export default class EditMeeting extends Component {
 
     render() {
         if(!this.props.implementations){
-            return <p>{"Chargement..."}</p>
+            return (
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
+            );
         }
 
         return(

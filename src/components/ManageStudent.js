@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import Spinner from "./Spinner";
+
 import * as userActions from '../actions/user';
 import * as eventActions from '../actions/event';
 import * as studentActions from '../actions/student';
@@ -164,8 +166,10 @@ export default class ManageStudent extends Component {
     render() {
         if(this.props.getStudentPending){
             return (
-                <p>Chargement...</p>
-            )
+                <div className="regular-spinner">
+                    <Spinner message={'Chargement'} />
+                </div>
+            );
         }
 
         return(
