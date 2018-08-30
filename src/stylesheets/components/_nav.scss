@@ -1,10 +1,12 @@
 .nav {
     &-second {
-        width: 100%;
         margin: 1.5em auto;
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        flex-direction: column;
 
         &__link {
-            display: block;
             width: 100%;
             @include gradient;
             color: white;
@@ -39,53 +41,17 @@
     }
 }
 
-@media screen and (min-width: 768px)  {
-    .nav {
-        &-second {
-            width: 90%;
-
-            &__link {
-                display: inline-block;
-                width: 45%;
-
-                &:nth-child(even) {
-                    margin-right: 5%;
-                }
-            }
-        }
-    }
-}
 
 @media screen and (min-width: 981px)  {
     .nav {
         &-second {
-            width: 80%;
-
-        }
-    }
-}
-@media screen and (min-width: 1024px)  {
-    .nav {
-        &-second {
-            width: 75%;
-
-        }
-    }
-}
-
-@media screen and (min-width: 1540px)  {
-    .nav {
-        &-second {
             width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+
             &__link {
-                width: 22%;
-
-                &:nth-child(even) {
-                    margin-right: 3%;
-                    margin-left: 3%;
-                }
+                width: 32%;
             }
-
         }
     }
 }
