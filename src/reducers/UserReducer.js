@@ -41,17 +41,17 @@ export default function( state = INITIAL_STATE, action ) {
         case GET_TOKEN:
             return {
                 ...state,
-                loginPending: action.loginPending
+                loginPending: action.loginPending,
+                error: null,
             };
         case GET_TOKEN_SUCCESS:
             sessionStorage.setItem( 'token', action.token )
-
             return {
                 ... state,
                 token: action.token
             };
         case GET_TOKEN_ERROR:
-            if (action.payload === 'invalid_credentials') {
+            if (action.error === 'invalid_credentials') {
                 errorMsg = "Le mot de passe et l'email ne correspondent pas à nos données"
             }
 
