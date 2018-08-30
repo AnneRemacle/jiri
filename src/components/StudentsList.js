@@ -79,7 +79,7 @@ export default class StudentsList extends Component {
         if(this.props.eventStudents && this.props.meetings){
             let allStudents = this.props.eventStudents,
                 idOfstudentsInMeeting = this.props.meetings.map(meeting => meeting.student ? meeting.student.id : ""),
-                handleCreateMeeting = this.handleCreateMeeting.bind(this);
+                handleCreateMeeting = this.handleCreateMeeting;
             return (
                 allStudents.map( function (student) {
                     if(!idOfstudentsInMeeting.includes(student.id)){
