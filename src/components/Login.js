@@ -115,6 +115,12 @@ export default class Login extends Component {
     }
 
     render() {
+        let $error;
+
+        if(this.props.error){
+            $error = <p>{this.props.error}</p>;
+        }
+
         return(
             <section className="colored">
                 <h1 className="main__title">Jiri</h1>
@@ -122,7 +128,7 @@ export default class Login extends Component {
                 <section className="form-container">
                     <p className="main__intro">Bienvenue sur Jiri, l'assistant aux jurys de l'option web de la HEPL. Introduisez vos identifiants pour continuer.</p>
                     <h2 className="form-container__title">Connexion</h2>
-
+                    {$error}
                     <form className="form" onSubmit={this.handleSubmit.bind(this)}>
                         <div className="form-group">
                             <label htmlFor="email" className="form__label">Email</label>
