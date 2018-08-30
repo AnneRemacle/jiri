@@ -27,7 +27,10 @@ export const
 
 
 export function userConnect( email, password ) {
-    const getTokenRequest = axios.get( `${ROOT_URL}/user/authenticate?email=${email}&password=${password}` );
+    const getTokenRequest = axios.post( `${ROOT_URL}/user/authenticate`, {
+        email: email,
+        password: password,
+    } );
 
     return (dispatch) => {
         dispatch({
