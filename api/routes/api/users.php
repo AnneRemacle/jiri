@@ -1,6 +1,6 @@
 <?php
     Route::group(["prefix" => "user"], function(){
-        Route::get('/authenticate', [
+        Route::post('/authenticate', [
             "as" => "user.authenticate",
             "uses" => "UserController@authenticate"
         ]);
