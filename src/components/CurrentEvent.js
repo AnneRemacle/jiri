@@ -105,6 +105,7 @@ export default class CurrentEvent extends Component {
             <section className="section">
                 <Link className="back" to="/"><i className="fa fa-caret-left"></i>Retour au dashboard</Link>
                 <h2 className="section__title">{this.props.currentEvent.course_name}</h2>
+                <p>D'ici, vous avez une vue d'ensemble sur l'examen. Les tableaux des scores se mettront à jour au fur et à mesure des cotes encodées.</p>
                 <Link to='/currentEvent/students'>Évaluer un étudiant</Link>
 
                 { this.props.eventStudents ?
