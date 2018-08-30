@@ -127,7 +127,6 @@ export default class AddStudent extends Component {
 
     handleDeleteClick(e) {
         e.preventDefault();
-        console.warn(this.props.event.id, parseFloat(e.target.dataset.student));
         this.props.removeStudent( this.props.event.id, parseFloat(e.target.dataset.student) );
     }
 

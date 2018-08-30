@@ -88,8 +88,6 @@ export default class ManageStudent extends Component {
         e.preventDefault();
         let data = this.state.projectsUrls;
 
-        console.warn(data);
-
         this.props.updateImplementations(data, this.props.student.id, this.props.event.id);
     }
 

@@ -159,7 +159,6 @@ export default class AddJury extends Component {
     }
 
     render() {
-        console.warn(this.props.allJurys);
         if (!this.props.event) {
             return (
                 <div className="regular-spinner">
