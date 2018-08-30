@@ -27,7 +27,6 @@ export function createMeeting( user_id, event_id, student_id ) {
             dispatch({
                 type: CREATE_MEETING_SUCCESS,
             })
-            console.warn(response.data);
             history.push(`/editMeeting/${response.data}`);
         } ).catch( (errors) => {
             dispatch({
